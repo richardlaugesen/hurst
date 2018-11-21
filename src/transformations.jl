@@ -14,3 +14,12 @@ function boxcox_inverse(z, λ)
         (λ*z .+ 1).^(1/λ)
     end
 end
+
+# define log-sinh transform
+function log_sinh(y, a, b)
+    log.(sinh.(a .+ b * y)) / b
+end
+
+function log_sinh_inverse(z, a, b)
+    (asinh.(exp.(b * z)) .- a) / b
+end

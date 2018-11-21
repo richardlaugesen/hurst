@@ -1,6 +1,6 @@
 module HydroJulia
 
-export nse, boxcox, boxcox_inverse, one_store_model
+export nse, boxcox, boxcox_inverse, log_sinh, log_sinh_inverse, one_store_model
 
 include("verification.jl")
 include("transformations.jl")
