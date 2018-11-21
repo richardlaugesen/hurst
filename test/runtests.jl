@@ -3,6 +3,6 @@ using Test
 include("../src/HydroJulia.jl")
 using .HydroJulia
 
-@testset "Verification" begin
-    include("verification.jl")
+@testset "Transformations" begin
+    include("transformations.jl")
 end
