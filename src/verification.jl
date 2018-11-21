@@ -1,4 +1,4 @@
-using Statistics
+using Statistics: mean
 
 # define nash sutcliffe efficiency
 function nse(obs, sim)
