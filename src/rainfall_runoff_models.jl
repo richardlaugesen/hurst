@@ -11,8 +11,8 @@ function gr4j_init_state(params)
         "uh2" => zeros(2n),
         "uh1_ordinates" => create_uh_ordinates(1, n, x4),
         "uh2_ordinates" => create_uh_ordinates(2, 2n, x4),
-        "production_store" => 0.6 * x1,
-        "routing_store" => x3
+        "production_store" => 0, # 0.6 * x1,
+        "routing_store" => 0 # 0.7 * x3
     )
 end
 
