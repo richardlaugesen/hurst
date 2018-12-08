@@ -1,8 +1,48 @@
 using DataFrames
 
+# -----------------------------------------
+# One storage / two parameter model
+# -----------------------------------------
+
+function one_store_model(rain, pet, storage, params)
+    capacity = params["capacity"]
+    loss = params["loss"]
+
+    # effective rainfall
+    storage += rain - pet
+
+    # general losses
+    storage -= loss
+    storage = (storage > 0) ? storage : 0
+
+    # runoff generation
+    if storage > capacity
+        runoff = storage - capacity
+        storage = capacity
+    else
+        runoff = 0
+    end
+
+    return storage, runoff
+end
+
+# -----------------------------------------
+# GR4J
+# -----------------------------------------
+
+function gr4j_parameters(x1, x2, x3, x4)
+    Dict("x1" => x1, "x2" => x2, "x3" => x3, "x4" => x4)
+end
+
+function gr4j_random_parameters()
+    gr4j_parameters(rand(1:6000), rand(-3:0.1:3), rand(1:1000), rand(0.1:0.1:14))
+end
+
+function gr4j_reasonable_parameters()
+    gr4j_parameters(800, 2, 400, 3)
+end
+
 function gr4j_init_state(params)
-    x1 = params["x1"]
-    x3 = params["x3"]
     x4 = params["x4"]
     n = Int(ceil(x4))
 
@@ -11,8 +51,8 @@ function gr4j_init_state(params)
         "uh2" => zeros(2n),
         "uh1_ordinates" => create_uh_ordinates(1, n, x4),
         "uh2_ordinates" => create_uh_ordinates(2, 2n, x4),
-        "production_store" => 0, # 0.6 * x1,
-        "routing_store" => 0 # 0.7 * x3
+        "production_store" => 0,
+        "routing_store" => 0
     )
 end
 
@@ -29,7 +69,7 @@ function s_curve(variant, scale, x)
     elseif variant == 2
         if x <= 0
             return 0
-        elseif x < scale
+        elseif x <= scale
             return 0.5 * (x / scale)^2.5
         elseif x < 2scale
             return 1 - 0.5 * (2 - x / scale)^2.5
@@ -40,38 +80,21 @@ function s_curve(variant, scale, x)
 end
 
 function create_uh_ordinates(variant, size, x4)
-    uh = zeros(size)
+    ordinates = zeros(size)
     for t in 1:size
-        uh[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
+        ordinates[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
     end
-    return uh
+    return ordinates
 end
 
-function rshift(v)
-    v = circshift(v, 1)
-    v[1] = 0
+function lshift(v)
+    v = circshift(v, -1)
+    v[length(v)] = 0
     return v
 end
 
 function update_uh(uh, volume, ordinates)
-    (volume * ordinates) + rshift(uh)
-end
-
-function gr4j_parameters(x1, x2, x3, x4)
-    Dict(
-        "x1" => x1,
-        "x2" => x2,
-        "x3" => x3,
-        "x4" => x4
-    )
-end
-
-function gr4j_random_parameters()
-    gr4j_parameters(rand(1:6000), rand(-3:0.1:3), rand(1:1000), rand(0.1:0.1:14))
-end
-
-function gr4j_reasonable_parameters()
-    gr4j_parameters(800, 2, 400, 3)
+    (volume * ordinates) + lshift(uh)
 end
 
 function gr4j_run_step(rain, pet, state, params)
@@ -90,26 +113,6 @@ function gr4j_run_step(rain, pet, state, params)
     uh1_ordinates = state["uh1_ordinates"]
     uh2_ordinates = state["uh2_ordinates"]
 
-    # Variables storage
-    #       MISC( 1)=E             ! PE     ! observed potential evapotranspiration [mm/day]
-    #       MISC( 2)=P1            ! Precip ! observed total precipitation [mm/day]
-    #       MISC( 3)=St(1)  [V1]   ! Prod   ! production store level (St(1)) [mm]
-    #       MISC( 4)=PN            ! Pn     ! net rainfall [mm/day]
-    #       MISC( 5)=PS            ! Ps     ! part of Ps filling the production store [mm/day]
-    #       MISC( 6)=AE            ! AE     ! actual evapotranspiration [mm/day]
-    #       MISC( 7)=PERC          ! Perc   ! percolation (PERC) [mm/day]
-    #       MISC( 8)=PR            ! PR     ! PR=PN-PS+PERC [mm/day]
-    #       MISC( 9)=StUH1(1)      ! Q9     ! outflow from UH1 (Q9) [mm/day]
-    #       MISC(10)=StUH2(1)      ! Q1     ! outflow from UH2 (Q1) [mm/day]
-    #       MISC(11)=St(2)  [V2]   ! Rout   ! routing store level (St(2)) [mm]
-    #       MISC(12)=EXCH          ! Exch   ! potential semi-exchange between catchments (EXCH) [mm/day]
-    #       MISC(13)=AEXCH1 	  	 ! AExch1 ! actual exchange between catchments from branch 1 (AEXCH1) [mm/day]
-    #       MISC(14)=AEXCH2        ! AExch2 ! actual exchange between catchments from branch 2 (AEXCH2) [mm/day]
-    #       MISC(15)=AEXCH1+AEXCH2 ! AExch  ! actual total exchange between catchments (AEXCH1+AEXCH2) [mm/day]
-    #       MISC(16)=QR            ! QR     ! outflow from routing store (QR) [mm/day]
-    #       MISC(17)=QD            ! QD     ! outflow from UH2 branch after exchange (QD) [mm/day]
-    #       MISC(18)=Q ! Qsim   ! simulated outflow at catchment outlet [mm/day]
-
     # mapping to original fortran variable names
     P = rain
     E = pet
@@ -117,7 +120,7 @@ function gr4j_run_step(rain, pet, state, params)
     V2 = routing_store
 
     # interception and production store
-    if P > E
+    if P >= E
         ES = 0
         WS = (P - E) / x1
         WS = WS > 13 ? 13 : WS
@@ -142,7 +145,7 @@ function gr4j_run_step(rain, pet, state, params)
     Sr = V1 / x1
     Sr = Sr * Sr
     Sr = Sr * Sr
-    S2 = V1 / sqrt(sqrt(1 + Sr / 25.62891))
+    S2 = V1 / sqrt(sqrt(1 + Sr / 25.62890625))
     PERC = V1 - S2
     V1 = S2
     PR += PERC
@@ -180,29 +183,6 @@ function gr4j_run_step(rain, pet, state, params)
     )
 
     return Q, state
-end
-
-# a simple one storage, two parameter rainfall-runoff model
-function one_store_model(rain, pet, storage, params)
-    capacity = params["capacity"]
-    loss = params["loss"]
-
-    # effective rainfall
-    storage += rain - pet
-
-    # general losses
-    storage -= loss
-    storage = (storage > 0) ? storage : 0
-
-    # runoff generation
-    if storage > capacity
-        runoff = storage - capacity
-        storage = capacity
-    else
-        runoff = 0
-    end
-
-    return storage, runoff
 end
 
 # data expected to contain [obs_rain, obs_pet, obs_runoff, obs_runoff_sim_0]

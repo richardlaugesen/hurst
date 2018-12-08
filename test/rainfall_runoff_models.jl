@@ -9,11 +9,11 @@ using Plots
         init_state = gr4j_init_state(params)
 
         @test gr4j_run_step(0, 0, init_state, params)[1] == 0
-        @test gr4j_run_step(100, 5, init_state, params)[1] == 5.789529180744785
-        @test gr4j_run_step(1000, 0, init_state, params)[1] == 60.73007527840603
+        @test gr4j_run_step(100, 5, init_state, params)[1] == 0.0014248522376373149
+        @test gr4j_run_step(1000, 0, init_state, params)[1] == 1.0416849478510568
     end
 
-    @testset "Simulation test" begin
+    @testset "Simulation" begin
         data = CSV.read("test/data/test_data.csv", header=1)
         names!(data, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
@@ -25,11 +25,8 @@ using Plots
 
         result = gr4j_simulate(data, params, init_state)
 
-        @test result[1, :test_sim_runoff] ≈ result[1, :runoff_sim]
-        @test result[400, :test_sim_runoff] ≈ result[400, :runoff_sim]
-        @test result[728, :test_sim_runoff] ≈ result[728, :runoff_sim]
-
-        tmp = result[300:350, :]
-        plot([tmp.test_sim_runoff, tmp.runoff_sim], labels=["test_sim_runoff", "runoff_sim"])
+        @test isapprox(result[1, :test_sim_runoff], result[1, :runoff_sim], atol=0.0001)
+        @test isapprox(result[400, :test_sim_runoff], result[400, :runoff_sim], atol=0.0001)
+        @test isapprox(result[728, :test_sim_runoff], result[728, :runoff_sim], atol=0.0001)
     end
 end
