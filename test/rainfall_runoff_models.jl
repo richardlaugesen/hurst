@@ -1,5 +1,6 @@
 using CSV
 using DataFrames
+using Plots
 
 @testset "GR4J" begin
 
@@ -8,39 +9,27 @@ using DataFrames
         init_state = gr4j_init_state(params)
 
         @test gr4j_run_step(0, 0, init_state, params)[1] == 0
-        @test gr4j_run_step(100, 5, init_state, params)[1] == 0.0014242748609873776
+        @test gr4j_run_step(100, 5, init_state, params)[1] == 5.789529180744785
+        @test gr4j_run_step(1000, 0, init_state, params)[1] == 60.73007527840603
     end
 
-    @testset "Run CSV" begin
-        data = CSV.read("test/data/hydromet.csv", missingstrings="-9999", header=1) #, limit=100)
-        params = gr4j_parameters(455.042087, -5.089095, 248.706793, 1.026477)
-        init_state = gr4j_init_state(params)
+    @testset "Simulation test" begin
+        data = CSV.read("test/data/test_data.csv", header=1)
+        names!(data, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
-        result = gr4j_simulate(data, params, init_state)
-        last = nrow(result)
-
-        @test :runoff_sim in names(result)
-        @test result[1, :obs_runoff_sim_0] ≈ result[1, :runoff_sim]
-        @test result[last, :obs_runoff_sim_0] ≈ result[last, :runoff_sim]
-    end
-
-    @testset "Run Andrews test" begin
-        # https://github.com/amacd31/gr4j/blob/master/tests/test_gr4j.py
-
-        sims = CSV.read("test/data/sims.csv", header=0, skipto=2)[1]
-        data = CSV.read("test/data/USGS_02430680_combined.csv", header=2, skipto=2, limit=729)
-        names!(data, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff"]))
-
-        params = gr4j_parameters(303.627616, 0.32238919, 6.49759466, 0.294803885)
+        params = gr4j_parameters(320.1073, 2.4208, 69.6276, 1.3891)
 
         init_state = gr4j_init_state(params)
         init_state["production_store"] = params["x1"] * 0.6
         init_state["routing_store"] = params["x3"] * 0.7
 
         result = gr4j_simulate(data, params, init_state)
-        last = nrow(result)
 
-        @test sims[1] ≈ result[1, :runoff_sim]
-        @test sims[last] ≈ result[last, :runoff_sim]
+        @test result[1, :test_sim_runoff] ≈ result[1, :runoff_sim]
+        @test result[400, :test_sim_runoff] ≈ result[400, :runoff_sim]
+        @test result[728, :test_sim_runoff] ≈ result[728, :runoff_sim]
+
+        tmp = result[300:350, :]
+        plot([tmp.test_sim_runoff, tmp.runoff_sim], labels=["test_sim_runoff", "runoff_sim"])
     end
 end
