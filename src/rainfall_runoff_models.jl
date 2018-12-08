@@ -111,75 +111,64 @@ function gr4j_run_step(rain, pet, state, params)
     #       MISC(18)=Q ! Qsim   ! simulated outflow at catchment outlet [mm/day]
 
     # mapping to original fortran variable names
-    P1 = rain
+    P = rain
     E = pet
-    B = 0.9
     V1 = production_store
     V2 = routing_store
 
     # interception and production store
-    if P1 < E
-        EN = E - P1
-        PN = 0
-        WS = EN / x1
+    if P > E
+        ES = 0
+        WS = (P - E) / x1
         WS = WS > 13 ? 13 : WS
         TWS = tanh(WS)
         Sr = V1 / x1
-        ER = V1 * (2 - Sr) * TWS / (1 + (1 - Sr) * TWS)
-        AE = ER + P1
-        V1 -= ER
+
+        PS = x1 * (1 - Sr * Sr) * TWS / (1 + Sr * TWS)
+        PR = P - E - PS
+    else
+        WS = (E - P) / x1
+        WS = WS > 13 ? 13 : WS
+        TWS = tanh(WS)
+        Sr = V1 / x1
+
+        ES = V1 * (2 - Sr) * TWS / (1 + (1 - Sr) * TWS)
         PS = 0
         PR = 0
-    else
-        EN = 0
-        AE = E
-        PN = P1 - E
-        WS = PN / x1
-        WS = WS > 13 ? 13 : WS
-        TWS = tanh(WS)
-        Sr = V1 / x1
-        PS = x1 * (1 - Sr * Sr) * TWS / (1 + Sr * TWS)
-        PR = PN - PS
-        V1 += PS
     end
+    V1 = V1 - ES + PS
 
     # Percolation from production store
-    V1 = V1 < 0 ? 0 : V1
     Sr = V1 / x1
     Sr = Sr * Sr
     Sr = Sr * Sr
-    PERC = V1 * (1 - 1 / sqrt(sqrt( 1 + Sr / 25.62891)))  # (9/4)^4 = 25.62891
-    V1 -= PERC
-
-    # Split of effective rainfall into the two routing components
-    PRHU1 = PR * B
-    PRHU2 = PR * (1 - B)
+    S2 = V1 / sqrt(sqrt(1 + Sr / 25.62891))
+    PERC = V1 - S2
+    V1 = S2
+    PR += PERC
 
     # Convolution of unit hydrographs
-    uh1 = update_uh(uh1, PRHU1, uh1_ordinates)
-    uh2 = update_uh(uh2, PRHU2, uh2_ordinates)
+    uh1 = update_uh(uh1, PR, uh1_ordinates)
+    uh2 = update_uh(uh2, PR, uh2_ordinates)
 
     # Potential intercatchment semi-exchange
     Rr = V2 / x3
-    EXCH = x2 * Rr * Rr * Rr * sqrt(Rr)  # x2 * (V2 / x3)^3.5
+    ECH = x2 * Rr * Rr * Rr * sqrt(Rr)
 
     # routing store
-    AEXCH1 = V2 * uh1[1] + EXCH < 0 ? -V2 - uh1[1] : EXCH
-    V2 += uh1[1] + EXCH
-    V2 = V2 < 0 ? 0 : V2
+    V2 = max(0, V2 + 0.9 * uh1[1] + ECH)
     Rr = V2 / x3
     Rr = Rr * Rr
     Rr = Rr * Rr
-    QR = V2 * (1 - 1 / sqrt(sqrt(1 + Rr))) # c2 * (1 - (1 + (V2/x3)^4)^-0.25)
-    V2 -= QR
+    R2 = V2 / sqrt(sqrt(1 + Rr))
+    QR = V2 - R2
+    V2 = R2
 
     # Runoff from direct branch QD
-    AEXCH2 = uh2[1] + EXCH < 0 ? -uh2[1] : EXCH
-    QD = max(0, uh2[1] + EXCH)
+    QD = max(0, 0.1 * uh2[1] + ECH)
 
     # total runoff
     Q = QR + QD
-    Q = Q < 0 ? 0 : Q
 
     state = Dict(
         "uh1" => uh1,
