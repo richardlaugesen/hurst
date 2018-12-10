@@ -1,7 +1,7 @@
 using DataFrames
 
 # data expected to contain [obs_rain, obs_pet, obs_runoff, obs_runoff_sim_0]
-function simulate(timestep_fnc, data, params, init_state)
+function simulate(timestep_f, data, pars, init_state)
 
     len = nrow(data)
     model_output = DataFrame(runoff_sim = fill(0.0, len))
@@ -12,7 +12,7 @@ function simulate(timestep_fnc, data, params, init_state)
         rain = model_data[i, :obs_rain]
         pet = model_data[i, :obs_pet]
 
-        runoff, new_state = timestep_fnc(rain, pet, curr_state, params)
+        runoff, new_state = timestep_f(rain, pet, curr_state, pars)
         curr_state = new_state
 
         #println(runoff, " ", curr_state["production_store"], " ", curr_state["routing_store"])
