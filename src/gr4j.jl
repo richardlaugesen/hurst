@@ -4,11 +4,35 @@ function gr4j_parameters(arr)
 end
 
 function gr4j_random_parameters()
-    gr4j_parameters([rand(1:6000), rand(-3:0.1:3), rand(1:1000), rand(0.1:0.1:14)])
+    gr4j_parameters([rand(1:10000), rand(-100:0.5:100), rand(1:5000), rand(0.5:0.1:40)])
 end
 
 function gr4j_reasonable_parameters()
     gr4j_parameters([350, 0, 50, 0.5])
+end
+
+function gr4j_params_transform(pars)
+    pars["x1"] = log(pars["x1"])
+    pars["x3"] = log(pars["x3"])
+    pars["x4"] = log(pars["x4"] - 0.5)
+
+    return pars
+end
+
+function gr4j_params_range_transform(pars_range)
+    pars_range[1] = (log(pars_range[1][1]), log(pars_range[1][2]))
+    pars_range[3] = (log(pars_range[3][1]), log(pars_range[3][2]))
+    pars_range[4] = (log(pars_range[4][1] - 0.5), log(pars_range[4][2] - 0.5))
+
+    return pars_range
+end
+
+function gr4j_params_transform_inverse(pars)
+    pars["x1"] = exp(pars["x1"])
+    pars["x3"] = exp(pars["x3"])
+    pars["x4"] = exp(pars["x4"]) + 0.5
+
+    return pars
 end
 
 function gr4j_init_state(params)
