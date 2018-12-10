@@ -11,10 +11,12 @@ function gr4j_reasonable_parameters()
     gr4j_parameters([350, 0, 50, 0.5])
 end
 
+X4_TRANS_OFFSET = 0.5 - 1e-9
+
 function gr4j_params_transform(pars)
     pars["x1"] = log(pars["x1"])
     pars["x3"] = log(pars["x3"])
-    pars["x4"] = log(pars["x4"] - 0.5)
+    pars["x4"] = log(pars["x4"] - X4_TRANS_OFFSET)
 
     return pars
 end
@@ -22,7 +24,7 @@ end
 function gr4j_params_range_transform(pars_range)
     pars_range[1] = (log(pars_range[1][1]), log(pars_range[1][2]))
     pars_range[3] = (log(pars_range[3][1]), log(pars_range[3][2]))
-    pars_range[4] = (log(pars_range[4][1] - 0.5), log(pars_range[4][2] - 0.5))
+    pars_range[4] = (log(pars_range[4][1] - X4_TRANS_OFFSET), log(pars_range[4][2] - X4_TRANS_OFFSET))
 
     return pars_range
 end
@@ -30,7 +32,7 @@ end
 function gr4j_params_transform_inverse(pars)
     pars["x1"] = exp(pars["x1"])
     pars["x3"] = exp(pars["x3"])
-    pars["x4"] = exp(pars["x4"]) + 0.5
+    pars["x4"] = exp(pars["x4"]) + X4_TRANS_OFFSET
 
     return pars
 end
