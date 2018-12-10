@@ -4,26 +4,24 @@ using .HydroJulia
 using CSV
 using DataFrames
 
-function calibration_test()
+function calibration_test(max_time)
     data = CSV.read("test/data/test_data.csv", header=1)
     names!(data, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
-    nse_negative = (obs, sim) -> -1 * nse(obs, sim)
+    functions = Dict()
+    functions["run_model_time_step"] = gr4j_run_step
+    functions["init_state"] = gr4j_init_state
+    functions["params_from_array"] = gr4j_params_from_array
+    functions["objective_function"] = (obs, sim) -> -1 * nse(obs, sim)
+    functions["params_inverse_transform"] = gr4j_params_trans_inv
+    functions["params_range_transform"] = gr4j_params_range_trans
+    functions["params_range_to_tuples"] = gr4j_params_range_to_tuples
 
-    pars_range = [(1.0, 10000.0), (-100.0, 100.0), (1.0, 5000.0), (0.5, 40.0)]
-    transformed_pars_range = gr4j_params_range_transform(pars_range)
-
-    calibrate(
-        gr4j_run_step,
-        gr4j_init_state,
-        gr4j_parameters,
-        nse_negative,
-        gr4j_params_transform_inverse,
-        data,
-        transformed_pars_range)
+    calibrate(functions, data, gr4j_params_range(), max_time)
 end
 
-opt_nse, opt_pars = calibration_test()
+opt_pars, opt_nse = calibration_test(10)
+opt_nse *= -1
 
-println("Nse: $opt_nse")
-println("Parameters: $pars")
+println("NSE: $opt_nse")
+println("Parameters: $opt_pars")

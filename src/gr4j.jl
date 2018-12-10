@@ -1,44 +1,104 @@
 
-function gr4j_parameters(arr)
+# -------------------------------------------------
+# parameters and ranges
+# -------------------------------------------------
+
+function gr4j_params_from_array(arr)
     Dict("x1" => arr[1], "x2" => arr[2], "x3" => arr[3], "x4" => arr[4])
 end
 
-function gr4j_random_parameters()
-    gr4j_parameters([rand(1:10000), rand(-100:0.5:100), rand(1:5000), rand(0.5:0.1:40)])
+function gr4j_params_to_array(pars)
+    [pars["x1"], pars["x2"], pars["x3"], pars["x4"]]
 end
 
-function gr4j_reasonable_parameters()
-    gr4j_parameters([350, 0, 50, 0.5])
+function gr4j_params_default()
+    gr4j_params_from_array([350, 0, 50, 0.5])
 end
+
+function gr4j_params_random(prange)
+    quanta = 0.1
+    params = Dict()
+    for p in ["x1", "x2", "x3", "x4"]
+        params[p] = rand(prange[p]["low"]:quanta:prange[p]["high"])
+    end
+    return params
+end
+
+function gr4j_params_range()
+    Dict(
+        "x1" => Dict("low" => 1.0, "high" => 10000.0),
+        "x2" => Dict("low" => -100.0, "high" => 100.0),
+        "x3" => Dict("low" => 1.0, "high" => 5000.0),
+        "x4" => Dict("low" => 0.5, "high" => 50.0))
+end
+
+function gr4j_params_range_to_tuples(prange)
+    [
+        (prange["x1"]["low"], prange["x1"]["high"]),
+        (prange["x2"]["low"], prange["x2"]["high"]),
+        (prange["x3"]["low"], prange["x3"]["high"]),
+        (prange["x4"]["low"], prange["x4"]["high"])
+    ]
+end
+
+# -------------------------------------------------
+# parameter transformations
+# -------------------------------------------------
 
 X4_TRANS_OFFSET = 0.5 - 1e-9
 
-function gr4j_params_transform(pars)
-    pars["x1"] = log(pars["x1"])
-    pars["x3"] = log(pars["x3"])
-    pars["x4"] = log(pars["x4"] - X4_TRANS_OFFSET)
+function gr4j_param_trans(param, value)
+    if param == "x1"
+        return log(value)
+    elseif param == "x2"
+        return value
+    elseif param == "x3"
+        return log(value)
+    elseif param == "x4"
+        return log(value - X4_TRANS_OFFSET)
+    end
+end
 
+function gr4j_param_trans_inv(param, value)
+    if param == "x1"
+        return exp(value)
+    elseif param == "x2"
+        return value
+    elseif param == "x3"
+        return exp(value)
+    elseif param == "x4"
+        return exp(value) + X4_TRANS_OFFSET
+    end
+end
+
+function gr4j_params_trans(pars)
+    for p in ["x1", "x2", "x3", "x4"]
+        pars[p] = gr4j_param_trans(p, pars[p])
+    end
     return pars
 end
 
-function gr4j_params_range_transform(pars_range)
-    pars_range[1] = (log(pars_range[1][1]), log(pars_range[1][2]))
-    pars_range[3] = (log(pars_range[3][1]), log(pars_range[3][2]))
-    pars_range[4] = (log(pars_range[4][1] - X4_TRANS_OFFSET), log(pars_range[4][2] - X4_TRANS_OFFSET))
-
-    return pars_range
-end
-
-function gr4j_params_transform_inverse(pars)
-    pars["x1"] = exp(pars["x1"])
-    pars["x3"] = exp(pars["x3"])
-    pars["x4"] = exp(pars["x4"]) + X4_TRANS_OFFSET
-
+function gr4j_params_trans_inv(pars)
+    for p in ["x1", "x2", "x3", "x4"]
+        pars[p] = gr4j_param_trans_inv(p, pars[p])
+    end
     return pars
 end
 
-function gr4j_init_state(params)
-    x4 = params["x4"]
+function gr4j_params_range_trans(prange)
+    for p in ["x1", "x2", "x3", "x4"]
+        prange[p]["low"] = gr4j_param_trans(p, prange[p]["low"])
+        prange[p]["high"] = gr4j_param_trans(p, prange[p]["high"])
+    end
+    return prange
+end
+
+# -------------------------------------------------
+# initial state
+# -------------------------------------------------
+
+function gr4j_init_state(pars)
+    x4 = pars["x4"]
     n = Int(ceil(x4))
 
     return Dict(
@@ -50,6 +110,10 @@ function gr4j_init_state(params)
         "routing_store" => 0
     )
 end
+
+# -------------------------------------------------
+# unit hydrographs
+# -------------------------------------------------
 
 function s_curve(variant, scale, x)
     if variant == 1
@@ -92,13 +156,17 @@ function update_uh(uh, volume, ordinates)
     (volume * ordinates) + lshift(uh)
 end
 
-function gr4j_run_step(rain, pet, state, params)
+# -------------------------------------------------
+# model run for single timestep
+# -------------------------------------------------
+
+function gr4j_run_step(rain, pet, state, pars)
 
     # parameters
-    x1 = params["x1"]
-    x2 = params["x2"]
-    x3 = params["x3"]
-    x4 = params["x4"]
+    x1 = pars["x1"]
+    x2 = pars["x2"]
+    x3 = pars["x3"]
+    x4 = pars["x4"]
 
     # state
     uh1 = state["uh1"]
