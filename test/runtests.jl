@@ -4,7 +4,7 @@ include("../src/HydroJulia.jl")
 using .HydroJulia
 
 @testset "Rainfall funoff models" begin
-    include("rainfall_runoff_models.jl")
+    include("gr4j.jl")
 end
 
 @testset "Transformations" begin
