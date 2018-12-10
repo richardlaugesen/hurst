@@ -6,7 +6,7 @@ using DataFrames
 using BenchmarkTools
 
 function benchmark_timestep()
-    pars = gr4j_parameters(320.1073, 2.4208, 69.6276, 1.3891)
+    pars = gr4j_parameters([320.1073, 2.4208, 69.6276, 1.3891])
     init_state = gr4j_init_state(pars)
     init_state["production_store"] = pars["x1"] * 0.6
     init_state["routing_store"] = pars["x3"] * 0.7

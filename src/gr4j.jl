@@ -1,14 +1,14 @@
 
-function gr4j_parameters(x1, x2, x3, x4)
-    Dict("x1" => x1, "x2" => x2, "x3" => x3, "x4" => x4)
+function gr4j_parameters(arr)
+    Dict("x1" => arr[1], "x2" => arr[2], "x3" => arr[3], "x4" => arr[4])
 end
 
 function gr4j_random_parameters()
-    gr4j_parameters(rand(1:6000), rand(-3:0.1:3), rand(1:1000), rand(0.1:0.1:14))
+    gr4j_parameters([rand(1:6000), rand(-3:0.1:3), rand(1:1000), rand(0.1:0.1:14)])
 end
 
 function gr4j_reasonable_parameters()
-    gr4j_parameters(800, 2, 400, 3)
+    gr4j_parameters([350, 0, 50, 0.5])
 end
 
 function gr4j_init_state(params)

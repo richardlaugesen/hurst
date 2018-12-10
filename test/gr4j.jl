@@ -12,12 +12,12 @@ using BenchmarkTools
         init_state = gr4j_init_state(pars)
 
         @test gr4j_run_step(0, 0, init_state, pars)[1] == 0
-        @test gr4j_run_step(100, 5, init_state, pars)[1] ≈ 0.0014248522376373149
-        @test gr4j_run_step(1000, 0, init_state, pars)[1] ≈ 1.0416849478510568
+        @test gr4j_run_step(100, 5, init_state, pars)[1] ≈ 0.2270703669963994
+        @test gr4j_run_step(1000, 0, init_state, pars)[1] ≈ 605.529053798641
     end
 
     @testset "2 year simulation" begin
-        pars = gr4j_parameters(320.1073, 2.4208, 69.6276, 1.3891)
+        pars = gr4j_parameters([320.1073, 2.4208, 69.6276, 1.3891])
         init_state = gr4j_init_state(pars)
         init_state["production_store"] = pars["x1"] * 0.6
         init_state["routing_store"] = pars["x3"] * 0.7
@@ -49,7 +49,7 @@ using BenchmarkTools
         @test (huge_x4 - typical) < (10 * 1e-6)
 
         # two paths through production store cost the same
-        pars = gr4j_parameters(320.1073, 2.4208, 69.6276, 1.3891)
+        pars = gr4j_parameters([320.1073, 2.4208, 69.6276, 1.3891])
         init_state = gr4j_init_state(pars)
         init_state["production_store"] = pars["x1"] * 0.6
         init_state["routing_store"] = pars["x3"] * 0.7
