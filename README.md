@@ -1,2 +1,2 @@
-# hydrojulia
+# hydro.jl
 Hydrology in Julia

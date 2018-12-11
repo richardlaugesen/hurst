@@ -1,7 +1,7 @@
 using Test
 
-include("../src/HydroJulia.jl")
-using .HydroJulia
+include("../src/Hydro.jl")
+using .Hydro
 
 @testset "Rainfall funoff models" begin
     include("gr4j.jl")

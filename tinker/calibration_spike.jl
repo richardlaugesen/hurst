@@ -1,5 +1,5 @@
-include("../src/HydroJulia.jl")
-using .HydroJulia
+include("../src/Hydro.jl")
+using .Hydro
 
 using CSV
 using DataFrames

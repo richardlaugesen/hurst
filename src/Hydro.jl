@@ -1,4 +1,4 @@
-module HydroJulia
+module Hydro
 
 export nse
 export boxcox, boxcox_inverse, log_sinh, log_sinh_inverse
