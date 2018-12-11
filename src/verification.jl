@@ -1,7 +1,11 @@
 using Statistics: mean
 
-# define nash sutcliffe efficiency
+# nash sutcliffe efficiency
 function nse(obs, sim)
-    obs_mean = mean(obs)
-    1 - sum((obs - sim).^2) / sum((obs .- obs_mean).^2)
+    coeff_det(obs, sim)
+end
+
+# coefficient of determination
+function coeff_det(y, f)
+    return 1 - sum((y - f).^2) / sum((y .- mean(y)).^2)
 end

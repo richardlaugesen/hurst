@@ -5,8 +5,14 @@ using CSV
 using DataFrames
 
 function calibration_test(max_time)
-    data = CSV.read("test/data/test_data.csv", header=1)
-    names!(data, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
+    df = CSV.read("test/data/test_data.csv", header=1)
+    names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
+
+    data = Dict()
+    data["rain"] = df[:obs_rain]
+    data["pet"] = df[:obs_pet]
+    data["runoff_obs"] = df[:obs_runoff]
+    data["runoff_sim_test"] = df[:test_sim_runoff]
 
     functions = Dict()
     functions["run_model_time_step"] = gr4j_run_step

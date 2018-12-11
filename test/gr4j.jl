@@ -4,8 +4,14 @@ using BenchmarkTools
 
 @testset "GR4J" begin
 
-    data = CSV.read("test/data/test_data.csv", header=1)
-    names!(data, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
+    df = CSV.read("test/data/test_data.csv", header=1)
+    names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
+
+    data = Dict()
+    data["rain"] = df[:obs_rain]
+    data["pet"] = df[:obs_pet]
+    data["runoff_obs"] = df[:obs_runoff]
+    data["runoff_sim_test"] = df[:test_sim_runoff]
 
     @testset "Single timestep" begin
         pars = gr4j_params_default()
@@ -24,9 +30,9 @@ using BenchmarkTools
 
         result = simulate(gr4j_run_step, data, pars, init_state)
 
-        @test isapprox(result[1, :test_sim_runoff], result[1, :runoff_sim], atol=0.0001)
-        @test isapprox(result[400, :test_sim_runoff], result[400, :runoff_sim], atol=0.0001)
-        @test isapprox(result[end, :test_sim_runoff], result[end, :runoff_sim], atol=0.0001)
+        @test isapprox(result["runoff_sim_test"][1], result["runoff_sim"][1], atol=0.0001)
+        @test isapprox(result["runoff_sim_test"][400], result["runoff_sim"][400], atol=0.0001)
+        @test isapprox(result["runoff_sim_test"][end], result["runoff_sim"][end], atol=0.0001)
     end
 
     @testset "Benchmarks" begin

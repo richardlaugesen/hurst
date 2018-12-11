@@ -14,7 +14,8 @@ function sampler(functions, data, pars_trans_array)
     pars = pars_trans_inv(pars_from_array(pars_trans_array))
     init_state = init_state(pars)
     result = simulate(timestep, data, pars, init_state)
-    return obj_fnc(result[:obs_runoff], result[:runoff_sim])
+    
+    return obj_fnc(result["runoff_obs"], result["runoff_sim"])
 end
 
 # find an optimal set of parameters closed over the transformed range
