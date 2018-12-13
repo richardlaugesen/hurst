@@ -41,3 +41,23 @@ end
 function log_sinh_inverse(z, a, b)
     (asinh.(exp.(b * z)) .- a) / b
 end
+
+# -------------------------------------------------
+# log transform
+# -------------------------------------------------
+
+function log_trans(y, offset)
+    return log.(y .+ offset)
+end
+
+function log_trans_inverse(z, offset)
+    return exp.(z) .- offset
+end
+
+function log_trans(y)
+    return log_trans(y, 0)
+end
+
+function log_trans_inverse(z)
+    return log_trans_inverse(z, 0)
+end

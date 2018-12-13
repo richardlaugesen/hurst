@@ -1,5 +1,5 @@
 
-@testset "Box-cox transformation" begin
+@testset "Box-cox transform" begin
     y = rand(100)
 
     @testset "λ = 0" begin
@@ -34,7 +34,7 @@
     end
 end
 
-@testset "Log-sinh transformation" begin
+@testset "Log-sinh transform" begin
     y = rand(100)
 
     @testset "a = 0, b = 1" begin
@@ -53,4 +53,13 @@ end
         @test log_sinh(2, a, b) == log(sinh(a + 2b)) / b
         @test log_sinh_inverse(log_sinh(y, a, b), a, b) ≈ y
     end
+end
+
+@testset "Log transform" begin
+    y = rand(100)
+    @test log_trans(y) == log.(y)
+    @test log_trans_inverse(log_trans(y)) ≈ y
+    @test log_trans(y) == log_trans(y, 0)
+    @test log_trans(y, 0.17) == log.(y .+ 0.17)
+    @test log_trans_inverse(log_trans(y, 56), 56) ≈ y
 end
