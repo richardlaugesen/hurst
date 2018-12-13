@@ -23,11 +23,11 @@ end
 # -------------------------------------------------
 
 function boxcox(y, λ)
-    return boxcox(y, λ, 0)
+    boxcox(y, λ, 0)
 end
 
 function boxcox_inverse(z, λ)
-    return boxcox_inverse(z, λ, 0)
+    boxcox_inverse(z, λ, 0)
 end
 
 # -------------------------------------------------
@@ -47,17 +47,17 @@ end
 # -------------------------------------------------
 
 function log_trans(y, offset)
-    return log.(y .+ offset)
+    log.(y .+ offset)
 end
 
 function log_trans_inverse(z, offset)
-    return exp.(z) .- offset
+    exp.(z) .- offset
 end
 
 function log_trans(y)
-    return log_trans(y, 0)
+    log_trans(y, 0)
 end
 
 function log_trans_inverse(z)
-    return log_trans_inverse(z, 0)
+    log_trans_inverse(z, 0)
 end
