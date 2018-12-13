@@ -19,7 +19,9 @@ function sampler(functions, data, pars_trans_array)
 end
 
 # find an optimal set of parameters closed over the transformed range
-function calibrate(functions, data, prange, max_time)
+# using a numerical optimisation method for max_iter number of iterations
+# see methods here: https://github.com/robertfeldt/BlackBoxOptim.jl#existing-optimizers
+function calibrate(functions, data, prange, max_iter, method)
 
     # unpack dictionary of model functions
     pars_from_array = functions["params_from_array"]
@@ -31,7 +33,8 @@ function calibrate(functions, data, prange, max_time)
     opt = bboptimize(
         pars_trans -> sampler(functions, data, pars_trans);
         SearchRange = prange_to_tuples(prange_trans(prange)),
-        MaxTime = max_time)
+        Method = method,
+        MaxFuncEvals = max_iter)
 
     # detransform the optimial parameter set and return with obj func value
     best_params = pars_trans_inv(pars_from_array(best_candidate(opt)))

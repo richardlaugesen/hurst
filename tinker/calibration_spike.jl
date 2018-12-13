@@ -4,8 +4,8 @@ using .Hydro
 using CSV
 using DataFrames
 
-function calibration_test(max_time)
-    df = CSV.read("test/data/test_data.csv", header=1)
+function calibration_test(max_iter, method)
+    df = CSV.read("test/data/test_2_data.csv", header=1, missingstrings=["-9999"])
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
     data = Dict()
@@ -23,11 +23,14 @@ function calibration_test(max_time)
     functions["params_range_transform"] = gr4j_params_range_trans
     functions["params_range_to_tuples"] = gr4j_params_range_to_tuples
 
-    calibrate(functions, data, gr4j_params_range(), max_time)
+    calibrate(functions, data, gr4j_params_range(), max_iter, method)
 end
 
-opt_pars, opt_nse = calibration_test(10)
+opt_pars, opt_nse = calibration_test(1000, :adaptive_de_rand_1_bin)
 opt_nse *= -1
 
+println("Optimised Parameters: $opt_pars")
 println("NSE: $opt_nse")
-println("Parameters: $opt_pars")
+
+test_pars = gr4j_params_from_array(CSV.read("test/data/test_2_params.csv", delim=":", header=0)[2])
+println("Test Parameters: $test_pars")
