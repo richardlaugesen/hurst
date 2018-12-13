@@ -7,6 +7,6 @@ using .Hydro
     include("gr4j.jl")
 end
 
-@testset "Transformations" begin
-    include("transformations.jl")
+@testset "Transforms" begin
+    include("transforms.jl")
 end

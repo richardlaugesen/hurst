@@ -1,7 +1,7 @@
 module Hydro
 
 export nse
-export boxcox, boxcox_inverse, log_sinh, log_sinh_inverse
+export boxcox, boxcox_inverse, log_sinh, log_sinh_inverse, log_trans, log_trans_inverse
 export one_store_model
 export gr4j_run_step, gr4j_init_state
 export gr4j_params_from_array, gr4j_params_to_array
@@ -12,7 +12,7 @@ export simulate
 export calibrate
 
 include("verification.jl")
-include("transformations.jl")
+include("transforms.jl")
 include("simple_model.jl")
 include("gr4j.jl")
 include("simulate.jl")
