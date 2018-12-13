@@ -7,5 +7,5 @@ end
 
 # coefficient of determination
 function coeff_det(y, f)
-    return 1 - sum((y - f).^2) / sum((y .- mean(y)).^2)
+    return 1 - sum(skipmissing(y - f).^2) / sum(skipmissing(y .- mean(skipmissing(y))).^2)
 end
