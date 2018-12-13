@@ -1,21 +1,39 @@
-# define the box-cox transform
-function boxcox(y, λ)
-    if λ == 0
-        log.(y)
+# -------------------------------------------------
+# two param box-cox transform
+# -------------------------------------------------
+
+function boxcox(y, λ, ν)
+    if abs(λ) < 1e-8
+        log.(y .+ ν)
     else
-        (y.^λ .- 1) / λ
+        ((y .+ ν).^λ .- 1) / λ
     end
+end
+
+function boxcox_inverse(z, λ, ν)
+    if abs(λ) < 1e-8
+        exp.(z) .- ν
+    else
+        (λ*z .+ 1).^(1/λ) .- ν
+    end
+end
+
+# -------------------------------------------------
+# one param box-cox transform
+# -------------------------------------------------
+
+function boxcox(y, λ)
+    return boxcox(y, λ, 0)
 end
 
 function boxcox_inverse(z, λ)
-    if λ == 0
-        exp.(z)
-    else
-        (λ*z .+ 1).^(1/λ)
-    end
+    return boxcox_inverse(z, λ, 0)
 end
 
-# define log-sinh transform
+# -------------------------------------------------
+# log-sinh transform
+# -------------------------------------------------
+
 function log_sinh(y, a, b)
     log.(sinh.(a .+ b * y)) / b
 end

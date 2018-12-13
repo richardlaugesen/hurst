@@ -8,6 +8,7 @@
         @test boxcox(0, λ) == -Inf
         @test boxcox(2, λ) == log(2)
         @test boxcox([1, 1, 1, 1], λ) == [0, 0, 0, 0]
+        @test boxcox([1, 1, 1, 1], 1e-9) == boxcox([1, 1, 1, 1], 0)
         @test boxcox_inverse(boxcox(y, λ), λ) ≈ y
     end
 
@@ -22,6 +23,14 @@
 
     @testset "λ=$λ (range testset)" for λ in -3:0.1:3
         @test boxcox_inverse(boxcox(y, λ), λ) ≈ y
+    end
+
+    @testset "Two-param" begin
+        λ = 0.2
+        ν = 0.3
+        y = rand(10)
+        @test boxcox(y, λ, 0) == boxcox(y, λ)
+        @test boxcox_inverse(boxcox(y, λ, ν), λ, ν) ≈ y
     end
 end
 
