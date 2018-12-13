@@ -47,12 +47,12 @@ end
     #   evals/sample:     1
 
 function benchmark_simulation()
-    pars = gr4j_params_from_array([320.1073, 2.4208, 69.6276, 1.3891])
+    pars = gr4j_params_from_array(CSV.read("test/data/test_1_params.csv", delim=":", header=0)[2])
     init_state = gr4j_init_state(pars)
     init_state["production_store"] = pars["x1"] * 0.6
     init_state["routing_store"] = pars["x3"] * 0.7
 
-    df = CSV.read("test/data/test_data.csv", header=1)
+    df = CSV.read("test/data/test_1_data.csv", header=1)
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
     data = Dict()
