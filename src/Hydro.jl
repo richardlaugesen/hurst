@@ -10,6 +10,7 @@ export gr4j_params_range, gr4j_params_range_trans, gr4j_params_range_to_tuples
 export gr4j_params_trans, gr4j_params_trans_inv
 export simulate
 export calibrate
+export hydrograph
 
 include("verification.jl")
 include("transforms.jl")
@@ -17,5 +18,6 @@ include("simple_model.jl")
 include("gr4j.jl")
 include("simulate.jl")
 include("calibrate.jl")
+include("visualisation.jl")
 
 end
