@@ -4,7 +4,7 @@ using BenchmarkTools
 
 @testset "GR4J" begin
 
-    df = CSV.read("test/data/test_1_data.csv", header=1)
+    df = CSV.read("test/data/test_1_data.csv", header=1, missingstrings=["-9999"])
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
     data = Dict()
