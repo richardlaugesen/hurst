@@ -10,3 +10,7 @@ end
 @testset "Transforms" begin
     include("transforms.jl")
 end
+
+@testset "Verification" begin
+    include("verification.jl")
+end
