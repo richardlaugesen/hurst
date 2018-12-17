@@ -1,6 +1,8 @@
 module Hydro
 
-export nse
+export coeff_det, nse, mae, mse, rmse, kge, persistence
+export cumecs_to_gigalitres
+export length_no_missing, lshift, dataframify, dropna
 export boxcox, boxcox_inverse, log_sinh, log_sinh_inverse, log_trans, log_trans_inverse
 export one_store_model
 export gr4j_run_step, gr4j_init_state
@@ -12,6 +14,8 @@ export simulate
 export calibrate
 export hydrograph
 
+include("util.jl")
+include("units.jl")
 include("verification.jl")
 include("transforms.jl")
 include("simple_model.jl")

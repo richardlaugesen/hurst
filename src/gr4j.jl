@@ -146,12 +146,6 @@ function create_uh_ordinates(variant, size, x4)
     return ordinates
 end
 
-function lshift(v)
-    v = circshift(v, -1)
-    v[length(v)] = 0
-    return v
-end
-
 function update_uh(uh, volume, ordinates)
     (volume * ordinates) + lshift(uh)
 end
