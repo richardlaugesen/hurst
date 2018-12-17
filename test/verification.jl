@@ -1,3 +1,8 @@
+using CSV
+
+data = CSV.read("test/data/test_2_data.csv", header=1, missingstrings=["-9999"])
+obs, sim = data[:obs_runoff], data[:obs_runoff_sim_0]
+
 @testset "Nash Sutcliffe Efficiency (and coefficient of determination)" begin
     x = rand(100)
     y = rand(100)
@@ -26,5 +31,9 @@
         @test isapprox(nse([1, 2, missing, 4], [6, missing, 8, 9]), -9.7142857, atol=1e-7)
         @test_throws MethodError nse([missing, missing, missing], [1, 2, 3])
         @test_throws MethodError nse([1, 2, 3], [missing, missing, missing])
+    end
+
+    @testset "Real data" begin
+        @test isapprox(nse(obs, sim), 0.841729, atol=1e-7)
     end
 end
