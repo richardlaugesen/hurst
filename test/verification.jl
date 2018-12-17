@@ -11,8 +11,8 @@
 
     @testset "Corrupted obsverations" begin
         @test nse(y, y .+ 0.1) < 1
-        @test nse(y, y .+ 0.1) < 1
         @test nse(y, y .* 0.1) < 1
+        @test nse(y, y .+ 0.1) > nse(y, y .+ 0.5)
     end
 
     @testset "No observation variance" begin
