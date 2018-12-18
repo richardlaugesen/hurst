@@ -17,7 +17,7 @@ end
 
 function gr4j_params_random(prange)
     quanta = 0.1
-    params = Dict()
+    params = gr4j_params_default()
     for p in ["x1", "x2", "x3", "x4"]
         params[p] = rand(prange[p]["low"]:quanta:prange[p]["high"])
     end
@@ -45,29 +45,29 @@ end
 # parameter transformations
 # -------------------------------------------------
 
-X4_TRANS_OFFSET = 0.5 - 1e-9
+X4_TRANS_OFFSET = -(0.5 - 1e-9)
 
 function gr4j_param_trans(param, value)
     if param == "x1"
-        return log(value)
+        return log_trans(value)
     elseif param == "x2"
         return value
     elseif param == "x3"
-        return log(value)
+        return log_trans(value)
     elseif param == "x4"
-        return log(value - X4_TRANS_OFFSET)
+        return log_trans(value, X4_TRANS_OFFSET)
     end
 end
 
 function gr4j_param_trans_inv(param, value)
     if param == "x1"
-        return exp(value)
+        return log_trans_inverse(value)
     elseif param == "x2"
         return value
     elseif param == "x3"
-        return exp(value)
+        return log_trans_inverse(value)
     elseif param == "x4"
-        return exp(value) + X4_TRANS_OFFSET
+        return log_trans_inverse(value, X4_TRANS_OFFSET)
     end
 end
 
