@@ -62,4 +62,6 @@ end
     @test log_trans(y) == log_trans(y, 0)
     @test log_trans(y, 0.17) == log.(y .+ 0.17)
     @test log_trans_inverse(log_trans(y, 56), 56) ≈ y
+    @test log_trans_inverse(y) == exp.(y)
+    @test log_trans_inverse(y, 17) == exp.(y) .- 17
 end
