@@ -41,7 +41,7 @@ end
 @testset "Kling-Gupta Efficiency" begin
     @testset "Basic series" begin
         @test isapprox(kge(y, y), 1, atol=1e-9)
-        @test kge(y, x) < 0.1
+        @test kge(y, x) < 0.5
         @test isapprox(kge([1,2,3,4,5], [2,3,4,5,6]), 0.66666, atol=1e-4)
         @test isapprox(kge([1,2,3,4,5], [6,7,8,9,10]), -0.66666, atol=1e-4)
     end
