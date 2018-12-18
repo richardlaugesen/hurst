@@ -67,4 +67,40 @@ using BenchmarkTools
         # simulation of 2 years data should take less than 50 milliseconds
         @test (@belapsed simulate(gr4j_run_step, $data, $pars, $init_state)) < (50 * 1e-3)
     end
+
+    @testset "Parameters" begin
+        default = gr4j_params_default()
+        default_arr = gr4j_params_to_array(gr4j_params_default())
+        random = gr4j_params_random(gr4j_params_range())
+        default_trans = gr4j_params_trans(default)
+        default_trans_arr = gr4j_params_to_array(default_trans)
+        prange = gr4j_params_range()
+        prange_tuples = gr4j_params_range_to_tuples(prange)
+
+        @test typeof(default_arr) == Array{Float64, 1}
+        @test size(default_arr) == (4,)
+        @test default_arr == [350, 0, 50, 0.5]
+
+        @test typeof(default) == Dict{String, Float64}
+        @test length(default) == 4
+        @test sort(collect(keys(default))) == ["x1", "x2", "x3", "x4"]
+
+        @test typeof(random) == Dict{String, Float64}
+        @test length(random) == 4
+        @test sort(collect(keys(random))) == ["x1", "x2", "x3", "x4"]
+
+        @test isapprox(default_trans_arr, [5.8579, 0.0, 3.9120, -20.7232], atol=1e-4)
+        @test gr4j_params_trans_inv(default_trans) == default
+
+        @test typeof(prange) == Dict{String,Dict{String,Float64}}
+        @test length(prange) == 4
+        @test typeof(prange["x1"]) == Dict{String,Float64}
+        @test length(prange["x1"]) == 2
+
+        @test typeof(prange_tuples) == Array{Tuple{Float64,Float64},1}
+        @test size(prange_tuples) == (4,)
+        @test length(prange_tuples[1]) == 2
+        @test prange_tuples[1][2] == prange["x1"]["high"]
+        @test prange_tuples[4][1] == prange["x4"]["low"]
+    end
 end
