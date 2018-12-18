@@ -22,7 +22,6 @@ export hydrograph
 export boxcox, boxcox_inverse, log_sinh, log_sinh_inverse, log_trans, log_trans_inverse
 export cumecs_to_gigalitres
 
-
 include("util.jl")
 include("units.jl")
 include("verification.jl")
