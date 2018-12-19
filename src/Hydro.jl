@@ -1,7 +1,11 @@
 module Hydro
 
 # Example simple model
-export one_store_model
+export ostp_run_step, ostp_init_state
+export ostp_params_from_array, ostp_params_to_array
+export ostp_params_default, ostp_params_random
+export ostp_params_range, ostp_params_range_trans, ostp_params_range_to_tuples
+export ostp_params_trans, ostp_params_trans_inv
 
 # GR4J rainfall runoff model
 export gr4j_run_step, gr4j_init_state
@@ -26,7 +30,7 @@ include("util.jl")
 include("units.jl")
 include("verification.jl")
 include("transforms.jl")
-include("simple_model.jl")
+include("ostp.jl")
 include("gr4j.jl")
 include("simulate.jl")
 include("calibrate.jl")
