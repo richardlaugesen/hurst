@@ -1,6 +1,7 @@
-using CSV
+module TestVerification
+using Test, Hydro, CSV
 
-data = CSV.read("test/data/test_2_data.csv", header=1, missingstrings=["-9999"])
+data = CSV.read("data/test_2_data.csv", header=1, missingstrings=["-9999"])
 obs, sim = data[:obs_runoff], data[:obs_runoff_sim_0]
 
 x = rand(100)
@@ -124,4 +125,6 @@ end
 
 @testset "Root Mean Square Error" begin
     @test rmse(obs, sim) == sqrt(mse(obs, sim))
+end
+
 end

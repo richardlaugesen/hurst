@@ -1,3 +1,5 @@
+module TestTransforms
+using Test, Hydro
 
 @testset "Box-cox transform" begin
     y = rand(100)
@@ -64,4 +66,6 @@ end
     @test log_trans_inverse(log_trans(y, 56), 56) ≈ y
     @test log_trans_inverse(y) == exp.(y)
     @test log_trans_inverse(y, 17) == exp.(y) .- 17
+end
+
 end
