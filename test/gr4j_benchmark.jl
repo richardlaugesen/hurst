@@ -39,7 +39,7 @@ using Test, Hydro, CSV, DataFrames, BenchmarkTools
 
     evap_path = @belapsed gr4j_run_step(5, 100, $init_state, $pars)
     precip_path = @belapsed gr4j_run_step(100, 5, $init_state, $pars)
-    @test isapprox(evap_path, precip_path, atol=1e-6)
+    @test isapprox(evap_path, precip_path, atol=1e-5)
 
     # simulation of 2 years data should take less than 50 milliseconds
     @test (@belapsed simulate(gr4j_run_step, $data, $pars, $init_state)) < (50 * 1e-3)
