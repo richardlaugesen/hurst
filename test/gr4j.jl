@@ -24,10 +24,10 @@ using Test, Hydro, CSV, DataFrames
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
 
     data = Dict()
-    data["rain"] = df[:obs_rain]
-    data["pet"] = df[:obs_pet]
-    data["runoff_obs"] = df[:obs_runoff]
-    data["runoff_sim_test"] = df[:test_sim_runoff]
+    data[:rain] = df[:obs_rain]
+    data[:pet] = df[:obs_pet]
+    data[:runoff_obs] = df[:obs_runoff]
+    data[:runoff_sim_test] = df[:test_sim_runoff]
 
     @testset "Single timestep" begin
         pars = gr4j_params_default()
@@ -41,14 +41,14 @@ using Test, Hydro, CSV, DataFrames
     @testset "2 year simulation" begin
         pars = gr4j_params_from_array(CSV.read("data/test_1_params.csv", delim=":", header=0)[2])
         init_state = gr4j_init_state(pars)
-        init_state["production_store"] = pars["x1"] * 0.6
-        init_state["routing_store"] = pars["x3"] * 0.7
+        init_state[:production_store] = pars[:x1] * 0.6
+        init_state[:routing_store] = pars[:x3] * 0.7
 
-        result = simulate(gr4j_run_step, data, pars, init_state)
+        sim = simulate(gr4j_run_step, data, pars, init_state)
 
-        @test isapprox(result["runoff_sim_test"][1], result["runoff_sim"][1], atol=0.0001)
-        @test isapprox(result["runoff_sim_test"][400], result["runoff_sim"][400], atol=0.0001)
-        @test isapprox(result["runoff_sim_test"][end], result["runoff_sim"][end], atol=0.0001)
+        @test isapprox(data[:runoff_sim_test][1], sim[1], atol=0.0001)
+        @test isapprox(data[:runoff_sim_test][400], sim[400], atol=0.0001)
+        @test isapprox(data[:runoff_sim_test][end], sim[end], atol=0.0001)
     end
 
     @testset "Parameters" begin
@@ -64,27 +64,27 @@ using Test, Hydro, CSV, DataFrames
         @test size(default_arr) == (4,)
         @test default_arr == [350, 0, 50, 0.5]
 
-        @test typeof(default) == Dict{String, Float64}
+        @test typeof(default) == Dict{Symbol, Float64}
         @test length(default) == 4
-        @test sort(collect(keys(default))) == ["x1", "x2", "x3", "x4"]
+        @test sort(collect(keys(default))) == [:x1, :x2, :x3, :x4]
 
-        @test typeof(random) == Dict{String, Float64}
+        @test typeof(random) == Dict{Symbol, Float64}
         @test length(random) == 4
-        @test sort(collect(keys(random))) == ["x1", "x2", "x3", "x4"]
+        @test sort(collect(keys(random))) == [:x1, :x2, :x3, :x4]
 
         @test isapprox(default_trans_arr, [5.8579, 0.0, 3.9120, -20.7232], atol=1e-4)
         @test gr4j_params_trans_inv(default_trans) == default
 
-        @test typeof(prange) == Dict{String,Dict{String,Float64}}
+        @test typeof(prange) == Dict{Symbol,Dict{Symbol,Float64}}
         @test length(prange) == 4
-        @test typeof(prange["x1"]) == Dict{String,Float64}
-        @test length(prange["x1"]) == 2
+        @test typeof(prange[:x1]) == Dict{Symbol,Float64}
+        @test length(prange[:x1]) == 2
 
         @test typeof(prange_tuples) == Array{Tuple{Float64,Float64},1}
         @test size(prange_tuples) == (4,)
         @test length(prange_tuples[1]) == 2
-        @test prange_tuples[1][2] == prange["x1"]["high"]
-        @test prange_tuples[4][1] == prange["x4"]["low"]
+        @test prange_tuples[1][2] == prange[:x1][:high]
+        @test prange_tuples[4][1] == prange[:x4][:low]
     end
 end
 end

@@ -16,11 +16,11 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 function ostp_params_from_array(arr)
-    Dict("capacity" => arr[1], "loss" => arr[2])
+    Dict(:capacity => arr[1], :loss => arr[2])
 end
 
 function ostp_params_to_array(pars)
-    [pars["capacity"], pars["loss"]]
+    [pars[:capacity], pars[:loss]]
 end
 
 function ostp_params_default()
@@ -30,22 +30,22 @@ end
 function ostp_params_random(prange)
     quanta = 0.1
     params = gr4j_params_default()
-    for p in ["capacity", "loss"]
-        params[p] = rand(prange[p]["low"]:quanta:prange[p]["high"])
+    for p in [:capacity, :loss]
+        params[p] = rand(prange[p][:low]:quanta:prange[p][:high])
     end
     return params
 end
 
 function ostp_params_range()
     Dict(
-        "capacity" => Dict("low" => 1.0, "high" => 10000.0),
-        "loss" => Dict("low" => -100.0, "high" => 100.0))
+        :capacity => Dict(:low => 1.0, :high => 10000.0),
+        :loss => Dict(:low => -100.0, :high => 100.0))
 end
 
 function ostp_params_range_to_tuples(prange)
     [
-        (prange["capacity"]["low"], prange["capacity"]["high"]),
-        (prange["loss"]["low"], prange["loss"]["high"])
+        (prange[:capacity][:low], prange[:capacity][:high]),
+        (prange[:loss][:low], prange[:loss][:high])
     ]
 end
 
@@ -56,13 +56,13 @@ ostp_params_range_trans(prange) = prange
 
 # just a single storage
 function ostp_init_state(pars)
-    pars["capacity"] / 2
+    pars[:capacity] / 2
 end
 
 # One storage / two parameter model
 function ostp_run_step(rain, pet, storage, params)
-    capacity = params["capacity"]
-    loss = params["loss"]
+    capacity = params[:capacity]
+    loss = params[:loss]
 
     # effective rainfall
     storage += rain - pet

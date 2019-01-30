@@ -16,8 +16,8 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 function simulate(timestep, data, pars, init_state)
-    rain = data["rain"]
-    pet = data["pet"]
+    rain = data[:rain]
+    pet = data[:pet]
     len = length(rain)
     sim = zeros(len)
 

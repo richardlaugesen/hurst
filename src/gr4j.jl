@@ -20,11 +20,11 @@
 # -------------------------------------------------
 
 function gr4j_params_from_array(arr)
-    Dict("x1" => arr[1], "x2" => arr[2], "x3" => arr[3], "x4" => arr[4])
+    Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
 end
 
 function gr4j_params_to_array(pars)
-    [pars["x1"], pars["x2"], pars["x3"], pars["x4"]]
+    [pars[:x1], pars[:x2], pars[:x3], pars[:x4]]
 end
 
 function gr4j_params_default()
@@ -34,26 +34,26 @@ end
 function gr4j_params_random(prange)
     quanta = 0.1
     params = gr4j_params_default()
-    for p in ["x1", "x2", "x3", "x4"]
-        params[p] = rand(prange[p]["low"]:quanta:prange[p]["high"])
+    for p in [:x1, :x2, :x3, :x4]
+        params[p] = rand(prange[p][:low]:quanta:prange[p][:high])
     end
     return params
 end
 
 function gr4j_params_range()
     Dict(
-        "x1" => Dict("low" => 1.0, "high" => 10000.0),
-        "x2" => Dict("low" => -100.0, "high" => 100.0),
-        "x3" => Dict("low" => 1.0, "high" => 5000.0),
-        "x4" => Dict("low" => 0.5, "high" => 50.0))
+        :x1 => Dict(:low => 1.0, :high => 10000.0),
+        :x2 => Dict(:low => -100.0, :high => 100.0),
+        :x3 => Dict(:low => 1.0, :high => 5000.0),
+        :x4 => Dict(:low => 0.5, :high => 50.0))
 end
 
 function gr4j_params_range_to_tuples(prange)
     [
-        (prange["x1"]["low"], prange["x1"]["high"]),
-        (prange["x2"]["low"], prange["x2"]["high"]),
-        (prange["x3"]["low"], prange["x3"]["high"]),
-        (prange["x4"]["low"], prange["x4"]["high"])
+        (prange[:x1][:low], prange[:x1][:high]),
+        (prange[:x2][:low], prange[:x2][:high]),
+        (prange[:x3][:low], prange[:x3][:high]),
+        (prange[:x4][:low], prange[:x4][:high])
     ]
 end
 
@@ -64,47 +64,47 @@ end
 X4_TRANS_OFFSET = -(0.5 - 1e-9)
 
 function gr4j_param_trans(param, value)
-    if param == "x1"
+    if param == :x1
         return log_trans(value)
-    elseif param == "x2"
+    elseif param == :x2
         return value
-    elseif param == "x3"
+    elseif param == :x3
         return log_trans(value)
-    elseif param == "x4"
+    elseif param == :x4
         return log_trans(value, X4_TRANS_OFFSET)
     end
 end
 
 function gr4j_param_trans_inv(param, value)
-    if param == "x1"
+    if param == :x1
         return log_trans_inverse(value)
-    elseif param == "x2"
+    elseif param == :x2
         return value
-    elseif param == "x3"
+    elseif param == :x3
         return log_trans_inverse(value)
-    elseif param == "x4"
+    elseif param == :x4
         return log_trans_inverse(value, X4_TRANS_OFFSET)
     end
 end
 
 function gr4j_params_trans(pars)
-    for p in ["x1", "x2", "x3", "x4"]
+    for p in [:x1, :x2, :x3, :x4]
         pars[p] = gr4j_param_trans(p, pars[p])
     end
     return pars
 end
 
 function gr4j_params_trans_inv(pars)
-    for p in ["x1", "x2", "x3", "x4"]
+    for p in [:x1, :x2, :x3, :x4]
         pars[p] = gr4j_param_trans_inv(p, pars[p])
     end
     return pars
 end
 
 function gr4j_params_range_trans(prange)
-    for p in ["x1", "x2", "x3", "x4"]
-        prange[p]["low"] = gr4j_param_trans(p, prange[p]["low"])
-        prange[p]["high"] = gr4j_param_trans(p, prange[p]["high"])
+    for p in [:x1, :x2, :x3, :x4]
+        prange[p][:low] = gr4j_param_trans(p, prange[p][:low])
+        prange[p][:high] = gr4j_param_trans(p, prange[p][:high])
     end
     return prange
 end
@@ -114,16 +114,16 @@ end
 # -------------------------------------------------
 
 function gr4j_init_state(pars)
-    x4 = pars["x4"]
+    x4 = pars[:x4]
     n = Int(ceil(x4))
 
     return Dict(
-        "uh1" => zeros(n),
-        "uh2" => zeros(2n),
-        "uh1_ordinates" => create_uh_ordinates(1, n, x4),
-        "uh2_ordinates" => create_uh_ordinates(2, 2n, x4),
-        "production_store" => 0,
-        "routing_store" => 0
+        :uh1 => zeros(n),
+        :uh2 => zeros(2n),
+        :uh1_ordinates => create_uh_ordinates(1, n, x4),
+        :uh2_ordinates => create_uh_ordinates(2, 2n, x4),
+        :production_store => 0,
+        :routing_store => 0
     )
 end
 
@@ -173,18 +173,18 @@ end
 function gr4j_run_step(rain, pet, state, pars)
 
     # parameters
-    x1 = pars["x1"]
-    x2 = pars["x2"]
-    x3 = pars["x3"]
-    x4 = pars["x4"]
+    x1 = pars[:x1]
+    x2 = pars[:x2]
+    x3 = pars[:x3]
+    x4 = pars[:x4]
 
     # state
-    uh1 = state["uh1"]
-    uh2 = state["uh2"]
-    v1 = state["production_store"]
-    v2 = state["routing_store"]
-    ord1 = state["uh1_ordinates"]
-    ord2 = state["uh2_ordinates"]
+    uh1 = state[:uh1]
+    uh2 = state[:uh2]
+    v1 = state[:production_store]
+    v2 = state[:routing_store]
+    ord1 = state[:uh1_ordinates]
+    ord2 = state[:uh2_ordinates]
 
     # forcing
     p = rain
@@ -228,12 +228,12 @@ function gr4j_run_step(rain, pet, state, pars)
     q = qr + qd
 
     state = Dict(
-        "uh1" => uh1,
-        "uh2" => uh2,
-        "uh1_ordinates" => ord1,
-        "uh2_ordinates" => ord2,
-        "production_store" => v1,
-        "routing_store" => v2
+        :uh1 => uh1,
+        :uh2 => uh2,
+        :uh1_ordinates => ord1,
+        :uh2_ordinates => ord2,
+        :production_store => v1,
+        :routing_store => v2
     )
 
     return q, state
