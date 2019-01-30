@@ -27,6 +27,5 @@ function simulate(timestep, data, pars, init_state)
         curr_state = new_state
     end
 
-    data["runoff_sim"] = sim
-    return data
+    return sim
 end

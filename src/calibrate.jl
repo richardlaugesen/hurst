@@ -30,9 +30,9 @@ function sampler(functions, data, pars_trans_array)
     # detransform parameter set, simulate, and calculate obj func value
     pars = pars_trans_inv(pars_from_array(pars_trans_array))
     init_state = init_state(pars)
-    result = simulate(timestep, data, pars, init_state)
+    sim = simulate(timestep, data, pars, init_state)
 
-    return obj_fnc(result["runoff_obs"], result["runoff_sim"])
+    return obj_fnc(data["runoff_obs"], sim)
 end
 
 # find an optimal set of parameters closed over the transformed range
