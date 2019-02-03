@@ -36,6 +36,8 @@ using Test, Hydro, CSV, DataFrames
         @test gr4j_run_step(0, 0, init_state, pars)[1] == 0
         @test gr4j_run_step(100, 5, init_state, pars)[1] ≈ 0.2270703669963994
         @test gr4j_run_step(1000, 0, init_state, pars)[1] ≈ 605.529053798641
+        @test_throws TypeError gr4j_run_step(missing, 0, init_state, pars)
+        @test_throws TypeError gr4j_run_step(100, missing, init_state, pars)
     end
 
     @testset "2 year simulation" begin
