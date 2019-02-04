@@ -49,11 +49,6 @@ function ostp_params_range_to_tuples(prange)
     ]
 end
 
-# no par transformations, but functions needed for calibration
-ostp_params_trans_inv(pars) = pars
-ostp_params_trans(pars) = pars
-ostp_params_range_trans(prange) = prange
-
 # just a single storage
 function ostp_init_state(pars)
     pars[:capacity] / 2

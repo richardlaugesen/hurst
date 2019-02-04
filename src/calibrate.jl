@@ -18,46 +18,67 @@
 using BlackBoxOptim
 
 # sample one point from objective function in parameter space
-function sampler(functions, data, pars_trans_array)
+function sampler(functions, data, pars_array)
 
     # unpack dictionary of model functions
     timestep = functions[:run_model_time_step]
     init_state = functions[:init_state]
     pars_from_array = functions[:params_from_array]
     obj_fnc = functions[:objective_function]
-    pars_trans_inv = functions[:params_inverse_transform]
 
-    # detransform parameter set, simulate, and calculate obj func value
-    pars = pars_trans_inv(pars_from_array(pars_trans_array))
+    # get the parameter set
+    pars = pars_from_array(pars_array)
+
+    # detransform parameter set if transform function provided
+    if :params_inverse_transform in keys(functions)
+        pars_trans_inv = functions[:params_inverse_transform]
+        pars = pars_trans_inv(pars)
+    end
+
+    # simulate, and calculate obj func value
     init_state = init_state(pars)
     sim = simulate(timestep, data, pars, init_state)
 
     return obj_fnc(data[:runoff_obs], sim)
 end
 
-# find an optimal set of parameters closed over the transformed range
+# find an optimal set of parameters closed over the range
 # using a bunch of options for the numerical optimiser
+# can be in transformed space
 # see methods here: https://github.com/robertfeldt/BlackBoxOptim.jl#existing-optimizers
 function calibrate(functions, opt_options, data, prange)
 
+    # assumed to be in transformed space if ONE function provided
+    in_transformed_space = :params_inverse_transform in keys(functions)
+
     # unpack dictionary of model functions
     pars_from_array = functions[:params_from_array]
-    pars_trans_inv = functions[:params_inverse_transform]
-    prange_trans = functions[:params_range_transform]
     prange_to_tuples = functions[:params_range_to_tuples]
 
-    # optimise over transformed parameter space using a partial function call
+    # transform the parameter range if in transformed space
+    if in_transformed_space
+        prange_trans = functions[:params_range_transform]
+        prange = prange_trans(prange)
+    end
+
+    # optimise over parameter space using a partial function call
     opt = bboptimize(
-        pars_trans -> sampler(functions, data, pars_trans);
-        SearchRange = prange_to_tuples(prange_trans(prange)),
+        pars -> sampler(functions, data, pars);
+        SearchRange = prange_to_tuples(prange),
         Method = opt_options[:method],
         MaxFuncEvals = opt_options[:max_iterations],
         MaxTime = opt_options[:max_time],
         TraceInterval = opt_options[:trace_interval])
 
-    # detransform the optimial parameter set and return with obj func value
-    best_params = pars_trans_inv(pars_from_array(best_candidate(opt)))
+    # get the best parameter set and objective value
+    best_params = pars_from_array(best_candidate(opt))
     best_obj = best_fitness(opt)
+
+    # detransform parameter set if in transformed space
+    if in_transformed_space
+        pars_trans_inv = functions[:params_inverse_transform]
+        best_pars = pars_trans_inv(best_pars)
+    end
 
     return best_params, best_obj
 end
