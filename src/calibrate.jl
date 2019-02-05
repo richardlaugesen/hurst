@@ -77,7 +77,7 @@ function calibrate(functions, opt_options, data, prange)
     # detransform parameter set if in transformed space
     if in_transformed_space
         pars_trans_inv = functions[:params_inverse_transform]
-        best_pars = pars_trans_inv(best_pars)
+        best_params = pars_trans_inv(best_params)
     end
 
     return best_params, best_obj
