@@ -1,4 +1,4 @@
-# Copyright 2019 Richard Laugesen
+# Copyright 2018-2019 Richard Laugesen
 #
 # This file is part of Hydro.jl
 #

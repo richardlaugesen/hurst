@@ -13,7 +13,7 @@ Not ready for general use.
 
 ## Copyright and licence
 
-Copyright 2019 Richard Laugesen
+Copyright 2018-2019 Richard Laugesen
 
 Hydro.jl is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
