@@ -17,7 +17,7 @@
 
 module Hydro
 
-# Example simple model
+# Example model for study
 export ostp_run_step, ostp_init_state
 export ostp_params_from_array, ostp_params_to_array
 export ostp_params_default, ostp_params_random
@@ -40,8 +40,14 @@ export coeff_det, nse, mae, mse, rmse, kge, persistence
 export hydrograph
 
 # Data transformations
-export boxcox, boxcox_inverse, log_sinh, log_sinh_inverse, log_trans, log_trans_inverse
-export cumecs_to_gigalitres
+export boxcox, boxcox_inverse
+export log_sinh, log_sinh_inverse
+export log_trans, log_trans_inverse
+
+# Unit conversions
+export cumecs_to_megalitres_day, megalitres_day_to_cumecs
+export mm_runoff_to_megalitres, megalitres_to_mm_runoff
+export km2_to_m2, m2_to_km2
 
 include("util.jl")
 include("units.jl")

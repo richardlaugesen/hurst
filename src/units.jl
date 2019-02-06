@@ -15,6 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-function cumecs_to_gigalitres(q)
-    q * 86.4 / 1000
-end
+cumecs_to_megalitres_day(q) = q * 86.4
+megalitres_day_to_cumecs(v) = v / 86.4
+
+mm_runoff_to_megalitres(d, area_km) = d * area_km
+megalitres_to_mm_runoff(v, area_km) = v / area_km
+
+km2_to_m2(a) = a * 1e6
+m2_to_km2(a) = a / 1e6

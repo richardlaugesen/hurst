@@ -16,6 +16,7 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestHydro
+@time include("units.jl")
 @time include("transforms.jl")
 @time include("verification.jl")
 @time include("gr4j.jl")
