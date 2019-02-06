@@ -15,15 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-function simulate(timestep, data, pars, init_state)
-    rain = data[:rain]
-    pet = data[:pet]
+function simulate(timestep_fnc, rain, pet, pars, init_state)
     len = length(rain)
     sim = zeros(len)
 
     curr_state = init_state
     for i in 1:len
-        sim[i], new_state = timestep(rain[i], pet[i], curr_state, pars)
+        sim[i], new_state = timestep_fnc(rain[i], pet[i], curr_state, pars)
         curr_state = new_state
     end
 

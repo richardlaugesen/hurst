@@ -20,4 +20,5 @@ module TestHydro
 @time include("verification.jl")
 @time include("gr4j.jl")
 @time include("gr4j_benchmark.jl")
+@time include("calibrate.jl")
 end

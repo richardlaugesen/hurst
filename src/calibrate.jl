@@ -18,7 +18,7 @@
 using BlackBoxOptim
 
 # sample one point from objective function in parameter space
-function sampler(functions, data, pars_array)
+function sampler(rain, pet, runoff_obs, pars_array, functions)
 
     # unpack dictionary of model functions
     timestep = functions[:run_model_time_step]
@@ -37,23 +37,24 @@ function sampler(functions, data, pars_array)
 
     # simulate, and calculate obj func value
     init_state = init_state(pars)
-    sim = simulate(timestep, data, pars, init_state)
+    runoff_sim = simulate(timestep, rain, pet, pars, init_state)
 
-    return obj_fnc(data[:runoff_obs], sim)
+    return obj_fnc(runoff_obs, runoff_sim)
 end
 
 # find an optimal set of parameters closed over the range
 # using a bunch of options for the numerical optimiser
 # can be in transformed space
 # see methods here: https://github.com/robertfeldt/BlackBoxOptim.jl#existing-optimizers
-function calibrate(functions, opt_options, data, prange)
+function calibrate(rain, pet, runoff, functions, opt_options)
 
     # assumed to be in transformed space if ONE function provided
     in_transformed_space = :params_inverse_transform in keys(functions)
 
-    # unpack dictionary of model functions
+    # unpack dictionary of model functions and get params range
     pars_from_array = functions[:params_from_array]
     prange_to_tuples = functions[:params_range_to_tuples]
+    prange = functions[:params_range]()
 
     # transform the parameter range if in transformed space
     if in_transformed_space
@@ -63,7 +64,7 @@ function calibrate(functions, opt_options, data, prange)
 
     # optimise over parameter space using a partial function call
     opt = bboptimize(
-        pars -> sampler(functions, data, pars);
+        pars -> sampler(rain, pet, runoff, pars, functions);
         SearchRange = prange_to_tuples(prange),
         Method = opt_options[:method],
         MaxFuncEvals = opt_options[:max_iterations],

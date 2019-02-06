@@ -23,12 +23,8 @@ using Test, Hydro, CSV, DataFrames, BenchmarkTools
     # load some test data
     df = CSV.read("data/test_1_data.csv", header=1, missingstrings=["-9999"])
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
-
-    data = Dict()
-    data[:rain] = df[:obs_rain]
-    data[:pet] = df[:obs_pet]
-    data[:runoff_obs] = df[:obs_runoff]
-    data[:runoff_sim_test] = df[:test_sim_runoff]
+    rain = df[:obs_rain]
+    pet = df[:obs_pet]
 
     # typical timestep in less than 50 microseconds
     pars = gr4j_params_default()
@@ -59,7 +55,7 @@ using Test, Hydro, CSV, DataFrames, BenchmarkTools
     @test isapprox(evap_path, precip_path, atol=1e-5)
 
     # simulation of 2 years data should take less than 50 milliseconds
-    @test (@belapsed simulate(gr4j_run_step, $data, $pars, $init_state)) < (50 * 1e-3)
+    @test (@belapsed simulate(gr4j_run_step, $rain, $pet, $pars, $init_state)) < (50 * 1e-3)
 end
 
 end

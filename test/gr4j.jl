@@ -22,12 +22,10 @@ using Test, Hydro, CSV, DataFrames
 
     df = CSV.read("data/test_1_data.csv", header=1, missingstrings=["-9999"])
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
-
-    data = Dict()
-    data[:rain] = df[:obs_rain]
-    data[:pet] = df[:obs_pet]
-    data[:runoff_obs] = df[:obs_runoff]
-    data[:runoff_sim_test] = df[:test_sim_runoff]
+    rain = df[:obs_rain]
+    pet = df[:obs_pet]
+    runoff_obs = df[:obs_runoff]
+    runoff_sim_test = df[:test_sim_runoff]
 
     @testset "Single timestep" begin
         pars = gr4j_params_default()
@@ -46,11 +44,11 @@ using Test, Hydro, CSV, DataFrames
         init_state[:production_store] = pars[:x1] * 0.6
         init_state[:routing_store] = pars[:x3] * 0.7
 
-        sim = simulate(gr4j_run_step, data, pars, init_state)
+        runoff_sim = simulate(gr4j_run_step, rain, pet, pars, init_state)
 
-        @test isapprox(data[:runoff_sim_test][1], sim[1], atol=0.0001)
-        @test isapprox(data[:runoff_sim_test][400], sim[400], atol=0.0001)
-        @test isapprox(data[:runoff_sim_test][end], sim[end], atol=0.0001)
+        @test isapprox(runoff_sim_test[1], runoff_sim[1], atol=0.0001)
+        @test isapprox(runoff_sim_test[400], runoff_sim[400], atol=0.0001)
+        @test isapprox(runoff_sim_test[end], runoff_sim[end], atol=0.0001)
     end
 
     @testset "Parameters" begin
