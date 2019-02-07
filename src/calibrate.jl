@@ -69,7 +69,8 @@ function calibrate(rain, pet, runoff, functions, opt_options)
         Method = opt_options[:method],
         MaxFuncEvals = opt_options[:max_iterations],
         MaxTime = opt_options[:max_time],
-        TraceInterval = opt_options[:trace_interval])
+        TraceInterval = opt_options[:trace_interval],
+        TraceMode = opt_options[:trace_mode])
 
     # get the best parameter set and objective value
     best_params = pars_from_array(best_candidate(opt))

@@ -33,6 +33,7 @@ using Test, CSV, DataFrames, Hydro
     opt_options[:max_time] = 0.25 * 60  # 15 seconds
     opt_options[:trace_interval] = 15
     opt_options[:method] = :adaptive_de_rand_1_bin_radiuslimited
+    opt_options[:trace_mode] = :silent
 
     @testset "GR4J (with parameter transformations)" begin
         # build up dictionary of model functions needed for calibration
