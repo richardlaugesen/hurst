@@ -5,4 +5,4 @@ os:
 julia:
   - 1.1
   - nightly
-codecov: true
+#codecov: true
