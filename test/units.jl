@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-module TestTransforms
+module TestUnits
 using Test, Hydro
 
 @testset "Units" begin
