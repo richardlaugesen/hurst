@@ -15,12 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-module TestHydro
-@time include("util.jl")
-@time include("units.jl")
-@time include("transforms.jl")
-@time include("verification.jl")
-@time include("gr4j.jl")
-@time include("gr4j_benchmark.jl")
-@time include("calibrate.jl")
+module TestUtil
+using Test, Hydro
+
+@testset "Util" begin
+    @test Hydro.lshift([1,2,3,4]) == [2,3,4,0]
+    @test Hydro.lshift([7]) == [0]
+end
 end
