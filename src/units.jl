@@ -15,11 +15,60 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
+"""
+    cumecs_to_megalitres_day(q)
+
+Convert cubic metres per second of streamflow `q` into
+megalitres per day of volume.
+
+See also: [`megalitres_day_to_cumecs(v)`](@ref)
+"""
 cumecs_to_megalitres_day(q) = q * 86.4
+
+"""
+    megalitres_day_to_cumecs(v)
+
+Convert megalitres per day of volume `v` into
+cubic metres per second of streamflow.
+
+See also: [`cumecs_to_megalitres_day(q)`](@ref)
+"""
 megalitres_day_to_cumecs(v) = v / 86.4
 
-mm_runoff_to_megalitres(d, area_km) = d * area_km
-megalitres_to_mm_runoff(v, area_km) = v / area_km
+"""
+    mm_runoff_to_megalitres(d, area)
 
+Use the catchment `area` (kilometres) to convert a depth `d` of
+catchment average runoff (millimetres) into volume (megalitres).
+
+See also: [`megalitres_to_mm_runoff(v, area)`](@ref)
+"""
+mm_runoff_to_megalitres(d, area) = d * area
+
+"""
+    megalitres_to_mm_runoff(v, area)
+
+Use the catchment `area` (kilometres) to convert a volume `v` (megalitres)
+into catchment average runoff (millimetres).
+
+See also: [`mm_runoff_to_megalitres(d, area)`](@ref)
+"""
+megalitres_to_mm_runoff(v, area) = v / area
+
+"""
+    km2_to_m2(a)
+
+Convert an area in square kilometres to an area in square metres.
+
+See also: [`m2_to_km2(a)`](@ref)
+"""
 km2_to_m2(a) = a * 1e6
+
+"""
+    m2_to_km2(a)
+
+Convert an area in square metres to an area in square kilometres.
+
+See also: [`km2_to_m2(a)`](@ref)
+"""
 m2_to_km2(a) = a / 1e6
