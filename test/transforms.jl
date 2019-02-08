@@ -41,7 +41,7 @@ using Test, Hydro
             @test boxcox_inverse(boxcox(y, λ), λ) ≈ y
         end
 
-        @testset "λ=$λ (range testset)" for λ in -3:0.1:3
+        @testset "λ=$λ (range testset)" for λ in -3:0.5:3
             @test boxcox_inverse(boxcox(y, λ), λ) ≈ y
         end
 
