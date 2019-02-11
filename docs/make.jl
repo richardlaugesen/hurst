@@ -1,4 +1,6 @@
 push!(LOAD_PATH,"../src/")
-using Documenter, Hydro
+
+using Documenter
+using Hydro
 
 makedocs(sitename="Hydro.jl")
