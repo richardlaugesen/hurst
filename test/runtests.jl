@@ -18,7 +18,7 @@
 module TestHydro
 using Test
 
-@testset "Hydro" begin
+@time @testset "Hydro" begin
     include("util.jl")
     include("units.jl")
     include("transforms.jl")
