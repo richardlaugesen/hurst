@@ -27,7 +27,7 @@ using Test, Hydro
 
     @testset "Streamflow and runoff" begin
         @test mm_runoff_to_megalitres(10, 800) == 8000
-        @test isapprox(megalitres_to_mm_runoff(1000, 1000), 1, atol=1e-3)
+        @test isapprox(megalitres_to_mm_runoff(1000, 1000), 1, atol=1e-7)
         @test mm_runoff_to_megalitres(megalitres_to_mm_runoff(1000, 8), 8) == 1000
     end
 
@@ -35,6 +35,10 @@ using Test, Hydro
         @test km2_to_m2(10) == 10e6
         @test m2_to_km2(1e8) == 100
         @test km2_to_m2(m2_to_km2(1)) == 1
+
+        @test km2_to_acres(12) == 2965.2
+        @test isapprox(acres_to_km2(6200), 25.091056, atol=1e-6)
+        @test isapprox(km2_to_acres(acres_to_km2(1)), 1, atol=1e-7)
     end
 end
 end

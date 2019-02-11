@@ -48,6 +48,7 @@ export log_trans, log_trans_inverse
 export cumecs_to_megalitres_day, megalitres_day_to_cumecs
 export mm_runoff_to_megalitres, megalitres_to_mm_runoff
 export km2_to_m2, m2_to_km2
+export km2_to_acres, acres_to_km2
 
 include("util.jl")
 include("units.jl")

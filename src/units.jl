@@ -72,3 +72,21 @@ Convert an area in square metres to an area in square kilometres.
 See also: [`km2_to_m2(a)`](@ref)
 """
 m2_to_km2(a) = a / 1e6
+
+"""
+    km2_to_acres(a)
+
+Convert an area in square kilometres to an area in acres.
+
+See also: [`acres_to_km2(a)`](@ref)
+"""
+km2_to_acres(a) = a * 247.1
+
+"""
+    acres_to_km2(a)
+
+Convert an area in acres to an area in square kilometres.
+
+See also: [`km2_to_acres(a)`](@ref)
+"""
+acres_to_km2(a) = a * 0.004046944556859571
