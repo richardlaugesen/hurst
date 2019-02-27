@@ -16,7 +16,7 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestVerification
-using Test, Hydro, CSV
+using Test, Hydro.Verification, CSV
 
 data = CSV.read("data/test_2_data.csv", header=1, missingstrings=["-9999"])
 obs, sim = data[:obs_runoff], data[:obs_runoff_sim_0]

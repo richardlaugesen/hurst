@@ -16,7 +16,7 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestCalibrate
-using Test, CSV, DataFrames, Hydro
+using Test, CSV, DataFrames, Hydro, Hydro.Verification
 
 @testset "Calibration" begin
 

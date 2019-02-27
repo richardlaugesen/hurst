@@ -15,6 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
+module Units
+
+export cumecs_to_megalitres_day, megalitres_day_to_cumecs
+export mm_runoff_to_megalitres, megalitres_to_mm_runoff
+export km2_to_m2, m2_to_km2
+export km2_to_acres, acres_to_km2
+
 """
     cumecs_to_megalitres_day(q)
 
@@ -90,3 +97,5 @@ Convert an area in acres to an area in square kilometres.
 See also: [`km2_to_acres(a)`](@ref)
 """
 acres_to_km2(a) = a * 0.004046944556859571
+
+end

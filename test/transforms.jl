@@ -16,7 +16,7 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestTransforms
-using Test, Hydro
+using Test, Hydro, Hydro.Transformations
 
 @testset "Transformations" begin
     @testset "Box-cox transform" begin

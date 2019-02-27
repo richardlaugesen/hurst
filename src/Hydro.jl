@@ -35,25 +35,14 @@ export gr4j_params_trans, gr4j_params_trans_inv
 export simulate
 export calibrate
 
-# verification and figures
-export coeff_det, nse, mae, mse, rmse, kge, persistence
+# figures
 export hydrograph
 
-# Data transformations
-export boxcox, boxcox_inverse
-export log_sinh, log_sinh_inverse
-export log_trans, log_trans_inverse
-
-# Unit conversions
-export cumecs_to_megalitres_day, megalitres_day_to_cumecs
-export mm_runoff_to_megalitres, megalitres_to_mm_runoff
-export km2_to_m2, m2_to_km2
-export km2_to_acres, acres_to_km2
-
-include("util.jl")
 include("units.jl")
+include("utils.jl")
 include("verification.jl")
 include("transforms.jl")
+
 include("ostp.jl")
 include("gr4j.jl")
 include("simulate.jl")

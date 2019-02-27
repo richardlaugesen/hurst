@@ -19,6 +19,12 @@
 # two param box-cox transform
 # -------------------------------------------------
 
+module Transformations
+
+export boxcox, boxcox_inverse
+export log_sinh, log_sinh_inverse
+export log_trans, log_trans_inverse
+
 function boxcox(y, λ, ν)
     if abs(λ) < 1e-8
         log.(y .+ ν)
@@ -68,3 +74,5 @@ end
 
 log_trans(y) = log_trans(y, 0)
 log_trans_inverse(z) = log_trans_inverse(z, 0)
+
+end

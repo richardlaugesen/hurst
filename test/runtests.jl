@@ -19,7 +19,7 @@ module TestHydro
 using Test
 
 @time @testset "Hydro" begin
-    include("util.jl")
+    include("utils.jl")
     include("units.jl")
     include("transforms.jl")
     include("verification.jl")

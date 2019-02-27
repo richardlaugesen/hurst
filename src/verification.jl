@@ -15,7 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-using Statistics
+module Verification
+
+using Statistics, Hydro.Utils
+
+export coeff_det, nse, mae, mse, rmse, kge, persistence
 
 """
     nse(obs, sim)
@@ -122,3 +126,5 @@ Skips missing values from either series.
 See also: [`kge(o, s, components)`](@ref)
 """
 kge(o, s) = kge(o, s, false)
+
+end

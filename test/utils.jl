@@ -15,24 +15,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-using DataFrames
+module TestUtils
 
-function length_no_missing(ar)
-    length(collect(skipmissing(ar)))
+using Test, Hydro.Utils
+
+@testset "Utils" begin
+    @test lshift([1,2,3,4]) == [2,3,4,0]
+    @test lshift([7]) == [0]
 end
-
-function lshift(v)
-    v = circshift(v, -1)
-    v[length(v)] = 0
-    return v
-end
-
-function dataframify(x...)
-    DataFrame([x...])
-end
-
-function dropna(ar...)
-    df = dataframify(ar...)
-    cases = completecases(df)
-    return df[cases, 1], df[cases, 2]  # TODO: expand this over the ...
 end

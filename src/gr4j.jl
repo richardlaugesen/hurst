@@ -19,6 +19,8 @@
 # parameters and ranges
 # -------------------------------------------------
 
+using Hydro.Utils, Hydro.Transformations
+
 function gr4j_params_from_array(arr)
     Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
 end
