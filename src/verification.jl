@@ -17,38 +17,83 @@
 
 using Statistics
 
-# nash sutcliffe efficiency
+"""
+    nse(obs, sim)
+
+Returns the Nash Sutcliffe Efficiency of `obs` and `sim` timeseries.
+
+See also: [`coeff_det(y, f)`](@ref)
+"""
 function nse(obs, sim)
     coeff_det(obs, sim)
 end
 
-# coefficient of determination
+"""
+    coeff_det(y, f)
+
+Returns the Coefficient of Determination between `y` and `f`.
+Skips missing values from either series.
+"""
 function coeff_det(y, f)
     1 - sum(skipmissing(y - f).^2) / sum(skipmissing(y .- mean(skipmissing(y))).^2)
 end
 
-# mean square error
+"""
+    mse(o, s)
+
+Returns the Mean Square Error between `o` and `s`.
+Skips missing values from either series.
+
+See also: [`rmse(o, s)`](@ref)
+"""
 function mse(o, s)
     sum(skipmissing(o - s).^2) / (length_no_missing(o) - 1)
 end
 
-# mean absolute error
+"""
+    mae(o, s)
+
+Returns the Mean Absolute Error between `o` and `s`.
+Skips missing values from either series.
+"""
 function mae(o, s)
     sum(abs.(skipmissing(o - s))) / (length_no_missing(o) - 1)
 end
 
-# root mean square error
+"""
+    rmse(o, s)
+
+Returns the Root Mean Square Error between `o` and `s`.
+
+See also: [`mse(o, s)`](@ref)
+"""
 function rmse(o, s)
     sqrt(mse(o, s))
 end
 
-# persistence index
+"""
+    persistence(o, s)
+
+Returns the Persistence Index between `o` and `s`.
+Skips missing values from either series.
+"""
 function persistence(o, s)
     shifted_o = lshift(o)
     return 1 - sum(skipmissing(s - o).^2) / sum(skipmissing(shifted_o - o).^2)
 end
 
-# kling-gupta efficiency
+"""
+    kge(o, s, components)
+
+Returns the Kling-Gupta Efficiency between `o` and `s`.
+Skips missing values from either series.
+
+If `components` is `true` then a Dictionary is returned containing the
+final KGE value (:kge) along with the individual components used to
+construct the KGE (:covariance, :relative_variability, :mean_bias)
+
+See also: [`kge(o, s)`](@ref)
+"""
 function kge(o, s, components)
     o, s = dropna(o, s)
     r = cov(o, s, corrected=true) / (std(s, corrected=true) * std(o, corrected=true))  # covariance
@@ -68,4 +113,12 @@ function kge(o, s, components)
     end
 end
 
+"""
+    kge(o, s)
+
+Returns the Kling-Gupta Efficiency between `o` and `s`.
+Skips missing values from either series.
+
+See also: [`kge(o, s, components)`](@ref)
+"""
 kge(o, s) = kge(o, s, false)
