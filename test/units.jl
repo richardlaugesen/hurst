@@ -16,8 +16,9 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestUnits
-using Test, Hydro.Units
-import Hydro.Units.*
+
+using Hydro.Units
+using Test
 
 @testset "Units" begin
     @testset "Streamflow and volume" begin

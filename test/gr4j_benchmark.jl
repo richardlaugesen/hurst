@@ -16,7 +16,9 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module BenchmarkGr4j
-using Test, Hydro, CSV, DataFrames, BenchmarkTools
+
+using Hydro
+using Test, CSV, DataFrames, BenchmarkTools
 
 @testset "GR4J Benchmarks" begin
 

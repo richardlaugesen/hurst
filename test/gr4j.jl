@@ -16,7 +16,9 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestGr4j
-using Test, Hydro, CSV, DataFrames
+
+using Hydro
+using Test, CSV, DataFrames
 
 @testset "GR4J" begin
 

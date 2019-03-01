@@ -17,9 +17,9 @@
 
 module Utils
 
-export length_no_missing, lshift, dataframify, dropna
-
 using DataFrames
+
+export length_no_missing, lshift, dataframify, dropna
 
 function length_no_missing(ar)
     length(collect(skipmissing(ar)))

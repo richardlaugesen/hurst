@@ -17,7 +17,8 @@
 
 module TestUtils
 
-using Test, Hydro.Utils
+using Hydro.Utils
+using Test
 
 @testset "Utils" begin
     @test lshift([1,2,3,4]) == [2,3,4,0]

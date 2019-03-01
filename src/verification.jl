@@ -17,7 +17,8 @@
 
 module Verification
 
-using Statistics, Hydro.Utils
+using Hydro.Utils
+using Statistics
 
 export coeff_det, nse, mae, mse, rmse, kge, persistence
 
