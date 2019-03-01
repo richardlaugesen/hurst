@@ -15,19 +15,26 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-module TestHydro
+module TestGR4J
+
+using Hydro
+using Hydro.OSTP
 
 using Test
+using CSV
+using DataFrames
 
-@time @testset "Hydro" begin
-    include("utils.jl")
-    include("units.jl")
-    include("transforms.jl")
-    include("verification.jl")
-    include("ostp.jl")
-    include("gr4j.jl")
-    include("gr4j_benchmark.jl")
-    include("calibrate.jl")
+@testset "OSTP" begin
+    @testset "Single timestep" begin
+        pars = ostp_params_from_array([100, 0])
+        init_state = 0
+        @test ostp_run_step(1, 0, init_state, pars)[1] == 0
+
+        pars = ostp_params_from_array([100, 50])
+        init_state = ostp_init_state(pars)
+        @test ostp_run_step(20, 7, init_state, pars)[1] == 0
+        @test ostp_run_step(200, 7, init_state, pars)[1] == 93
+    end
 end
 
 end
