@@ -84,7 +84,7 @@ function ostp_run_step(rain, pet, storage, params)
         runoff = 0
     end
 
-    return storage, runoff
+    return runoff, storage
 end
 
 end
