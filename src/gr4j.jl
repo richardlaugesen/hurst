@@ -19,7 +19,16 @@
 # parameters and ranges
 # -------------------------------------------------
 
-using Hydro.Utils, Hydro.Transformations
+module GR4J
+
+using Hydro.Utils
+using Hydro.Transformations
+
+export gr4j_run_step, gr4j_init_state
+export gr4j_params_from_array, gr4j_params_to_array
+export gr4j_params_default, gr4j_params_random
+export gr4j_params_range, gr4j_params_range_trans, gr4j_params_range_to_tuples
+export gr4j_params_trans, gr4j_params_trans_inv
 
 function gr4j_params_from_array(arr)
     Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
@@ -239,4 +248,6 @@ function gr4j_run_step(rain, pet, state, pars)
     )
 
     return q, state
+end
+
 end

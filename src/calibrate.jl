@@ -15,7 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
+module Calibration
+
+using Hydro.Simulation
+
 using BlackBoxOptim
+
+export calibrate
 
 # sample one point from objective function in parameter space
 function sampler(rain, pet, runoff_obs, pars_array, functions)
@@ -83,4 +89,6 @@ function calibrate(rain, pet, runoff, functions, opt_options)
     end
 
     return best_params, best_obj
+end
+
 end

@@ -16,6 +16,7 @@
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
 module TestHydro
+
 using Test
 
 @time @testset "Hydro" begin

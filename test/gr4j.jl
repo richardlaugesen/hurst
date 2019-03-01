@@ -15,10 +15,15 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-module TestGr4j
+module TestGR4J
 
 using Hydro
-using Test, CSV, DataFrames
+using Hydro.GR4J
+using Hydro.Simulation
+
+using Test
+using CSV
+using DataFrames
 
 @testset "GR4J" begin
 

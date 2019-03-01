@@ -18,6 +18,7 @@
 module TestUnits
 
 using Hydro.Units
+
 using Test
 
 @testset "Units" begin

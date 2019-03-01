@@ -17,8 +17,16 @@
 
 module TestCalibrate
 
-using Hydro, Hydro.Verification
-using Test, CSV, DataFrames
+using Hydro
+using Hydro.Verification
+using Hydro.Simulation
+using Hydro.Calibration
+using Hydro.GR4J
+using Hydro.OSTP
+
+using Test
+using CSV
+using DataFrames
 
 @testset "Calibration" begin
 

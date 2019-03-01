@@ -18,6 +18,7 @@
 module TestUtils
 
 using Hydro.Utils
+
 using Test
 
 @testset "Utils" begin

@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
+module Simulation
+
+export simulate
+
 function simulate(timestep_fnc, rain, pet, pars, init_state)
     len = length(rain)
     sim = zeros(len)
@@ -26,4 +30,6 @@ function simulate(timestep_fnc, rain, pet, pars, init_state)
     end
 
     return sim
+end
+
 end

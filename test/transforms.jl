@@ -17,7 +17,9 @@
 
 module TestTransforms
 
-using Hydro, Hydro.Transformations
+using Hydro
+using Hydro.Transformations
+
 using Test
 
 @testset "Transformations" begin

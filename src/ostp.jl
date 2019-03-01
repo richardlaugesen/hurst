@@ -15,6 +15,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
+module OSTP
+
+# Simple rainfall-runoff model for education purposes, dont actually use it!
+
+export ostp_run_step, ostp_init_state
+export ostp_params_from_array, ostp_params_to_array
+export ostp_params_default, ostp_params_random
+export ostp_params_range, ostp_params_range_trans, ostp_params_range_to_tuples
+export ostp_params_trans, ostp_params_trans_inv
+
 function ostp_params_from_array(arr)
     Dict(:capacity => arr[1], :loss => arr[2])
 end
@@ -75,4 +85,6 @@ function ostp_run_step(rain, pet, storage, params)
     end
 
     return storage, runoff
+end
+
 end

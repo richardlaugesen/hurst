@@ -15,10 +15,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
 
-module BenchmarkGr4j
+module BenchmarkGR4J
 
 using Hydro
-using Test, CSV, DataFrames, BenchmarkTools
+using Hydro.GR4J
+using Hydro.Simulation
+
+using Test
+using CSV
+using DataFrames
+using BenchmarkTools
 
 @testset "GR4J Benchmarks" begin
 
