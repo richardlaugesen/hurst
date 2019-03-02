@@ -81,7 +81,7 @@ using DataFrames
 
         @test typeof(opt_pars) == Dict{Symbol, Float64}
         @test typeof(opt_nse) == Float64
-        @test 0 < opt_nse < 1
+        @test -Inf < opt_nse < 1
     end
 end
 end
