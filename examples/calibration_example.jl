@@ -103,20 +103,23 @@ data[:runoff_sim] = sim;
 # -----------------------------------------------------------------------------
 println("Plotting hydrograph...")
 
-s, e = 12000, 12200
+function plotter(s, e)
+    obs = data[:runoff_obs][s:e]
+    test = data[:runoff_sim_test][s:e]
+    gr4j = data[:runoff_sim_gr4j][s:e]
+    ostp = data[:runoff_sim][s:e]
+    rain = data[:rain][s:e]
 
-obs = data[:runoff_obs][s:e]
-test = data[:runoff_sim_test][s:e]
-gr4j = data[:runoff_sim_gr4j][s:e]
-ostp = data[:runoff_sim][s:e]
-rain = data[:rain][s:e]
+    nse_test = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim_test]))
+    nse_gr4j = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim_gr4j]))
+    nse_ostp = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim]))
 
-nse_test = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim_test]))
-nse_gr4j = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim_gr4j]))
-nse_ostp = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim]))
+    hydrograph(rain, [obs, test, gr4j, ostp],
+        ["Observations",
+        "Test Simulation ($nse_test)",
+        "GR4J Simulation ($nse_gr4j)",
+        "OSTP Simulation ($nse_ostp)"])
+end
 
-hydrograph(rain, [obs, test, gr4j, ostp],
-    ["Observations",
-    "Test Simulation ($nse_test)",
-    "GR4J Simulation ($nse_gr4j)",
-    "OSTP Simulation ($nse_ostp)"])
+plotter(12000, 12200)
+plotter(1, 12417)
