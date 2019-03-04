@@ -19,6 +19,19 @@ module Simulation
 
 export simulate
 
+"""
+    simulate(timestep_fnc, rain, pet, pars, init_state)
+
+Returns a runoff simulation by forcing a rainfall-runoff model with the `rain`
+and `pet` timeseries.
+
+The rainfall-runoff model is defined by the `timestep_fnc` function and `pars`
+model parameters Dictionary. This function is expected to return runoff for a
+single timestep of rain and pet. The model will be initalised with the
+`init_state` initial state Dictionary.
+
+Will error if the `rain` and `pet` arrays are different lengths.
+"""
 function simulate(timestep_fnc, rain, pet, pars, init_state)
     len = length(rain)
     sim = zeros(len)

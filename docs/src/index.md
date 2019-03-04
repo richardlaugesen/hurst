@@ -3,6 +3,20 @@
 ```@contents
 ```
 
+## Hydro.Simulation
+
+```@autodocs
+Modules = [Hydro.Simulation]
+Order   = [:function, :type]
+```
+
+## Hydro.Calibration
+
+```@autodocs
+Modules = [Hydro.Calibration]
+Order   = [:function, :type]
+```
+
 ## Hydro.Units
 
 ```@autodocs
