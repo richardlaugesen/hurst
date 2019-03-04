@@ -3,6 +3,11 @@
 ```@contents
 ```
 
+## Index
+
+```@index
+```
+
 ## Hydro.Simulation
 
 ```@autodocs
@@ -29,16 +34,4 @@ Order   = [:function, :type]
 ```@autodocs
 Modules = [Hydro.Verification]
 Order   = [:function, :type]
-```
-
-## Hydro
-
-```@autodocs
-Modules = [Hydro]
-Order   = [:function, :type]
-```
-
-## Index
-
-```@index
 ```
