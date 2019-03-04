@@ -6,11 +6,10 @@
 
 Library for modelling and analysis in Hydrology.
 
-Open Science infrastructure.
+Open Science infrastructure written in [Julia](https://julialang.org/). Not ready for general use.
 
-Written in Julia.
-
-Not ready for general use.
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://tinyrock.github.io/Hydro.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://tinyrock.github.io/Hydro.jl/dev)
 
 ## Copyright and licence
 
