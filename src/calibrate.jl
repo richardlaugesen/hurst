@@ -57,8 +57,10 @@ from a rainfall-runoff model forced by `rain` and `pet`.
 
 Returns an optimal set of parameters and the associated objective function value.
 
-Functions to define the model and parameter transformations is defined in the
-`functions` Dictionary. Refer to example below to understand meaning:
+Will error if the `rain`, `pet` and `runoff` arrays are different lengths.
+
+Functions to define the model and parameters are defined in the `functions`
+Dictionary. Refer to example to understand meaning.
 
     functions[:run_model_time_step]
     functions[:init_state]
@@ -69,12 +71,16 @@ Functions to define the model and parameter transformations is defined in the
     functions[:params_range_to_tuples]
     functions[:params_range]
 
+If the `:params_inverse_transform` key is defined in the `functions` Dictionary
+then it will assume the optimisation is in transformed space and will attempt to
+transform and detransform paramter sets and ranges. Will error if ALL the
+required transformation-related Dictionary keys are not defined.
+
 Currently uses the
 [BlackBoxOptim.jl](https://github.com/robertfeldt/BlackBoxOptim.jl)
 package for numerical optimisation and the following options may be specified
-in the `opt_options` Dictionary and detailed information on the options can be
-found here:
-[BlackBoxOptim.jl options](https://github.com/robertfeldt/BlackBoxOptim.jl#configurable-options):
+in the `opt_options` Dictionary, detailed information can be
+found at [BlackBoxOptim.jl options](https://github.com/robertfeldt/BlackBoxOptim.jl#configurable-options):
 
     opt_options[:method]
     opt_options[:max_iterations]
@@ -83,29 +89,33 @@ found here:
     opt_options[:trace_mode])
 
 A typical set of `function` and `opt_options` to run a 5 minute calibration
-using the GR4J model in transformed paramter space with the Nash Sutcliffe
-objective function could be:
+using the GR4J model in transformed paramter space with the Nash
+Sutcliffe Efficiency objective function could be:
 
-    # build up dictionary of model functions needed for calibration
-    functions = Dict()
-    functions[:run_model_time_step] = gr4j_run_step
-    functions[:init_state] = gr4j_init_state
-    functions[:params_from_array] = gr4j_params_from_array
-    functions[:objective_function] = (obs, sim) -> -1 * nse(obs, sim)
-    functions[:params_inverse_transform] = gr4j_params_trans_inv
-    functions[:params_range_transform] = gr4j_params_range_trans
-    functions[:params_range_to_tuples] = gr4j_params_range_to_tuples
-    functions[:params_range] = gr4j_params_range
+```@example
+# build up dictionary of model functions needed for calibration
+functions = Dict()
+functions[:run_model_time_step] = gr4j_run_step
+functions[:init_state] = gr4j_init_state
+functions[:params_from_array] = gr4j_params_from_array
+functions[:objective_function] = (obs, sim) -> -1 * nse(obs, sim)
+functions[:params_inverse_transform] = gr4j_params_trans_inv
+functions[:params_range_transform] = gr4j_params_range_trans
+functions[:params_range_to_tuples] = gr4j_params_range_to_tuples
+functions[:params_range] = gr4j_params_range
 
-    # build up dictionary of optimiser options needed for calibration
-    opt_options = Dict()
-    opt_options[:max_iterations] = false
-    opt_options[:max_time] = 5 * 60
-    opt_options[:trace_interval] = 15
-    opt_options[:trace_mode] = :verbose
-    opt_options[:method] = :adaptive_de_rand_1_bin_radiuslimited
+# build up dictionary of optimiser options needed for calibration
+opt_options = Dict()
+opt_options[:max_iterations] = false
+opt_options[:max_time] = 5 * 60
+opt_options[:trace_interval] = 15
+opt_options[:trace_mode] = :verbose
+opt_options[:method] = :adaptive_de_rand_1_bin_radiuslimited
 
-Will error if the `rain`, `pet` and `runoff` arrays are different lengths.
+# calibrate the model
+opt_pars, opt_neg_nse = calibrate(data[:rain], data[:pet], data[:runoff_obs], functions, opt_options)
+opt_nse = -1 * opt_neg_nse
+```
 
 See also: [`simulate(timestep_fnc, rain, pet, pars, init_state)`](@ref)
 """
