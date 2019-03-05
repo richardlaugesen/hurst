@@ -21,6 +21,16 @@ using Plots
 
 export hydrograph
 
+"""
+    hydrograph(rain, runoffs, runoff_labels)
+
+Generates a simple combined hydrograph and hyetograph figure.
+
+Multiple traces of runoff may be plotted by passing an array of arrays for
+`runoff` and associated `runoff_labels`.
+
+Datetime tick marks are not plotted, only timesteps.
+"""
 function hydrograph(rain, runoffs, runoff_labels)
     p1 = plot(
             rain,

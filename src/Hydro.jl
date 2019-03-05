@@ -25,6 +25,6 @@ include("ostp.jl")
 include("gr4j.jl")
 include("simulate.jl")
 include("calibrate.jl")
-include("visualisation.jl")
+include("visualisations.jl")
 
 end

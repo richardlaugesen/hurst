@@ -22,6 +22,13 @@ Modules = [Hydro.Calibration]
 Order   = [:function, :type]
 ```
 
+## Hydro.Visualisations
+
+```@autodocs
+Modules = [Hydro.Visualisations]
+Order   = [:function, :type]
+```
+
 ## Hydro.Units
 
 ```@autodocs
