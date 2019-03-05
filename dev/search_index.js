@@ -57,6 +57,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "#Hydro.Visualisations.hydrograph-Tuple{Any,Any,Any}",
+    "page": "Hydro.jl Documentation",
+    "title": "Hydro.Visualisations.hydrograph",
+    "category": "method",
+    "text": "hydrograph(rain, runoffs, runoff_labels)\n\nGenerates a simple combined hydrograph and hyetograph figure.\n\nMultiple traces of runoff may be plotted by passing an array of arrays for runoff and associated runoff_labels.\n\nDatetime tick marks are not plotted, only timesteps.\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hydro.Visualisations-1",
+    "page": "Hydro.jl Documentation",
+    "title": "Hydro.Visualisations",
+    "category": "section",
+    "text": "Modules = [Hydro.Visualisations]\nOrder   = [:function, :type]"
+},
+
+{
     "location": "#Hydro.Units.acres_to_km2-Tuple{Any}",
     "page": "Hydro.jl Documentation",
     "title": "Hydro.Units.acres_to_km2",
