@@ -4,7 +4,6 @@ os:
   - osx
 julia:
   - 1.1
-  - nightly
 codecov: true
 
 # Before anything else, get the latest versions of things
