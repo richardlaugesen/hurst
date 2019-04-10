@@ -1,10 +1,10 @@
 push!(LOAD_PATH,"../src/")
 
 using Documenter
-using Hydro
+using Hurst
 
-makedocs(sitename="Hydro.jl")
+makedocs(sitename="Hurst")
 
 deploydocs(
-    repo = "github.com/tinyrock/hydro.jl.git",
+    repo = "github.com/tinyrock/hurst.git",
 )

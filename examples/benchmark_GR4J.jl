@@ -1,6 +1,6 @@
-using Hydro
-using Hydro.GR4J
-using Hydro.Simulation
+using Hurst
+using Hurst.GR4J
+using Hurst.Simulation
 
 using CSV
 using DataFrames

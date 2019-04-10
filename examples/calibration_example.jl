@@ -1,10 +1,10 @@
-using Hydro
-using Hydro.Calibration
-using Hydro.Simulation
-using Hydro.GR4J
-using Hydro.OSTP
-using Hydro.Verification
-using Hydro.Visualisations
+using Hurst
+using Hurst.Calibration
+using Hurst.Simulation
+using Hurst.GR4J
+using Hurst.OSTP
+using Hurst.Verification
+using Hurst.Visualisations
 
 using CSV
 using DataFrames
@@ -22,7 +22,7 @@ println("Period of record is $len years")
 # rename the columns
 names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]));
 
-# Create a dictionary of data from the dataframe - standard data structure through Hydro
+# Create a dictionary of data from the dataframe - standard data structure through Hurst
 data = Dict()
 data[:rain] = df[:obs_rain]
 data[:pet] = df[:obs_pet]
@@ -101,7 +101,7 @@ sim = simulate(ostp_run_step, data[:rain], data[:pet], opt_pars, init_state);
 data[:runoff_sim] = sim;
 
 # -----------------------------------------------------------------------------
-println("Plotting hydrograph...")
+println("Plotting Hurstgraph...")
 
 function plotter(s, e)
     obs = data[:runoff_obs][s:e]
@@ -114,7 +114,7 @@ function plotter(s, e)
     nse_gr4j = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim_gr4j]))
     nse_ostp = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim]))
 
-    hydrograph(rain, [obs, test, gr4j, ostp],
+    Hurstgraph(rain, [obs, test, gr4j, ostp],
         ["Observations",
         "Test Simulation ($nse_test)",
         "GR4J Simulation ($nse_gr4j)",

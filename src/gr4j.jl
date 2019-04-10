@@ -1,19 +1,19 @@
 # Copyright 2018-2019 Richard Laugesen
 #
-# This file is part of Hydro.jl
+# This file is part of Hurst
 #
-# Hydro.jl is free software: you can redistribute it and/or modify
+# Hurst is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# Hydro.jl is distributed in the hope that it will be useful,
+# Hurst is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
-# along with Hydro.jl.  If not, see <https://www.gnu.org/licenses/>.
+# along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
 # -------------------------------------------------
 # parameters and ranges
@@ -21,8 +21,8 @@
 
 module GR4J
 
-using Hydro.Utils
-using Hydro.Transformations
+using Hurst.Utils
+using Hurst.Transformations
 
 export gr4j_run_step, gr4j_init_state
 export gr4j_params_from_array, gr4j_params_to_array
@@ -139,7 +139,7 @@ function gr4j_init_state(pars)
 end
 
 # -------------------------------------------------
-# unit hydrographs
+# unit Hurstgraphs
 # -------------------------------------------------
 
 function s_curve(variant, scale, x)
@@ -220,7 +220,7 @@ function gr4j_run_step(rain, pet, state, pars)
     v1 -= perc
     pr += perc
 
-    # Convolution of unit hydrographs
+    # Convolution of unit Hurstgraphs
     uh1 = update_uh(uh1, pr, ord1)
     uh2 = update_uh(uh2, pr, ord2)
 

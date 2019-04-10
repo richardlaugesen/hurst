@@ -1,4 +1,4 @@
-# Hydro.jl Documentation
+# Hurst Documentation
 
 ```@contents
 ```
@@ -8,37 +8,37 @@
 ```@index
 ```
 
-## Hydro.Simulation
+## Hurst.Simulation
 
 ```@autodocs
-Modules = [Hydro.Simulation]
+Modules = [Hurst.Simulation]
 Order   = [:function, :type]
 ```
 
-## Hydro.Calibration
+## Hurst.Calibration
 
 ```@autodocs
-Modules = [Hydro.Calibration]
+Modules = [Hurst.Calibration]
 Order   = [:function, :type]
 ```
 
-## Hydro.Visualisations
+## Hurst.Visualisations
 
 ```@autodocs
-Modules = [Hydro.Visualisations]
+Modules = [Hurst.Visualisations]
 Order   = [:function, :type]
 ```
 
-## Hydro.Units
+## Hurst.Units
 
 ```@autodocs
-Modules = [Hydro.Units]
+Modules = [Hurst.Units]
 Order   = [:function, :type]
 ```
 
-## Hydro.Verification
+## Hurst.Verification
 
 ```@autodocs
-Modules = [Hydro.Verification]
+Modules = [Hurst.Verification]
 Order   = [:function, :type]
 ```

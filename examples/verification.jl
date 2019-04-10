@@ -1,5 +1,5 @@
-using Hydro
-using Hydro.Verification
+using Hurst
+using Hurst.Verification
 
 using CSV
 using DataFrames

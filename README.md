@@ -1,11 +1,11 @@
-# Hydro.jl
+# Hurst
 
-[![Build Status](https://travis-ci.org/tinyrock/hydro.jl.svg?branch=master)](https://travis-ci.org/tinyrock/hydro.jl)
-[![codecov](https://codecov.io/gh/tinyrock/hydro.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/tinyrock/hydro.jl)
+[![Build Status](https://travis-ci.org/tinyrock/hurst.svg?branch=master)](https://travis-ci.org/tinyrock/hurst)
+[![codecov](https://codecov.io/gh/tinyrock/hurst/branch/master/graph/badge.svg)](https://codecov.io/gh/tinyrock/hurst)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://tinyrock.github.io/hydro.jl/dev)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://tinyrock.github.io/hurst/dev)
 
-Library for modelling and analysis in Hydrology.
+Library for modelling and analysis in Hurstlogy.
 
 Open Science infrastructure written in [Julia](https://julialang.org/). Not ready for general use.
 
@@ -13,12 +13,12 @@ Open Science infrastructure written in [Julia](https://julialang.org/). Not read
 
 Copyright 2018-2019 Richard Laugesen
 
-Hydro.jl is free software: you can redistribute it and/or modify
+Hurst is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Hydro.jl is distributed in the hope that it will be useful,
+Hurst is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
