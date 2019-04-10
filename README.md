@@ -5,9 +5,9 @@
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://tinyrock.github.io/hurst/dev)
 
-Library for modelling and analysis in Hurstlogy.
+Library for modelling and analysis in Hydrology.
 
-Open Science infrastructure written in [Julia](https://julialang.org/). Not ready for general use.
+Open Science infrastructure written in [Julia](https://julialang.org/). Under ongoing development and not ready for general use.
 
 ## Copyright and licence
 
