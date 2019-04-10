@@ -101,7 +101,7 @@ sim = simulate(ostp_run_step, data[:rain], data[:pet], opt_pars, init_state);
 data[:runoff_sim] = sim;
 
 # -----------------------------------------------------------------------------
-println("Plotting Hurstgraph...")
+println("Plotting Hydrograph...")
 
 function plotter(s, e)
     obs = data[:runoff_obs][s:e]
@@ -114,7 +114,7 @@ function plotter(s, e)
     nse_gr4j = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim_gr4j]))
     nse_ostp = @sprintf("%.2f", nse(data[:runoff_obs], data[:runoff_sim]))
 
-    Hurstgraph(rain, [obs, test, gr4j, ostp],
+    Hydrograph(rain, [obs, test, gr4j, ostp],
         ["Observations",
         "Test Simulation ($nse_test)",
         "GR4J Simulation ($nse_gr4j)",

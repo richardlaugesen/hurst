@@ -139,7 +139,7 @@ function gr4j_init_state(pars)
 end
 
 # -------------------------------------------------
-# unit Hurstgraphs
+# unit Hydrographs
 # -------------------------------------------------
 
 function s_curve(variant, scale, x)
@@ -220,7 +220,7 @@ function gr4j_run_step(rain, pet, state, pars)
     v1 -= perc
     pr += perc
 
-    # Convolution of unit Hurstgraphs
+    # Convolution of unit Hydrographs
     uh1 = update_uh(uh1, pr, ord1)
     uh2 = update_uh(uh2, pr, ord2)
 
