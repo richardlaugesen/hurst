@@ -57,11 +57,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#Hurst.Visualisations.Hurstgraph-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Visualisations.Hydrograph-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Visualisations.Hurstgraph",
+    "title": "Hurst.Visualisations.Hydrograph",
     "category": "method",
-    "text": "Hurstgraph(rain, runoffs, runoff_labels)\n\nGenerates a simple combined Hurstgraph and hyetograph figure.\n\nMultiple traces of runoff may be plotted by passing an array of arrays for runoff and associated runoff_labels.\n\nDatetime tick marks are not plotted, only timesteps.\n\n\n\n\n\n"
+    "text": "Hydrograph(rain, runoffs, runoff_labels)\n\nGenerates a simple combined Hydrograph and hyetograph figure.\n\nMultiple traces of runoff may be plotted by passing an array of arrays for runoff and associated runoff_labels.\n\nDatetime tick marks are not plotted, only timesteps.\n\n\n\n\n\n"
 },
 
 {
