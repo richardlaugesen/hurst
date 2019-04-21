@@ -57,11 +57,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#Hurst.Visualisations.Hydrograph-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Visualisations.hydrograph-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Visualisations.Hydrograph",
+    "title": "Hurst.Visualisations.hydrograph",
     "category": "method",
-    "text": "Hydrograph(rain, runoffs, runoff_labels)\n\nGenerates a simple combined Hydrograph and hyetograph figure.\n\nMultiple traces of runoff may be plotted by passing an array of arrays for runoff and associated runoff_labels.\n\nDatetime tick marks are not plotted, only timesteps.\n\n\n\n\n\n"
+    "text": "hydrograph(rain, runoffs, runoff_labels)\n\nGenerates a simple combined hydrograph and hyetograph figure.\n\nMultiple traces of runoff may be plotted by passing an array of arrays for runoff and associated runoff_labels.\n\nDatetime tick marks are not plotted, only timesteps.\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Visualisations.hyscatter-NTuple{5,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Visualisations.hyscatter",
+    "category": "method",
+    "text": "hyscatter(obs, sim, labels)\n\nGenerates a simple scatter plot of a simulation series against an observation series.\n\nInclude a plot title, series label, and measurement units for the axis.\n\n\n\n\n\n"
 },
 
 {
