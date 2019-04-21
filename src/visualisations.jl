@@ -19,19 +19,19 @@ module Visualisations
 
 using Plots
 
-export Hydrograph
+export hydrograph, hyscatter
 
 """
-    Hydrograph(rain, runoffs, runoff_labels)
+    hydrograph(rain, runoffs, runoff_labels)
 
-Generates a simple combined Hydrograph and hyetograph figure.
+Generates a simple combined hydrograph and hyetograph figure.
 
 Multiple traces of runoff may be plotted by passing an array of arrays for
 `runoff` and associated `runoff_labels`.
 
 Datetime tick marks are not plotted, only timesteps.
 """
-function Hydrograph(rain, runoffs, runoff_labels)
+function hydrograph(rain, runoffs, runoff_labels)
     p1 = plot(
             rain,
             seriestype=:bar,
@@ -51,6 +51,30 @@ function Hydrograph(rain, runoffs, runoff_labels)
     plot(
         p1, p2,
         layout=grid(2, 1, heights=[0.3, 0.7]),
+        size=(900, 700))
+end
+
+"""
+    hyscatter(obs, sim, labels)
+
+Generates a simple scatter plot of a simulation series
+against an observation series.
+
+Include a plot `title`, series `label`, and measurement `units` for the axis.
+"""
+function hyscatter(obs, sim, title, label, units)
+
+    limit = max(maximum(obs), maximum(sim)) * 1.1
+
+    scatter(obs, sim,
+        alpha=0.6,
+        markersize=1,
+        xlim=(0, limit),
+        ylim=(0, limit),
+        title=title,
+        label=label,
+        xlabel="Observations ($units)", ylabel="Simulation ($units)",
+        grid=true,
         size=(900, 700))
 end
 
