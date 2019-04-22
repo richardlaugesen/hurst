@@ -69,7 +69,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Hurst Documentation",
     "title": "Hurst.Visualisations.hyscatter",
     "category": "method",
-    "text": "hyscatter(obs, sim, labels)\n\nGenerates a simple scatter plot of a simulation series against an observation series.\n\nInclude a plot title, series label, and measurement units for the axis.\n\n\n\n\n\n"
+    "text": "hyscatter(obs, sim, sim_labels)\n\nGenerates a simple scatter plot of simulation series sims against an observation series obs.\n\nMultiple scatters may be plotted by passing an array of arrays for sims and associated sim_labels.\n\nInclude a plot title, series sim_labels, and measurement units for the axis.\n\n\n\n\n\n"
 },
 
 {
