@@ -55,24 +55,27 @@ function hydrograph(rain, runoffs, runoff_labels)
 end
 
 """
-    hyscatter(obs, sim, labels)
+    hyscatter(obs, sim, sim_labels)
 
-Generates a simple scatter plot of a simulation series
-against an observation series.
+Generates a simple scatter plot of simulation series `sims`
+against an observation series `obs`.
 
-Include a plot `title`, series `label`, and measurement `units` for the axis.
+Multiple scatters may be plotted by passing an array of arrays for
+`sims` and associated `sim_labels`.
+
+Include a plot `title`, series `sim_labels`, and measurement `units` for the axis.
 """
-function hyscatter(obs, sim, title, label, units)
+function hyscatter(obs, sims, sim_labels, units, title)
 
-    limit = max(maximum(obs), maximum(sim)) * 1.1
+    limit = max(maximum(obs), maximum(Iterators.flatten(sims))) * 1.1
 
-    scatter(obs, sim,
+    scatter(obs, sims,
         alpha=0.6,
         markersize=1,
         xlim=(0, limit),
         ylim=(0, limit),
         title=title,
-        label=label,
+        label=sim_labels,
         xlabel="Observations ($units)", ylabel="Simulation ($units)",
         grid=true,
         size=(900, 700))

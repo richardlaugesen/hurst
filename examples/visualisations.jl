@@ -34,6 +34,11 @@ rain = data[:rain][s:e]
 # -----------------------------------------------------------------------------
 println("Plots...")
 
-hydrograph(rain, [obs, test], ["Observations", "GR4J"])
+hydrograph(rain, [obs, test, log.(test)], ["Observations", "GR4J", "log(GR4J)"])
+#savefig("hydrograph.png")
 
-hyscatter(obs, test, "Runoff simulation compared to observations", "GR4J", "mm")
+hyscatter(obs, test, "GR4J", "mm", "Runoff simulation compared to observations")
+#savefig("scatter-1.png")
+
+hyscatter(obs, [test, log.(test)], ["GR4J", "log(GR4J)"], "mm", "Runoff simulation compared to observations")
+#savefig("scatter-2.png")
