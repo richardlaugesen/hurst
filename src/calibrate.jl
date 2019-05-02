@@ -92,30 +92,28 @@ A typical set of `function` and `opt_options` to run a 5 minute calibration
 using the GR4J model in transformed paramter space with the Nash
 Sutcliffe Efficiency objective function could be:
 
-```@example
-# build up dictionary of model functions needed for calibration
-functions = Dict()
-functions[:run_model_time_step] = gr4j_run_step
-functions[:init_state] = gr4j_init_state
-functions[:params_from_array] = gr4j_params_from_array
-functions[:objective_function] = (obs, sim) -> -1 * nse(obs, sim)
-functions[:params_inverse_transform] = gr4j_params_trans_inv
-functions[:params_range_transform] = gr4j_params_range_trans
-functions[:params_range_to_tuples] = gr4j_params_range_to_tuples
-functions[:params_range] = gr4j_params_range
+    # build up dictionary of model functions needed for calibration
+    functions = Dict()
+    functions[:run_model_time_step] = gr4j_run_step
+    functions[:init_state] = gr4j_init_state
+    functions[:params_from_array] = gr4j_params_from_array
+    functions[:objective_function] = (obs, sim) -> -1 * nse(obs, sim)
+    functions[:params_inverse_transform] = gr4j_params_trans_inv
+    functions[:params_range_transform] = gr4j_params_range_trans
+    functions[:params_range_to_tuples] = gr4j_params_range_to_tuples
+    functions[:params_range] = gr4j_params_range
 
-# build up dictionary of optimiser options needed for calibration
-opt_options = Dict()
-opt_options[:max_iterations] = false
-opt_options[:max_time] = 5 * 60
-opt_options[:trace_interval] = 15
-opt_options[:trace_mode] = :verbose
-opt_options[:method] = :adaptive_de_rand_1_bin_radiuslimited
+    # build up dictionary of optimiser options needed for calibration
+    opt_options = Dict()
+    opt_options[:max_iterations] = false
+    opt_options[:max_time] = 5 * 60
+    opt_options[:trace_interval] = 15
+    opt_options[:trace_mode] = :verbose
+    opt_options[:method] = :adaptive_de_rand_1_bin_radiuslimited
 
-# calibrate the model
-opt_pars, opt_neg_nse = calibrate(data[:rain], data[:pet], data[:runoff_obs], functions, opt_options)
-opt_nse = -1 * opt_neg_nse
-```
+    # calibrate the model
+    opt_pars, opt_neg_nse = calibrate(data[:rain], data[:pet], data[:runoff_obs], functions, opt_options)
+    opt_nse = -1 * opt_neg_nse
 
 See also: [`simulate(timestep_fnc, rain, pet, pars, init_state)`](@ref)
 """
