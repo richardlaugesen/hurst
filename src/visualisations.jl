@@ -71,7 +71,7 @@ function hyscatter(obs, sims, sim_labels, units, title)
 
     scatter(obs, sims,
         alpha=0.6,
-        markersize=1,
+        markersize=2,
         xlim=(0, limit),
         ylim=(0, limit),
         title=title,

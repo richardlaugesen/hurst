@@ -1,9 +1,27 @@
+# Copyright 2018-2019 Richard Laugesen
+#
+# This file is part of Hurst
+#
+# Hurst is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Hurst is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
+
 using Hurst
 using Hurst.Visualisations
 
 using CSV
 using DataFrames
 using Printf: @sprintf
+using Plots
 
 # -----------------------------------------------------------------------------
 println("Loading data...")
@@ -35,10 +53,10 @@ rain = data[:rain][s:e]
 println("Plots...")
 
 hydrograph(rain, [obs, test, log.(test)], ["Observations", "GR4J", "log(GR4J)"])
-#savefig("hydrograph.png")
+savefig("hydrograph.png")
 
 hyscatter(obs, test, "GR4J", "mm", "Runoff simulation compared to observations")
-#savefig("scatter-1.png")
+savefig("scatter-1.png")
 
 hyscatter(obs, [test, log.(test)], ["GR4J", "log(GR4J)"], "mm", "Runoff simulation compared to observations")
-#savefig("scatter-2.png")
+savefig("scatter-2.png")
