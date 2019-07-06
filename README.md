@@ -4,10 +4,13 @@
 [![codecov](https://codecov.io/gh/tinyrock/hurst/branch/master/graph/badge.svg)](https://codecov.io/gh/tinyrock/hurst)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://tinyrock.github.io/hurst/dev)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 Library for modelling and analysis in Hydrology.
 
 Open Science infrastructure written in [Julia](https://julialang.org/). Under ongoing development and not ready for general use.
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 ## Copyright and licence
 
@@ -23,4 +26,4 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-See COPYING.LESSER and COPYING
+See [COPYING](COPYING) and [COPYING.LESSER](COPYING.LESSER)
