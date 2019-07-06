@@ -25,7 +25,7 @@ for (lead_time, confusion_mtx) in perf
     rev[lead_time] = map(r -> cost_loss_rev(r, 1, confusion_mtx), rev[:cl_ratio])
 end
 
-# get sorted list of columns without the cost-loss ratios
+# sorted list of columns without the cost-loss ratios
 col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
 
 # plot the rev curve for each forecast lead time
