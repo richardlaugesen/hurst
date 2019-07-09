@@ -11,12 +11,12 @@ using StatsPlots
 
 # confusion matricies from table 3, Verkade 2011
 perf = Dict()
-perf[:lead_1] = confusion(10, 2, 0, 15860)
-perf[:lead_2] = confusion(10, 4, 2, 15856)
-perf[:lead_3] = confusion(6, 9, 2, 15855)
-perf[:lead_4] = confusion(7, 7, 2, 15856)
-perf[:lead_5] = confusion(8, 6, 2, 15856)
-perf[:lead_6] = confusion(6, 9, 3, 15854)
+perf[:lead_1] = confusion_scaled(10, 2, 0, 15860)
+perf[:lead_2] = confusion_scaled(10, 4, 2, 15856)
+perf[:lead_3] = confusion_scaled(6, 9, 2, 15855)
+perf[:lead_4] = confusion_scaled(7, 7, 2, 15856)
+perf[:lead_5] = confusion_scaled(8, 6, 2, 15856)
+perf[:lead_6] = confusion_scaled(6, 9, 3, 15854)
 
 # calculate the relative economic value over cost-loss ratios for each lead time
 rev = DataFrame()

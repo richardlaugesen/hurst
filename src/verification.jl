@@ -21,7 +21,8 @@ using Hurst.Utils
 
 using Statistics
 
-export coeff_det, nse, mae, mse, rmse, kge, persistence, confusion, cost_loss_rev
+export coeff_det, nse, mae, mse, rmse, kge, persistence
+export confusion, confusion_scaled, cost_loss_rev
 
 """
     nse(obs, sim)
@@ -136,6 +137,8 @@ Returns a Dict containing fields of a confusion matrix with the various common
 names used for each combination of the 2x2 grid.
 
 https://en.wikipedia.org/wiki/Confusion_matrix
+
+See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
 """
 function confusion(hits, misses, false_alarms, quiets)
     Dict(
@@ -159,20 +162,39 @@ function confusion(hits, misses, false_alarms, quiets)
 end
 
 """
-    cost_loss_rev(costs, losses, confusion_matrix)
+    confusion_scaled(hits, misses, false_alarms, quiets)
+
+Returns a Dict containing fields of a confusion matrix with the various common
+names used for each combination of the 2x2 grid scaled to be relative to the
+number of events and non-events (hits + misses + false_alarms + quiets).
+
+https://en.wikipedia.org/wiki/Confusion_matrix
+
+See also: [`confusion(hits, misses, false_alarms, quiets)`](@ref)
+"""
+function confusion_scaled(hits, misses, false_alarms, quiets)
+    total = hits + misses + false_alarms + quiets
+    return confusion(hits/total, misses/total, false_alarms/total, quiets/total)
+end
+
+"""
+    cost_loss_rev(costs, losses, scaled_conf)
 
 Returns the relative economic value of a forecast system using a
-the cost-loss model.
+the cost-loss model using the cost-loss ratio (`costs`, `losses`) and confusion
+matrix scaled by the total events and non-events `scaled_conf`.
 
 Verkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value
 and Probability Forecasting for Flood Warning.” Hydrology and Earth System
 Sciences 15, no. 12 (December 20, 2011): 3751–65.
 https://doi.org/10.5194/hess-15-3751-2011.
+
+See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
 """
-function cost_loss_rev(costs, losses, confusion_matrix)
-    h = confusion_matrix[:hits]
-    m = confusion_matrix[:misses]
-    f = confusion_matrix[:false_alarms]
+function cost_loss_rev(costs, losses, scaled_conf)
+    h = scaled_conf[:hits]
+    m = scaled_conf[:misses]
+    f = scaled_conf[:false_alarms]
 
     r = costs / losses  # cost-loss ratio
     o = h + m           # observed relative frequency
