@@ -165,7 +165,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Hurst Documentation",
     "title": "Hurst.Verification.confusion",
     "category": "method",
-    "text": "confusion(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid.\n\nhttps://en.wikipedia.org/wiki/Confusion_matrix\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+    "text": "confusion(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
 },
 
 {
@@ -173,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Hurst Documentation",
     "title": "Hurst.Verification.confusion_scaled",
     "category": "method",
-    "text": "confusion_scaled(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid scaled to be relative to the number of events and non-events (hits + misses + false_alarms + quiets).\n\nhttps://en.wikipedia.org/wiki/Confusion_matrix\n\nSee also: confusion(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+    "text": "confusion_scaled(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid scaled to be relative to the number of events and non-events (hits + misses + false_alarms + quiets).\n\nSee also: confusion(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
 },
 
 {
