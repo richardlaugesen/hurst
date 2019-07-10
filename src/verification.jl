@@ -22,6 +22,7 @@ using Hurst.Utils
 using Statistics
 
 export coeff_det, nse, mae, mse, rmse, kge, persistence
+export confusion, confusion_scaled, cost_loss_rev
 
 """
     nse(obs, sim)
@@ -128,5 +129,79 @@ Skips missing values from either series.
 See also: [`kge(o, s, components)`](@ref)
 """
 kge(o, s) = kge(o, s, false)
+
+"""
+    confusion(hits, misses, false_alarms, quiets)
+
+Returns a Dict containing fields of a confusion matrix with the various common
+names used for each combination of the 2x2 grid.
+
+https://en.wikipedia.org/wiki/Confusion_matrix
+
+See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
+"""
+function confusion(hits, misses, false_alarms, quiets)
+    Dict(
+        :hits => hits,
+        :true_positives => hits,
+
+        :misses => misses,
+        :false_negatives => misses,
+        :type_ii_error => misses,
+        :missed_events => misses,
+
+        :false_alarms => false_alarms,
+        :false_positive => false_alarms,
+        :type_i_error => false_alarms,
+
+        :correct_misses => quiets,
+        :true_negatives => quiets,
+        :quiets => quiets,
+        :correct_negatives => quiets
+    )
+end
+
+"""
+    confusion_scaled(hits, misses, false_alarms, quiets)
+
+Returns a Dict containing fields of a confusion matrix with the various common
+names used for each combination of the 2x2 grid scaled to be relative to the
+number of events and non-events (hits + misses + false_alarms + quiets).
+
+https://en.wikipedia.org/wiki/Confusion_matrix
+
+See also: [`confusion(hits, misses, false_alarms, quiets)`](@ref)
+"""
+function confusion_scaled(hits, misses, false_alarms, quiets)
+    total = hits + misses + false_alarms + quiets
+    return confusion(hits/total, misses/total, false_alarms/total, quiets/total)
+end
+
+"""
+    cost_loss_rev(costs, losses, scaled_conf)
+
+Returns the relative economic value of a forecast system using a
+the cost-loss model using the cost-loss ratio (`costs`, `losses`) and confusion
+matrix scaled by the total events and non-events `scaled_conf`.
+
+Verkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value
+and Probability Forecasting for Flood Warning.” Hydrology and Earth System
+Sciences 15, no. 12 (December 20, 2011): 3751–65.
+https://doi.org/10.5194/hess-15-3751-2011.
+
+See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
+"""
+function cost_loss_rev(costs, losses, scaled_conf)
+    h = scaled_conf[:hits]
+    m = scaled_conf[:misses]
+    f = scaled_conf[:false_alarms]
+
+    r = costs / losses  # cost-loss ratio
+    o = h + m           # observed relative frequency
+
+    rev = (o - (h + f) * r - m) / (o * (1 - r))
+
+    return rev
+end
 
 end
