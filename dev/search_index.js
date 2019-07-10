@@ -161,6 +161,30 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "#Hurst.Verification.confusion-NTuple{4,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Verification.confusion",
+    "category": "method",
+    "text": "confusion(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid.\n\nhttps://en.wikipedia.org/wiki/Confusion_matrix\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Verification.confusion_scaled-NTuple{4,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Verification.confusion_scaled",
+    "category": "method",
+    "text": "confusion_scaled(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid scaled to be relative to the number of events and non-events (hits + misses + false_alarms + quiets).\n\nhttps://en.wikipedia.org/wiki/Confusion_matrix\n\nSee also: confusion(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Verification.cost_loss_rev-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Verification.cost_loss_rev",
+    "category": "method",
+    "text": "cost_loss_rev(costs, losses, scaled_conf)\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nVerkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value and Probability Forecasting for Flood Warning.” Hydrology and Earth System Sciences 15, no. 12 (December 20, 2011): 3751–65. https://doi.org/10.5194/hess-15-3751-2011.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+},
+
+{
     "location": "#Hurst.Verification.kge-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
     "title": "Hurst.Verification.kge",
