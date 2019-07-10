@@ -133,10 +133,9 @@ kge(o, s) = kge(o, s, false)
 """
     confusion(hits, misses, false_alarms, quiets)
 
-Returns a Dict containing fields of a confusion matrix with the various common
-names used for each combination of the 2x2 grid.
-
-https://en.wikipedia.org/wiki/Confusion_matrix
+Returns a Dict containing fields of a
+[confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) with the
+various common names used for each combination of the 2x2 grid.
 
 See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
 """
@@ -164,11 +163,11 @@ end
 """
     confusion_scaled(hits, misses, false_alarms, quiets)
 
-Returns a Dict containing fields of a confusion matrix with the various common
-names used for each combination of the 2x2 grid scaled to be relative to the
-number of events and non-events (hits + misses + false_alarms + quiets).
-
-https://en.wikipedia.org/wiki/Confusion_matrix
+Returns a Dict containing fields of a
+[confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) with the
+various common names used for each combination of the 2x2 grid scaled to be
+relative to the number of events and non-events
+(hits + misses + false_alarms + quiets).
 
 See also: [`confusion(hits, misses, false_alarms, quiets)`](@ref)
 """
@@ -187,7 +186,7 @@ matrix scaled by the total events and non-events `scaled_conf`.
 Verkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value
 and Probability Forecasting for Flood Warning.” Hydrology and Earth System
 Sciences 15, no. 12 (December 20, 2011): 3751–65.
-https://doi.org/10.5194/hess-15-3751-2011.
+[https://doi.org/10.5194/hess-15-3751-2011](https://doi.org/10.5194/hess-15-3751-2011).
 
 See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
 """
