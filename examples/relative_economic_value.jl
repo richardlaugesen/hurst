@@ -22,7 +22,7 @@ perf[:lead_6] = confusion_scaled(6, 9, 3, 15854)
 rev = DataFrame()
 rev[:cl_ratio] = 0:0.01:1.0
 for (lead_time, confusion_mtx) in perf
-    rev[lead_time] = map(r -> cost_loss_rev(r, 1, confusion_mtx), rev[:cl_ratio])
+    rev[lead_time] = map(r -> cost_loss(r, 1, confusion_mtx), rev[:cl_ratio])
 end
 
 # sorted list of columns without the cost-loss ratios

@@ -183,47 +183,51 @@ y = rand(100)
     end
 
     @testset "Cost-Loss" begin
+
+        # Roulin fails when h+m=0|1
         @testset "Basic behaviour" begin
-            @test isequal(cost_loss_rev(0.5, 1.0, confusion_scaled(0, 0, 0, 0)), NaN)
-            @test cost_loss_rev(0.5, 1.0, confusion_scaled(1, 0, 0, 0)) == 1
-            @test cost_loss_rev(0.5, 1.0, confusion_scaled(1, 0, 1, 0)) == 0
-            @test cost_loss_rev(0.5, 1.0, confusion_scaled(0, 0, 1, 0)) == -Inf
-            @test cost_loss_rev(0.5, 1.0, confusion_scaled(1, 0, 2, 0)) ≈ -1
+            @test isequal(cost_loss(0.5, 1.0, confusion_scaled(0, 0, 0, 0)), NaN)
+            @test cost_loss(0.5, 1.0, confusion_scaled(1, 0, 0, 1)) == 1
+            @test cost_loss(0.5, 1.0, confusion_scaled(1, 0, 1, 1)) == 0
+            @test cost_loss(0.5, 1.0, confusion_scaled(0, 0, 1, 1)) == -Inf
+            @test cost_loss(0.5, 1.0, confusion_scaled(1, 0, 2, 1)) ≈ -1
 
             conf_scaled = confusion_scaled(10, 2, 2, 15860)
-            @test cost_loss_rev(0.3, 1.0, conf_scaled) > cost_loss_rev(0.8, 1.0, conf_scaled)
+            @test cost_loss(0.3, 1.0, conf_scaled) > cost_loss(0.8, 1.0, conf_scaled)
         end
 
+        # Roulin fails when q=0 V~0
         @testset "quiets irrelevant q=$q (scaled range testset)" for q in 0:10
-            @test cost_loss_rev(0.5, 1.0, confusion_scaled(2, 0, 1, q)) ≈ 0.5
+            @test cost_loss(0.5, 1.0, confusion_scaled(2, 0, 1, q)) ≈ 0.5
         end
 
+        # Roulin fails
         @testset "Scaled confusion matrix equivilant to non-scaled" begin
             conf_scaled = confusion_scaled(10, 2, 2, 15860)
             conf = confusion(10, 2, 2, 15860)
             @testset "CL ratio r=$r (scaled range test)" for r in 0:0.2:1
-                @test cost_loss_rev(r, 1.0, conf) ≈ cost_loss_rev(r, 1.0, conf_scaled)
+                @test cost_loss(r, 1.0, conf) ≈ cost_loss(r, 1.0, conf_scaled)
             end
         end
 
         @testset "Real example" begin
             conf_scaled = confusion_scaled(10, 2, 2, 15860)
-            @test isapprox(cost_loss_rev(0.2, 1.0, conf_scaled), 0.7917, atol=10e-4)
-            @test isapprox(cost_loss_rev(0.7, 1.0, conf_scaled), 0.4444, atol=10e-4)
+            @test isapprox(cost_loss(0.2, 1.0, conf_scaled), 0.7917, atol=10e-4)
+            @test isapprox(cost_loss(0.7, 1.0, conf_scaled), 0.4444, atol=10e-4)
         end
 
         @testset "False alarms" begin
             no_false_alarms = confusion_scaled(10, 2, 0, 15860)
-            @test cost_loss_rev(0.1, 1.0, no_false_alarms) ≈ cost_loss_rev(0.9, 1.0, no_false_alarms)
+            @test cost_loss(0.1, 1.0, no_false_alarms) ≈ cost_loss(0.9, 1.0, no_false_alarms)
 
             with_false_alarms = confusion_scaled(10, 2, 5, 15860)
-            @test cost_loss_rev(0.1, 1.0, with_false_alarms) != cost_loss_rev(0.9, 1.0, with_false_alarms)
+            @test cost_loss(0.1, 1.0, with_false_alarms) != cost_loss(0.9, 1.0, with_false_alarms)
         end
 
         @testset "Random confusions and CL ratios is -Inf ≤ V ≤ 1" begin
             correct_range = true
             for i in 1:1000
-                if cost_loss_rev(rand(), 1.0, confusion_scaled(rand(), rand(), rand(), rand())) > 1
+                if cost_loss(rand(), 1.0, confusion_scaled(rand(), rand(), rand(), rand())) > 1
                     correct_range = false
                 end
             end

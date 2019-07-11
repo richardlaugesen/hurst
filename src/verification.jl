@@ -22,7 +22,8 @@ using Hurst.Utils
 using Statistics
 
 export coeff_det, nse, mae, mse, rmse, kge, persistence
-export confusion, confusion_scaled, cost_loss_rev
+export confusion, confusion_scaled
+export cost_loss_verkade, cost_loss_roulin, cost_loss
 
 """
     nse(obs, sim)
@@ -177,7 +178,7 @@ function confusion_scaled(hits, misses, false_alarms, quiets)
 end
 
 """
-    cost_loss_rev(costs, losses, scaled_conf)
+    cost_loss_verkade(costs, losses, scaled_conf)
 
 Returns the relative economic value of a forecast system using a
 the cost-loss model using the cost-loss ratio (`costs`, `losses`) and confusion
@@ -190,7 +191,7 @@ Sciences 15, no. 12 (December 20, 2011): 3751–65.
 
 See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
 """
-function cost_loss_rev(costs, losses, scaled_conf)
+function cost_loss_verkade(costs, losses, scaled_conf)
     h = scaled_conf[:hits]
     m = scaled_conf[:misses]
     f = scaled_conf[:false_alarms]
@@ -201,6 +202,40 @@ function cost_loss_rev(costs, losses, scaled_conf)
     rev = (o - (h + f) * r - m) / (o * (1 - r))
 
     return rev
+end
+
+"""
+    cost_loss_roulin(costs, losses, scaled_conf)
+
+Returns the relative economic value of a forecast system using a
+the cost-loss model using the cost-loss ratio (`costs`, `losses`) and confusion
+matrix scaled by the total events and non-events `scaled_conf`.
+
+Roulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological
+Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007):
+725–37. [https://doi.org/10.5194/hess-11-725-2007](https://doi.org/10.5194/hess-11-725-2007).
+
+See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
+"""
+function cost_loss_roulin(costs, losses, scaled_conf)
+    f_1 = scaled_conf[:quiets]
+    f_2 = scaled_conf[:misses]
+    f_3 = scaled_conf[:false_alarms]
+    f_4 = scaled_conf[:hits]
+
+    α = costs / losses      # cost-loss ratio
+    μ = f_2 + f_4           # observed relative frequency
+
+    H = f_4 / μ             # NaN if μ=0
+    F = f_3 / (1 - μ)       # NaN if μ=1
+
+    V = (min(α, μ) - F * α * (1 - μ) + H * μ * (1 - α) - μ) / (min(α, μ) - μ * α)
+
+    return V
+end
+
+function cost_loss(costs, losses, scaled_conf)
+    cost_loss_roulin(costs, losses, scaled_conf)
 end
 
 end
