@@ -177,11 +177,27 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#Hurst.Verification.cost_loss_rev-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Verification.cost_loss-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.cost_loss_rev",
+    "title": "Hurst.Verification.cost_loss",
     "category": "method",
-    "text": "cost_loss_rev(costs, losses, scaled_conf)\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nVerkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value and Probability Forecasting for Flood Warning.” Hydrology and Earth System Sciences 15, no. 12 (December 20, 2011): 3751–65. https://doi.org/10.5194/hess-15-3751-2011.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+    "text": "cost_loss(costs, losses, scaled_conf, method=\"verkade\")\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nTwo methods are implemented (Verkade 2011 and Roulin 2007) which may be selected with the method argument (default is Verkade).\n\nVerkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value and Probability Forecasting for Flood Warning.” Hydrology and Earth System Sciences 15, no. 12 (December 20, 2011): 3751–65. https://doi.org/10.5194/hess-15-3751-2011.\n\nRoulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007): 725–37. https://doi.org/10.5194/hess-11-725-2007.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets), cost_loss_roulin(costs, losses, scaled_conf), cost_loss_verkade(costs, losses, scaled_conf)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Verification.cost_loss_roulin-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Verification.cost_loss_roulin",
+    "category": "method",
+    "text": "cost_loss_roulin(costs, losses, scaled_conf)\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nRoulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007): 725–37. https://doi.org/10.5194/hess-11-725-2007.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets), cost_loss(costs, losses, scaled_conf, method), cost_loss_verkade(costs, losses, scaled_conf)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Verification.cost_loss_verkade-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Verification.cost_loss_verkade",
+    "category": "method",
+    "text": "cost_loss_verkade(costs, losses, scaled_conf)\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nVerkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value and Probability Forecasting for Flood Warning.” Hydrology and Earth System Sciences 15, no. 12 (December 20, 2011): 3751–65. https://doi.org/10.5194/hess-15-3751-2011.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets), cost_loss(costs, losses, scaled_conf, method), cost_loss_roulin(costs, losses, scaled_conf)\n\n\n\n\n\n"
 },
 
 {
