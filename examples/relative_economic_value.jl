@@ -22,7 +22,7 @@ perf[:lead_6] = confusion_scaled(6, 9, 3, 15854)
 rev = DataFrame()
 rev[:cl_ratio] = 0:0.01:1.0
 for (lead_time, confusion_mtx) in perf
-    rev[lead_time] = map(r -> cost_loss_rev(r, 1, confusion_mtx), rev[:cl_ratio])
+    rev[lead_time] = map(r -> cost_loss(r, 1, confusion_mtx), rev[:cl_ratio])
 end
 
 # sorted list of columns without the cost-loss ratios
@@ -37,3 +37,18 @@ col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
              ylabel = "Relative economic value",
              legend = :bottomleft,
              size = (800, 600))
+
+# Roulin and Verkade methods behave differently
+quiets_range = 0:20
+
+roulin = map(q -> cost_loss_roulin(0.5, 1.0, confusion_scaled(20, 0, 10, q)), quiets_range)
+verkade = map(q -> cost_loss_verkade(0.5, 1.0, confusion_scaled(20, 0, 10, q)), quiets_range)
+
+plot(quiets_range,
+     [roulin, verkade],
+     label = ["Roulin", "Verkade"],
+     title = "Verkade and Roulin methods treat quiets differently",
+     xlabel = "Number of quiets",
+     ylabel = "Relative economic value",
+     legend = :bottomright,
+     size = (800, 600))
