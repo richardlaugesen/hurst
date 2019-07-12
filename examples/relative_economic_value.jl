@@ -37,3 +37,18 @@ col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
              ylabel = "Relative economic value",
              legend = :bottomleft,
              size = (800, 600))
+
+# Roulin and Verkade methods behave differently
+quiets_range = 0:20
+
+roulin = map(q -> cost_loss_roulin(0.5, 1.0, confusion_scaled(20, 0, 10, q)), quiets_range)
+verkade = map(q -> cost_loss_verkade(0.5, 1.0, confusion_scaled(20, 0, 10, q)), quiets_range)
+
+plot(quiets_range,
+     [roulin, verkade],
+     label = ["Roulin", "Verkade"],
+     title = "Verkade and Roulin methods treat quiets differently",
+     xlabel = "Number of quiets",
+     ylabel = "Relative economic value",
+     legend = :bottomright,
+     size = (800, 600))
