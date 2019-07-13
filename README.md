@@ -27,7 +27,7 @@ Basic functionality have been implemented:
 - Visualisations
 - Unit conversions
 
-The [documentation](https://tinyrock.github.io/hurst/dev) is a good place to explore the specific functionality in each category.
+The [documentation](https://tinyrock.github.io/hurst/dev), [examples](https://github.com/tinyrock/hurst/tree/master/examples) and [tests](https://github.com/tinyrock/hurst/tree/master/test) are good places to explore the specific functionality.
 
 ## Code of conduct
 
