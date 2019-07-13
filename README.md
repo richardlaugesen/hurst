@@ -8,7 +8,28 @@
 
 Library for modelling and analysis in Hydrology.
 
-Open Science infrastructure written in [Julia](https://julialang.org/). Under ongoing development and not ready for general use.
+Open Science infrastructure written in [Julia](https://julialang.org/). 
+
+## Status
+
+Under ongoing development and not ready for general use. Don't expect backward compatability at this stage.
+
+## Functionality
+
+Basic functionality have been implemented:
+
+- Hydrologic models
+- Calibration
+- Simulation
+- Data and parameter transformations
+- Relative economic value
+- Performance metrics
+- Visualisations
+- Unit conversions
+
+The [documentation](https://tinyrock.github.io/hurst/dev) is a good place to explore the specific functionality in each category.
+
+## Code of conduct
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
