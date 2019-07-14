@@ -16,7 +16,7 @@ Under ongoing development and not ready for general use. Don't expect backward c
 
 ## Functionality
 
-Basic functionality have been implemented:
+Some core functionality has been implemented:
 
 - Hydrologic models
 - Calibration
