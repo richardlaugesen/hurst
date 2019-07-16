@@ -22,6 +22,13 @@ Modules = [Hurst.Calibration]
 Order   = [:function, :type]
 ```
 
+## Hurst.Transformations
+
+```@autodocs
+Modules = [Hurst.Transformations]
+Order   = [:function, :type]
+```
+
 ## Hurst.Visualisations
 
 ```@autodocs

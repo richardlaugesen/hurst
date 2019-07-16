@@ -15,16 +15,22 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-# -------------------------------------------------
-# two param box-cox transform
-# -------------------------------------------------
-
 module Transformations
 
 export boxcox, boxcox_inverse
 export log_sinh, log_sinh_inverse
 export log_trans, log_trans_inverse
 
+"""
+    boxcox(y, λ, ν)
+
+Two param box-cox transform. ([Wikipedia](https://en.wikipedia.org/wiki/Power_transform))
+
+Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
+J. R. Stat. Soc., Ser. B, 26, 296–311.
+
+See also: [`boxcox_inverse(z, λ, ν)`](@ref)
+"""
 function boxcox(y, λ, ν)
     if abs(λ) < 1e-8
         log.(y .+ ν)
@@ -33,6 +39,16 @@ function boxcox(y, λ, ν)
     end
 end
 
+"""
+    boxcox_inverse(z, λ, ν)
+
+Inverse of the two param box-cox transform. ([Wikipedia](https://en.wikipedia.org/wiki/Power_transform))
+
+Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
+J. R. Stat. Soc., Ser. B, 26, 296–311.
+
+See also: [`boxcox(y, λ, ν)`](@ref)
+"""
 function boxcox_inverse(z, λ, ν)
     if abs(λ) < 1e-8
         exp.(z) .- ν
@@ -41,38 +57,98 @@ function boxcox_inverse(z, λ, ν)
     end
 end
 
-# -------------------------------------------------
-# one param box-cox transform
-# -------------------------------------------------
+"""
+    boxcox(y, λ)
 
+One param box-cox transform. ([Wikipedia](https://en.wikipedia.org/wiki/Power_transform))
+
+Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
+J. R. Stat. Soc., Ser. B, 26, 296–311.
+
+See also: [`boxcox_inverse(z, λ)`](@ref)
+"""
 boxcox(y, λ) = boxcox(y, λ, 0)
+
+"""
+    boxcox_inverse(z, λ)
+
+Inverse of the one param box-cox transform. ([Wikipedia](https://en.wikipedia.org/wiki/Power_transform))
+
+Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
+J. R. Stat. Soc., Ser. B, 26, 296–311.
+
+See also: [`boxcox(y, λ)`](@ref)
+"""
 boxcox_inverse(z, λ) = boxcox_inverse(z, λ, 0)
 
-# -------------------------------------------------
-# log-sinh transform
-# -------------------------------------------------
+"""
+    log_sinh(y, a, b)
 
+Log-sinh transform.
+
+Wang, Q. J., D. L. Shrestha, D. E. Robertson, and P. Pokhrel (2012b), A
+log-sinh transformation for data normalization and variance stabiliza- tion,
+Water Resour. Res., 48, W05514, doi:10.1029/2011WR010973.
+
+See also: [`log_sinh_inverse(z, a, b)`](@ref)
+"""
 function log_sinh(y, a, b)
     log.(sinh.(a .+ b * y)) / b
 end
 
+"""
+    log_sinh_inverse(z, a, b)
+
+Inverse of the log-sinh transform.
+
+Wang, Q. J., D. L. Shrestha, D. E. Robertson, and P. Pokhrel (2012b), A
+log-sinh transformation for data normalization and variance stabiliza- tion,
+Water Resour. Res., 48, W05514, doi:10.1029/2011WR010973.
+
+See also: [`log_sinh(y, a, b)`](@ref)
+"""
 function log_sinh_inverse(z, a, b)
     (asinh.(exp.(b * z)) .- a) / b
 end
 
-# -------------------------------------------------
-# log transform
-# -------------------------------------------------
+"""
+    log_trans(y, offset)
 
+Log transform with offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
+
+See also: [`log_trans_inverse(z, offset)`](@ref)
+"""
 function log_trans(y, offset)
     log.(y .+ offset)
 end
 
+"""
+    log_trans_inverse(z, offset)
+
+Inverse log transform with offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
+
+See also: [`log_trans(y, offset)`](@ref)
+"""
 function log_trans_inverse(z, offset)
     exp.(z) .- offset
 end
 
+"""
+    log_trans(y)
+
+Log transform with no offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
+
+See also: [`log_trans_inverse(z)`](@ref)
+"""
 log_trans(y) = log_trans(y, 0)
+
+"""
+    log_trans_inverse(z)
+
+Inverse log transform with no offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
+
+See also: [`log_trans(y)`](@ref)
+"""
 log_trans_inverse(z) = log_trans_inverse(z, 0)
 
 end
