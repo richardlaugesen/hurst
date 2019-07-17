@@ -121,10 +121,20 @@ function gr4j_params_range_trans(prange)
     return prange
 end
 
-# -------------------------------------------------
-# initial state
-# -------------------------------------------------
+"""
+    gr4j_init_state(pars)
 
+Return a Dictionary containing an initial state for GR4J model. Uses a
+standard method derived from a set of model parmaters, `pars`.
+
+Essential input for the first call to [`gr4j_run_step(rain, pet, state, pars)`](@ref)
+function to ensure the unit hydrograph arrays are initialised to the correct
+size and ordinates are specified correctly.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function gr4j_init_state(pars)
     x4 = pars[:x4]
     n = Int(ceil(x4))
@@ -144,12 +154,17 @@ end
 
 Run a single time-step of the GR4J model. Model is forced by the `rain` and `pet`
 (floats) supplied and uses the `state` for initial conditions. Model parameters
-used are provided in the `pars` argument. The function then returns the runoff
-and an updated state.
+used are provided in the `pars` argument.
+
+The function then returns the runoff and an updated state. This updated state is
+typically used as the input state for the next time-step in a time-series simulation.
 
 See also:
 [`gr4j_init_state(pars)`](@ref),
-[`gr4j_params_from_array(arr)`](@ref)
+[`gr4j_params_from_array(arr)`](@ref),
+[`simulate(timestep_fnc, rain, pet, pars, init_state)`](@ref),
+[`calibrate(rain, pet, runoff, functions, opt_options)`](@ref),
+
 """
 function gr4j_run_step(rain, pet, state, pars)
 
