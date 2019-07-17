@@ -139,45 +139,6 @@ function gr4j_init_state(pars)
     )
 end
 
-# -------------------------------------------------
-# unit Hydrographs
-# -------------------------------------------------
-
-function s_curve(variant, scale, x)
-    if variant == 1
-        if x <= 0
-            return 0
-        elseif x < scale
-            return (x / scale)^2.5
-        else
-            return 1
-        end
-
-    elseif variant == 2
-        if x <= 0
-            return 0
-        elseif x <= scale
-            return 0.5 * (x / scale)^2.5
-        elseif x < 2scale
-            return 1 - 0.5 * (2 - x / scale)^2.5
-        else
-            return 1
-        end
-    end
-end
-
-function create_uh_ordinates(variant, size, x4)
-    ordinates = zeros(size)
-    for t in 1:size
-        ordinates[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
-    end
-    return ordinates
-end
-
-function update_uh(uh, volume, ordinates)
-    (volume * ordinates) + lshift(uh)
-end
-
 """
     gr4j_run_step(rain, pet, state, pars)
 
@@ -259,4 +220,43 @@ function gr4j_run_step(rain, pet, state, pars)
     return q, state
 end
 
+end
+
+# -------------------------------------------------
+# unit Hydrographs
+# -------------------------------------------------
+
+function s_curve(variant, scale, x)
+    if variant == 1
+        if x <= 0
+            return 0
+        elseif x < scale
+            return (x / scale)^2.5
+        else
+            return 1
+        end
+
+    elseif variant == 2
+        if x <= 0
+            return 0
+        elseif x <= scale
+            return 0.5 * (x / scale)^2.5
+        elseif x < 2scale
+            return 1 - 0.5 * (2 - x / scale)^2.5
+        else
+            return 1
+        end
+    end
+end
+
+function create_uh_ordinates(variant, size, x4)
+    ordinates = zeros(size)
+    for t in 1:size
+        ordinates[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
+    end
+    return ordinates
+end
+
+function update_uh(uh, volume, ordinates)
+    (volume * ordinates) + lshift(uh)
 end
