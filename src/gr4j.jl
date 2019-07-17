@@ -30,6 +30,7 @@ export gr4j_params_default, gr4j_params_random
 export gr4j_params_range, gr4j_params_range_trans, gr4j_params_range_to_tuples
 export gr4j_params_trans, gr4j_params_trans_inv
 
+
 function gr4j_params_from_array(arr)
     Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
 end
@@ -177,10 +178,18 @@ function update_uh(uh, volume, ordinates)
     (volume * ordinates) + lshift(uh)
 end
 
-# -------------------------------------------------
-# model run for single timestep
-# -------------------------------------------------
+"""
+    gr4j_run_step(rain, pet, state, pars)
 
+Run a single time-step of the GR4J model. Model is forced by the `rain` and `pet`
+(floats) supplied and uses the `state` for initial conditions. Model parameters
+used are provided in the `pars` argument. The function then returns the runoff
+and an updated state.
+
+See also:
+[`gr4j_init_state(pars)`](@ref),
+[`gr4j_params_from_array(arr)`](@ref)
+"""
 function gr4j_run_step(rain, pet, state, pars)
 
     # parameters
