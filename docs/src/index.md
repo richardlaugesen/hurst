@@ -8,6 +8,13 @@
 ```@index
 ```
 
+## Hurst.GR4J
+
+```@autodocs
+Modules = [Hurst.GR4J]
+Order   = [:function, :type]
+```
+
 ## Hurst.Simulation
 
 ```@autodocs
