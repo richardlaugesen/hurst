@@ -15,6 +15,13 @@ Modules = [Hurst.GR4J]
 Order   = [:function, :type]
 ```
 
+## Hurst.OSTP
+
+```@autodocs
+Modules = [Hurst.OSTP]
+Order   = [:function, :type]
+```
+
 ## Hurst.Simulation
 
 ```@autodocs
