@@ -20,6 +20,7 @@ module Hurst
 include("units.jl")
 include("utils.jl")
 include("verification.jl")
+include("value.jl")
 include("transforms.jl")
 include("ostp.jl")
 include("gr4j.jl")

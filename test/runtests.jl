@@ -24,6 +24,7 @@ using Test
     include("units.jl")
     include("transforms.jl")
     include("verification.jl")
+    include("value.jl")
     include("ostp.jl")
     include("gr4j.jl")
     include("gr4j_benchmark.jl")

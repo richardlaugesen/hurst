@@ -63,3 +63,10 @@ Order   = [:function, :type]
 Modules = [Hurst.Verification]
 Order   = [:function, :type]
 ```
+
+## Hurst.Value
+
+```@autodocs
+Modules = [Hurst.Value]
+Order   = [:function, :type]
+```
