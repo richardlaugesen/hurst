@@ -8,7 +8,7 @@
 
 Library for modelling and analysis in Hydrology.
 
-Open Science infrastructure written in [Julia](https://julialang.org/). 
+Open Science infrastructure written in [Julia](https://julialang.org/).
 
 ## Status
 
@@ -48,3 +48,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 See [COPYING](COPYING) and [COPYING.LESSER](COPYING.LESSER)
+
+## Contact
+
+Richard Laugesen - [Twitter](https://twitter.com/richardlaugesen) / [LinkedIn](https://www.linkedin.com/in/richardlaugesen/)
