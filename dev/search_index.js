@@ -25,6 +25,214 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "#Hurst.GR4J.gr4j_init_state-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_init_state",
+    "category": "method",
+    "text": "gr4j_init_state(pars)\n\nReturn a Dictionary containing an initial state for GR4J model. Uses a standard method derived from a set of model parmaters, pars.\n\nThe pars argument should have keys defined by the gr4j_params_from_array(arr) function.\n\nEssential input for the first call to gr4j_run_step function to ensure the unit hydrograph arrays are initialised to the correct size and ordinates are specified correctly.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_default-Tuple{}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_default",
+    "category": "method",
+    "text": "gr4j_params_default()\n\nReturns a Dictionary containing a reasonable set of GR4J parameter vaues with keys defined by the gr4j_params_from_array(arr) function and ready to be used by the gr4j_run_step function.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_from_array-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_from_array",
+    "category": "method",
+    "text": "gr4j_params_from_array(arr)\n\nReturns a Dictionary containing a parameter set ready to be used by the gr4j_run_step function.\n\nSets the value of the :x1, :x2, :x3 and :x4 keys to the 1st, 2nd, 3rd and 4th index values of the arr array.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: gr4j_params_to_array(pars), gr4j_params_range(), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_random-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_random",
+    "category": "method",
+    "text": "gr4j_params_random(prange)\n\nReturns a Dictionary containing a random set of GR4J parameter vaues selected with a uniform sampler within the parameter ranges specified by prange.\n\nThe prange argument should be a Dictionary with keys defined by the gr4j_params_range() function.\n\nThis set of random parameters has keys defined by the gr4j_params_from_array(arr) function and is ready to be used by the gr4j_run_step function.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars), gr4j_params_range()\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_range-Tuple{}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_range",
+    "category": "method",
+    "text": "gr4j_params_range()\n\nReturns a Dictionary with reasonable ranges for GR4J parameter vaues.\n\nThese are used in the model calibration and random parameter sampling functions.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars), gr4j_params_random(prange)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_range_to_tuples-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_range_to_tuples",
+    "category": "method",
+    "text": "gr4j_params_range_to_tuples(prange)\n\nReturns an array of tuples containing the GR4J parameter ranges provided in the prange Dictionary argument. This Dictionary should contain the keys defined by the gr4j_params_range function.\n\nSee also: gr4j_params_range()\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_range_trans-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_range_trans",
+    "category": "method",
+    "text": "gr4j_params_range_trans(prange)\n\nReturns a Dictionary with reasonable ranges for GR4J parameter vaues which have been transformed using the method defined in the gr4j_param_trans function.\n\nSee also: gr4j_params_range(), gr4j_run_step(rain, pet, state, pars), gr4j_params_random(prange)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_to_array-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_to_array",
+    "category": "method",
+    "text": "gr4j_params_to_array(pars)\n\nReturns an array containing GR4J parameter vaues from a parameter Dictionary with keys defined by the gr4j_params_from_array(arr) function.\n\nSets the 1st, 2nd, 3rd and 4th index values of the returned array to the value of the :x1, :x2, :x3 and :x4 keys in the pars Dictionary.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: gr4j_params_from_array(arr), gr4j_params_range()\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_trans-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_trans",
+    "category": "method",
+    "text": "gr4j_params_trans(pars)\n\nReturns a set of GR4J parameters which has been transformed using standard practice for a more uniform parameter search space to calibrate within.\n\nThe pars Dictionary should correspond to the that generated by the gr4j_params_from_array function.\n\nSee also: gr4j_params_trans_inv(pars), gr4j_params_from_array(arr)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_params_trans_inv-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_params_trans_inv",
+    "category": "method",
+    "text": "gr4j_params_trans_inv(pars)\n\nReturns a set of transformed GR4J parameters pars which have been back-transformed. The back-transformation performed is the inverse of the transformations used in the function gr4j_params_trans.\n\nThe pars Dictionary should correspond to the that generated by the gr4j_params_from_array function.\n\nSee also: gr4j_params_trans(pars), gr4j_params_from_array(arr)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_run_step-NTuple{4,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_run_step",
+    "category": "method",
+    "text": "gr4j_run_step(rain, pet, state, pars)\n\nRun a single time-step of the GR4J model. Model is forced by the rain and pet (floats) supplied and uses the state for initial conditions. Model parameters used are provided in the pars argument.\n\nThe pars argument should have keys defined by the gr4j_params_from_array(arr) function and the state with keys defined by gr4j_init_state(pars).\n\nThe function then returns the runoff and an updated state. This updated state is typically used as the input state for the next time-step in a time-series simulation.\n\nSee also: gr4j_init_state(pars), gr4j_params_from_array(arr)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.create_uh_ordinates-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.create_uh_ordinates",
+    "category": "method",
+    "text": "create_uh_ordinates(variant, size, x4)\n\nReturns an Array of size elements containing the GR4J unit hydrograph ordinates for either of the two variant parameterised by the x4 parameter.\n\nUses the s_curve function to determine the ordinate values and is used by the gr4j_init_state function to create an initial state for GR4J, specifically defining the unit hydrograph ordinate values used when updating the unit hydrographs each time-step in the gr4j_run_step function.\n\nSee also: s_curve(variant, scale, x), gr4j_init_state(pars), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_param_trans-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_param_trans",
+    "category": "method",
+    "text": "gr4j_param_trans(param, value)\n\nReturns the value of a single GR4J parameter which has been transformed using standard practice for a more uniform parameter search space to calibrate within.\n\nThe param Symbol should correspond to a key in the Dictionary returned by the gr4j_params_from_array function.\n\nSee also: gr4j_param_trans_inv(param, value), gr4j_params_from_array(arr), gr4j_params_trans(pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.gr4j_param_trans_inv-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.gr4j_param_trans_inv",
+    "category": "method",
+    "text": "gr4j_param_trans_inv(param, value)\n\nReturns a single transformed GR4J parameter value which has been back-transformed. The back-transformation performed is the inverse of the transformations defined in the function gr4j_param_trans.\n\nThe param Symbol should correspond to a key in the Dictionary returned by the gr4j_params_from_array function.\n\nSee also: [gr4j_param_trans(param, value), [gr4jparamsfromarray(arr)](@ref), [gr4jparam_trans(param, value)`](@ref)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.s_curve-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.s_curve",
+    "category": "method",
+    "text": "s_curve(variant, scale, x)\n\nReturns the value at location x of a variant of an s-curve function parameterised with a scale.\n\nIs used to define the values of the GR4J unit hydrograph ordinates in the function create_uh_ordinates.\n\nSee also: create_uh_ordinates(variant, size, x4), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J.update_uh-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J.update_uh",
+    "category": "method",
+    "text": "update_uh(uh, volume, ordinates)\n\nReturns an updated unit hydrograph Array after incrementing the uh and convoluting with the ordinates and volume.\n\nThe ordinates are defined by the create_uh_ordinates function.\n\nUsed by the gr4j_run_step function when updating the model state, specifically the two GR4J unit hydrographs.\n\nSee also: create_uh_ordinates(variant, size, x4), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.GR4J-1",
+    "page": "Hurst Documentation",
+    "title": "Hurst.GR4J",
+    "category": "section",
+    "text": "Modules = [Hurst.GR4J]\nOrder   = [:function, :type]"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_init_state-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_init_state",
+    "category": "method",
+    "text": "ostp_init_state(pars)\n\nReturn a Dictionary containing an initial state for ostp model. Uses a standard method derived from a set of model parmaters, pars.\n\nThe pars argument should have keys defined by the ostp_params_from_array(arr) function.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_params_default-Tuple{}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_params_default",
+    "category": "method",
+    "text": "ostp_params_default()\n\nReturns a Dictionary containing a reasonable set of ostp parameter vaues with keys defined by the ostp_params_from_array(arr) function and ready to be used by the ostp_run_step function.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_params_from_array-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_params_from_array",
+    "category": "method",
+    "text": "ostp_params_from_array(arr)\n\nReturns a Dictionary containing a parameter set ready to be used by the ostp_run_step function.\n\nSets the value of the :capacity, :loss keys to the 1st and 2nd index values of the arr array.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: ostp_params_to_array(pars), ostp_params_range(), ostp_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_params_random-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_params_random",
+    "category": "method",
+    "text": "ostp_params_random(prange)\n\nReturns a Dictionary containing a random set of ostp parameter vaues selected with a uniform sampler within the parameter ranges specified by prange.\n\nThe prange argument should be a Dictionary with keys defined by the ostp_params_range() function.\n\nThis set of random parameters has keys defined by the ostp_params_from_array(arr) function and is ready to be used by the ostp_run_step function.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars), ostp_params_range()\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_params_range-Tuple{}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_params_range",
+    "category": "method",
+    "text": "ostp_params_range()\n\nReturns a Dictionary with reasonable ranges for ostp parameter vaues.\n\nThese are used in the model calibration and random parameter sampling functions.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars), ostp_params_random(prange)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_params_range_to_tuples-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_params_range_to_tuples",
+    "category": "method",
+    "text": "ostp_params_range_to_tuples(prange)\n\nReturns an array of tuples containing the ostp parameter ranges provided in the prange Dictionary argument. This Dictionary should contain the keys defined by the ostp_params_range function.\n\nSee also: ostp_params_range()\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_params_to_array-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_params_to_array",
+    "category": "method",
+    "text": "ostp_params_to_array(pars)\n\nReturns an array containing ostp parameter vaues from a parameter Dictionary with keys defined by the ostp_params_from_array(arr) function.\n\nSets the 1st and 2nd index values of the returned array to the value of the :capacity and :loss keys in the pars Dictionary.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: ostp_params_from_array(arr), ostp_params_range()\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP.ostp_run_step-NTuple{4,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP.ostp_run_step",
+    "category": "method",
+    "text": "ostp_run_step(rain, pet, state, pars)\n\nRun a single time-step of the ostp model. ostp a simple one storage, two parameter model used for educational purposes. To outline basic concepts in conceptual rainfall-runoff models and how to implement a rainfall-runoff model within Hurst. Please do not use it for actual water resource modelling!\n\nThe model is forced by the rain and pet (floats) supplied and uses the state for initial conditions. Model parameters used are provided in the pars argument.\n\nThe pars argument should have keys defined by the ostp_params_from_array(arr) function and the state with keys defined by ostp_init_state(pars).\n\nThe function then returns the runoff and an updated state. This updated state is typically used as the input state for the next time-step in a time-series simulation.\n\nSee also: ostp_init_state(pars), ostp_params_from_array(arr)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.OSTP-1",
+    "page": "Hurst Documentation",
+    "title": "Hurst.OSTP",
+    "category": "section",
+    "text": "Modules = [Hurst.OSTP]\nOrder   = [:function, :type]"
+},
+
+{
     "location": "#Hurst.Simulation.simulate-NTuple{5,Any}",
     "page": "Hurst Documentation",
     "title": "Hurst.Simulation.simulate",
@@ -54,6 +262,94 @@ var documenterSearchIndex = {"docs": [
     "title": "Hurst.Calibration",
     "category": "section",
     "text": "Modules = [Hurst.Calibration]\nOrder   = [:function, :type]"
+},
+
+{
+    "location": "#Hurst.Transformations.boxcox-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.boxcox",
+    "category": "method",
+    "text": "boxcox(y, λ, ν)\n\nTwo param box-cox transform. (Wikipedia)\n\nBox, G. E. P., and D. R. Cox (1964), An analysis of transformations, J. R. Stat. Soc., Ser. B, 26, 296–311.\n\nSee also: boxcox_inverse(z, λ, ν)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.boxcox-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.boxcox",
+    "category": "method",
+    "text": "boxcox(y, λ)\n\nOne param box-cox transform. (Wikipedia)\n\nBox, G. E. P., and D. R. Cox (1964), An analysis of transformations, J. R. Stat. Soc., Ser. B, 26, 296–311.\n\nSee also: boxcox_inverse(z, λ)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.boxcox_inverse-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.boxcox_inverse",
+    "category": "method",
+    "text": "boxcox_inverse(z, λ, ν)\n\nInverse of the two param box-cox transform. (Wikipedia)\n\nBox, G. E. P., and D. R. Cox (1964), An analysis of transformations, J. R. Stat. Soc., Ser. B, 26, 296–311.\n\nSee also: boxcox(y, λ, ν)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.boxcox_inverse-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.boxcox_inverse",
+    "category": "method",
+    "text": "boxcox_inverse(z, λ)\n\nInverse of the one param box-cox transform. (Wikipedia)\n\nBox, G. E. P., and D. R. Cox (1964), An analysis of transformations, J. R. Stat. Soc., Ser. B, 26, 296–311.\n\nSee also: boxcox(y, λ)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.log_sinh-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.log_sinh",
+    "category": "method",
+    "text": "log_sinh(y, a, b)\n\nLog-sinh transform.\n\nWang, Q. J., D. L. Shrestha, D. E. Robertson, and P. Pokhrel (2012b), A log-sinh transformation for data normalization and variance stabiliza- tion, Water Resour. Res., 48, W05514, doi:10.1029/2011WR010973.\n\nSee also: log_sinh_inverse(z, a, b)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.log_sinh_inverse-Tuple{Any,Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.log_sinh_inverse",
+    "category": "method",
+    "text": "log_sinh_inverse(z, a, b)\n\nInverse of the log-sinh transform.\n\nWang, Q. J., D. L. Shrestha, D. E. Robertson, and P. Pokhrel (2012b), A log-sinh transformation for data normalization and variance stabiliza- tion, Water Resour. Res., 48, W05514, doi:10.1029/2011WR010973.\n\nSee also: log_sinh(y, a, b)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.log_trans-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.log_trans",
+    "category": "method",
+    "text": "log_trans(y, offset)\n\nLog transform with offset. (Wikipedia)\n\nSee also: log_trans_inverse(z, offset)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.log_trans-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.log_trans",
+    "category": "method",
+    "text": "log_trans(y)\n\nLog transform with no offset. (Wikipedia)\n\nSee also: log_trans_inverse(z)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.log_trans_inverse-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.log_trans_inverse",
+    "category": "method",
+    "text": "log_trans_inverse(z, offset)\n\nInverse log transform with offset. (Wikipedia)\n\nSee also: log_trans(y, offset)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations.log_trans_inverse-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations.log_trans_inverse",
+    "category": "method",
+    "text": "log_trans_inverse(z)\n\nInverse log transform with no offset. (Wikipedia)\n\nSee also: log_trans(y)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Transformations-1",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Transformations",
+    "category": "section",
+    "text": "Modules = [Hurst.Transformations]\nOrder   = [:function, :type]"
 },
 
 {
