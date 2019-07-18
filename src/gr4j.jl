@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-# -------------------------------------------------
-# parameters and ranges
-# -------------------------------------------------
-
 module GR4J
 
 using Hurst.Utils
@@ -30,19 +26,79 @@ export gr4j_params_default, gr4j_params_random
 export gr4j_params_range, gr4j_params_range_trans, gr4j_params_range_to_tuples
 export gr4j_params_trans, gr4j_params_trans_inv
 
+"""
+    gr4j_params_from_array(arr)
 
+Return a Dictionary containing a parameter set ready to be used by the
+`gr4j_run_step` function.
+
+Sets the value of the `:x1`, `:x2`, `:x3` and `:x4` keys to the 1st, 2nd, 3rd
+and 4th index values of the `arr` array.
+
+Intentionally does not check if these parameter values are within any
+acceptable range.
+
+See also:
+[`gr4j_params_to_array(pars)`](@ref),
+[`gr4j_params_range()`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function gr4j_params_from_array(arr)
     Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
 end
 
+"""
+    gr4j_params_to_array(pars)
+
+Return an array containing GR4J parameter vaues from a parameter Dictionary
+with keys defined by the `gr4j_params_from_array(arr)` function.
+
+Sets the 1st, 2nd, 3rd and 4th index values of the returned array to the value
+of the `:x1`, `:x2`, `:x3` and `:x4` keys in the `pars` Dictionary.
+
+Intentionally does not check if these parameter values are within any
+acceptable range.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_params_range()`](@ref)
+"""
 function gr4j_params_to_array(pars)
     [pars[:x1], pars[:x2], pars[:x3], pars[:x4]]
 end
 
+"""
+    gr4j_params_default()
+
+Return a Dictionary containing a reasonable set of GR4J parameter vaues with
+keys defined by the `gr4j_params_from_array(arr)` function and ready to be used
+by the `gr4j_run_step` function.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function gr4j_params_default()
     gr4j_params_from_array([350, 0, 50, 0.5])
 end
 
+"""
+    gr4j_params_random(prange)
+
+Return a Dictionary containing a random set of GR4J parameter vaues selected
+with a uniform sampler within the parameter ranges specified by `prange`.
+
+The `prange` argument should be a Dictionary with keys defined by the
+`gr4j_params_range()` function.
+
+This set of random parameters has keys defined by the `gr4j_params_from_array(arr)`
+function and is ready to be used by the `gr4j_run_step` function.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref),
+[`gr4j_params_range()`](@ref)
+"""
 function gr4j_params_random(prange)
     quanta = 0.1
     params = gr4j_params_default()
@@ -51,6 +107,7 @@ function gr4j_params_random(prange)
     end
     return params
 end
+
 
 function gr4j_params_range()
     Dict(
@@ -121,15 +178,57 @@ function gr4j_params_range_trans(prange)
     return prange
 end
 
+# -------------------------------------------------
+# unit Hydrographs
+# -------------------------------------------------
+
+function s_curve(variant, scale, x)
+    if variant == 1
+        if x <= 0
+            return 0
+        elseif x < scale
+            return (x / scale)^2.5
+        else
+            return 1
+        end
+
+    elseif variant == 2
+        if x <= 0
+            return 0
+        elseif x <= scale
+            return 0.5 * (x / scale)^2.5
+        elseif x < 2scale
+            return 1 - 0.5 * (2 - x / scale)^2.5
+        else
+            return 1
+        end
+    end
+end
+
+function create_uh_ordinates(variant, size, x4)
+    ordinates = zeros(size)
+    for t in 1:size
+        ordinates[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
+    end
+    return ordinates
+end
+
+function update_uh(uh, volume, ordinates)
+    (volume * ordinates) + lshift(uh)
+end
+
 """
     gr4j_init_state(pars)
 
 Return a Dictionary containing an initial state for GR4J model. Uses a
 standard method derived from a set of model parmaters, `pars`.
 
-Essential input for the first call to [`gr4j_run_step(rain, pet, state, pars)`](@ref)
-function to ensure the unit hydrograph arrays are initialised to the correct
-size and ordinates are specified correctly.
+The `pars` argument should have keys defined by the `gr4j_params_from_array(arr)`
+function.
+
+Essential input for the first call to `gr4j_run_step` function to ensure the
+unit hydrograph arrays are initialised to the correct size and ordinates are
+specified correctly.
 
 See also:
 [`gr4j_params_from_array(arr)`](@ref),
@@ -155,6 +254,9 @@ end
 Run a single time-step of the GR4J model. Model is forced by the `rain` and `pet`
 (floats) supplied and uses the `state` for initial conditions. Model parameters
 used are provided in the `pars` argument.
+
+The `pars` argument should have keys defined by the `gr4j_params_from_array(arr)`
+function and the `state` with keys defined by `gr4j_init_state(pars)`.
 
 The function then returns the runoff and an updated state. This updated state is
 typically used as the input state for the next time-step in a time-series simulation.
@@ -235,43 +337,4 @@ function gr4j_run_step(rain, pet, state, pars)
     return q, state
 end
 
-end
-
-# -------------------------------------------------
-# unit Hydrographs
-# -------------------------------------------------
-
-function s_curve(variant, scale, x)
-    if variant == 1
-        if x <= 0
-            return 0
-        elseif x < scale
-            return (x / scale)^2.5
-        else
-            return 1
-        end
-
-    elseif variant == 2
-        if x <= 0
-            return 0
-        elseif x <= scale
-            return 0.5 * (x / scale)^2.5
-        elseif x < 2scale
-            return 1 - 0.5 * (2 - x / scale)^2.5
-        else
-            return 1
-        end
-    end
-end
-
-function create_uh_ordinates(variant, size, x4)
-    ordinates = zeros(size)
-    for t in 1:size
-        ordinates[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
-    end
-    return ordinates
-end
-
-function update_uh(uh, volume, ordinates)
-    (volume * ordinates) + lshift(uh)
 end
