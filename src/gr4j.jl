@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-# -------------------------------------------------
-# parameters and ranges
-# -------------------------------------------------
-
 module GR4J
 
 using Hurst.Utils
@@ -30,18 +26,79 @@ export gr4j_params_default, gr4j_params_random
 export gr4j_params_range, gr4j_params_range_trans, gr4j_params_range_to_tuples
 export gr4j_params_trans, gr4j_params_trans_inv
 
+"""
+    gr4j_params_from_array(arr)
+
+Returns a Dictionary containing a parameter set ready to be used by the
+`gr4j_run_step` function.
+
+Sets the value of the `:x1`, `:x2`, `:x3` and `:x4` keys to the 1st, 2nd, 3rd
+and 4th index values of the `arr` array.
+
+Intentionally does not check if these parameter values are within any
+acceptable range.
+
+See also:
+[`gr4j_params_to_array(pars)`](@ref),
+[`gr4j_params_range()`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function gr4j_params_from_array(arr)
     Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
 end
 
+"""
+    gr4j_params_to_array(pars)
+
+Returns an array containing GR4J parameter vaues from a parameter Dictionary
+with keys defined by the `gr4j_params_from_array(arr)` function.
+
+Sets the 1st, 2nd, 3rd and 4th index values of the returned array to the value
+of the `:x1`, `:x2`, `:x3` and `:x4` keys in the `pars` Dictionary.
+
+Intentionally does not check if these parameter values are within any
+acceptable range.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_params_range()`](@ref)
+"""
 function gr4j_params_to_array(pars)
     [pars[:x1], pars[:x2], pars[:x3], pars[:x4]]
 end
 
+"""
+    gr4j_params_default()
+
+Returns a Dictionary containing a reasonable set of GR4J parameter vaues with
+keys defined by the `gr4j_params_from_array(arr)` function and ready to be used
+by the `gr4j_run_step` function.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function gr4j_params_default()
     gr4j_params_from_array([350, 0, 50, 0.5])
 end
 
+"""
+    gr4j_params_random(prange)
+
+Returns a Dictionary containing a random set of GR4J parameter vaues selected
+with a uniform sampler within the parameter ranges specified by `prange`.
+
+The `prange` argument should be a Dictionary with keys defined by the
+`gr4j_params_range()` function.
+
+This set of random parameters has keys defined by the `gr4j_params_from_array(arr)`
+function and is ready to be used by the `gr4j_run_step` function.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref),
+[`gr4j_params_range()`](@ref)
+"""
 function gr4j_params_random(prange)
     quanta = 0.1
     params = gr4j_params_default()
@@ -51,14 +108,35 @@ function gr4j_params_random(prange)
     return params
 end
 
+"""
+    gr4j_params_range()
+
+Returns a Dictionary with reasonable ranges for GR4J parameter vaues.
+
+These are used in the model calibration and random parameter sampling functions.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref),
+[`gr4j_params_random(prange)`](@ref)
+"""
 function gr4j_params_range()
     Dict(
-        :x1 => Dict(:low => 1.0, :high => 10000.0),
-        :x2 => Dict(:low => -100.0, :high => 100.0),
-        :x3 => Dict(:low => 1.0, :high => 5000.0),
-        :x4 => Dict(:low => 0.5, :high => 50.0))
+        :x1 => Dict(:low =>  1.0,    :high => 10000.0),
+        :x2 => Dict(:low => -100.0,  :high => 100.0),
+        :x3 => Dict(:low =>  1.0,    :high => 5000.0),
+        :x4 => Dict(:low =>  0.5,    :high => 50.0))
 end
 
+"""
+    gr4j_params_range_to_tuples(prange)
+
+Returns an array of tuples containing the GR4J parameter ranges provided in the
+`prange` Dictionary argument. This Dictionary should contain the keys defined by
+the `gr4j_params_range` function.
+
+See also: [`gr4j_params_range()`](@ref)
+"""
 function gr4j_params_range_to_tuples(prange)
     [
         (prange[:x1][:low], prange[:x1][:high]),
@@ -68,12 +146,22 @@ function gr4j_params_range_to_tuples(prange)
     ]
 end
 
-# -------------------------------------------------
-# parameter transformations
-# -------------------------------------------------
-
 X4_TRANS_OFFSET = -(0.5 - 1e-9)
 
+"""
+    gr4j_param_trans(param, value)
+
+Returns the `value` of a single GR4J parameter which has been transformed using
+standard practice for a more uniform parameter search space to calibrate within.
+
+The `param` Symbol should correspond to a key in the Dictionary returned by
+the `gr4j_params_from_array` function.
+
+See also:
+[`gr4j_param_trans_inv(param, value)`](@ref),
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_params_trans(pars)`](@ref)
+"""
 function gr4j_param_trans(param, value)
     if param == :x1
         return log_trans(value)
@@ -86,6 +174,21 @@ function gr4j_param_trans(param, value)
     end
 end
 
+"""
+    gr4j_param_trans_inv(param, value)
+
+Returns a single transformed GR4J parameter `value` which has been
+back-transformed. The back-transformation performed is the inverse of the
+transformations defined in the function `gr4j_param_trans`.
+
+The `param` Symbol should correspond to a key in the Dictionary returned by
+the `gr4j_params_from_array` function.
+
+See also:
+[`gr4j_param_trans(param, value),
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_param_trans(param, value)`](@ref)
+"""
 function gr4j_param_trans_inv(param, value)
     if param == :x1
         return log_trans_inverse(value)
@@ -98,6 +201,19 @@ function gr4j_param_trans_inv(param, value)
     end
 end
 
+"""
+    gr4j_params_trans(pars)
+
+Returns a set of GR4J parameters which has been transformed using
+standard practice for a more uniform parameter search space to calibrate within.
+
+The `pars` Dictionary should correspond to the that generated by the
+`gr4j_params_from_array` function.
+
+See also:
+[`gr4j_params_trans_inv(pars)`](@ref),
+[`gr4j_params_from_array(arr)`](@ref)
+"""
 function gr4j_params_trans(pars)
     for p in [:x1, :x2, :x3, :x4]
         pars[p] = gr4j_param_trans(p, pars[p])
@@ -105,6 +221,20 @@ function gr4j_params_trans(pars)
     return pars
 end
 
+"""
+    gr4j_params_trans_inv(pars)
+
+Returns a set of transformed GR4J parameters `pars` which have been
+back-transformed. The back-transformation performed is the inverse of the
+transformations used in the function `gr4j_params_trans`.
+
+The `pars` Dictionary should correspond to the that generated by the
+`gr4j_params_from_array` function.
+
+See also:
+[`gr4j_params_trans(pars)`](@ref),
+[`gr4j_params_from_array(arr)`](@ref)
+"""
 function gr4j_params_trans_inv(pars)
     for p in [:x1, :x2, :x3, :x4]
         pars[p] = gr4j_param_trans_inv(p, pars[p])
@@ -112,6 +242,17 @@ function gr4j_params_trans_inv(pars)
     return pars
 end
 
+"""
+    gr4j_params_range_trans(prange)
+
+Returns a Dictionary with reasonable ranges for GR4J parameter vaues which have
+been transformed using the method defined in the `gr4j_param_trans` function.
+
+See also:
+[`gr4j_params_range()`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref),
+[`gr4j_params_random(prange)`](@ref)
+"""
 function gr4j_params_range_trans(prange)
     for p in [:x1, :x2, :x3, :x4]
         prange[p][:low] = gr4j_param_trans(p, prange[p][:low])
@@ -120,28 +261,19 @@ function gr4j_params_range_trans(prange)
     return prange
 end
 
-# -------------------------------------------------
-# initial state
-# -------------------------------------------------
+"""
+    s_curve(variant, scale, x)
 
-function gr4j_init_state(pars)
-    x4 = pars[:x4]
-    n = Int(ceil(x4))
+Returns the value at location `x` of a `variant` of an s-curve function
+parameterised with a `scale`.
 
-    return Dict(
-        :uh1 => zeros(n),
-        :uh2 => zeros(2n),
-        :uh1_ordinates => create_uh_ordinates(1, n, x4),
-        :uh2_ordinates => create_uh_ordinates(2, 2n, x4),
-        :production_store => 0,
-        :routing_store => 0
-    )
-end
+Is used to define the values of the GR4J unit hydrograph ordinates in the
+function `create_uh_ordinates`.
 
-# -------------------------------------------------
-# unit Hydrographs
-# -------------------------------------------------
-
+See also:
+[`create_uh_ordinates(variant, size, x4)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function s_curve(variant, scale, x)
     if variant == 1
         if x <= 0
@@ -165,6 +297,22 @@ function s_curve(variant, scale, x)
     end
 end
 
+"""
+    create_uh_ordinates(variant, size, x4)
+
+Returns an Array of `size` elements containing the GR4J unit hydrograph ordinates
+for either of the two `variant` parameterised by the `x4` parameter.
+
+Uses the `s_curve` function to determine the ordinate values and is used by the
+`gr4j_init_state` function to create an initial state for GR4J, specifically
+defining the unit hydrograph ordinate values used when updating the unit
+hydrographs each time-step in the `gr4j_run_step` function.
+
+See also:
+[`s_curve(variant, scale, x)`](@ref),
+[`gr4j_init_state(pars)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function create_uh_ordinates(variant, size, x4)
     ordinates = zeros(size)
     for t in 1:size
@@ -173,14 +321,73 @@ function create_uh_ordinates(variant, size, x4)
     return ordinates
 end
 
+"""
+    update_uh(uh, volume, ordinates)
+
+Returns an updated unit hydrograph Array after incrementing the `uh` and
+convoluting with the `ordinates` and `volume`.
+
+The ordinates are defined by the `create_uh_ordinates` function.
+
+Used by the `gr4j_run_step` function when updating the model state, specifically
+the two GR4J unit hydrographs.
+
+See also:
+[`create_uh_ordinates(variant, size, x4)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
 function update_uh(uh, volume, ordinates)
     (volume * ordinates) + lshift(uh)
 end
 
-# -------------------------------------------------
-# model run for single timestep
-# -------------------------------------------------
+"""
+    gr4j_init_state(pars)
 
+Return a Dictionary containing an initial state for GR4J model. Uses a
+standard method derived from a set of model parmaters, `pars`.
+
+The `pars` argument should have keys defined by the `gr4j_params_from_array(arr)`
+function.
+
+Essential input for the first call to `gr4j_run_step` function to ensure the
+unit hydrograph arrays are initialised to the correct size and ordinates are
+specified correctly.
+
+See also:
+[`gr4j_params_from_array(arr)`](@ref),
+[`gr4j_run_step(rain, pet, state, pars)`](@ref)
+"""
+function gr4j_init_state(pars)
+    x4 = pars[:x4]
+    n = Int(ceil(x4))
+
+    return Dict(
+        :uh1 => zeros(n),
+        :uh2 => zeros(2n),
+        :uh1_ordinates => create_uh_ordinates(1, n, x4),
+        :uh2_ordinates => create_uh_ordinates(2, 2n, x4),
+        :production_store => 0,
+        :routing_store => 0
+    )
+end
+
+"""
+    gr4j_run_step(rain, pet, state, pars)
+
+Run a single time-step of the GR4J model. Model is forced by the `rain` and `pet`
+(floats) supplied and uses the `state` for initial conditions. Model parameters
+used are provided in the `pars` argument.
+
+The `pars` argument should have keys defined by the `gr4j_params_from_array(arr)`
+function and the `state` with keys defined by `gr4j_init_state(pars)`.
+
+The function then returns the runoff and an updated state. This updated state is
+typically used as the input state for the next time-step in a time-series simulation.
+
+See also:
+[`gr4j_init_state(pars)`](@ref),
+[`gr4j_params_from_array(arr)`](@ref)
+"""
 function gr4j_run_step(rain, pet, state, pars)
 
     # parameters

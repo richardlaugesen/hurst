@@ -8,6 +8,20 @@
 ```@index
 ```
 
+## Hurst.GR4J
+
+```@autodocs
+Modules = [Hurst.GR4J]
+Order   = [:function, :type]
+```
+
+## Hurst.OSTP
+
+```@autodocs
+Modules = [Hurst.OSTP]
+Order   = [:function, :type]
+```
+
 ## Hurst.Simulation
 
 ```@autodocs
@@ -19,6 +33,13 @@ Order   = [:function, :type]
 
 ```@autodocs
 Modules = [Hurst.Calibration]
+Order   = [:function, :type]
+```
+
+## Hurst.Transformations
+
+```@autodocs
+Modules = [Hurst.Transformations]
 Order   = [:function, :type]
 ```
 

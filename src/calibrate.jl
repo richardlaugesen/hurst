@@ -23,32 +23,6 @@ using BlackBoxOptim
 
 export calibrate
 
-# sample one point from objective function in parameter space
-function sampler(rain, pet, runoff_obs, pars_array, functions)
-
-    # unpack dictionary of model functions
-    timestep = functions[:run_model_time_step]
-    init_state = functions[:init_state]
-    pars_from_array = functions[:params_from_array]
-    obj_fnc = functions[:objective_function]
-
-    # get the parameter set
-    pars = pars_from_array(pars_array)
-
-    # detransform parameter set if transform function provided
-    if :params_inverse_transform in keys(functions)
-        pars_trans_inv = functions[:params_inverse_transform]
-        pars = pars_trans_inv(pars)
-    end
-
-    # simulate, and calculate obj func value
-    init_state = init_state(pars)
-    runoff_sim = simulate(timestep, rain, pet, pars, init_state)
-
-    return obj_fnc(runoff_obs, runoff_sim)
-end
-
-
 """
     calibrate(rain, pet, runoff, functions, opt_options)
 
@@ -154,6 +128,31 @@ function calibrate(rain, pet, runoff, functions, opt_options)
     end
 
     return best_params, best_obj
+end
+
+# sample one point from objective function in parameter space
+function sampler(rain, pet, runoff_obs, pars_array, functions)
+
+    # unpack dictionary of model functions
+    timestep = functions[:run_model_time_step]
+    init_state = functions[:init_state]
+    pars_from_array = functions[:params_from_array]
+    obj_fnc = functions[:objective_function]
+
+    # get the parameter set
+    pars = pars_from_array(pars_array)
+
+    # detransform parameter set if transform function provided
+    if :params_inverse_transform in keys(functions)
+        pars_trans_inv = functions[:params_inverse_transform]
+        pars = pars_trans_inv(pars)
+    end
+
+    # simulate, and calculate obj func value
+    init_state = init_state(pars)
+    runoff_sim = simulate(timestep, rain, pet, pars, init_state)
+
+    return obj_fnc(runoff_obs, runoff_sim)
 end
 
 end
