@@ -12,7 +12,7 @@ Open Science infrastructure written in [Julia](https://julialang.org/).
 
 ## Status
 
-Under ongoing development and not ready for general use. Don't expect backward compatability at this stage.
+Under ongoing development and not ready for general use. Don't expect backward compatibility at this stage.
 
 ## Functionality
 
@@ -51,4 +51,4 @@ See [COPYING](COPYING) and [COPYING.LESSER](COPYING.LESSER)
 
 ## Contact
 
-Richard Laugesen - [Twitter](https://twitter.com/richardlaugesen) / [LinkedIn](https://www.linkedin.com/in/richardlaugesen/)
+Richard Laugesen - [Twitter](https://twitter.com/richardlaugesen) / [LinkedIn](https://www.linkedin.com/in/richardlaugesen/) / [Email](mailto://hurst@tinyrock.com)
