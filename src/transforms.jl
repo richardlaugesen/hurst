@@ -1,4 +1,4 @@
-# Copyright 2018-2019 Richard Laugesen
+# Copyright 2018-2019 Tiny Rock Pty Ltd
 #
 # This file is part of Hurst
 #
