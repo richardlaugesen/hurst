@@ -449,75 +449,75 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#Hurst.Verification.coeff_det-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.coeff_det-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.coeff_det",
+    "title": "Hurst.Performance.coeff_det",
     "category": "method",
     "text": "coeff_det(y, f)\n\nReturns the Coefficient of Determination between y and f. Skips missing values from either series.\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.kge-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Performance.kge-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.kge",
+    "title": "Hurst.Performance.kge",
     "category": "method",
     "text": "kge(o, s, components)\n\nReturns the Kling-Gupta Efficiency between o and s. Skips missing values from either series.\n\nIf components is true then a Dictionary is returned containing the final KGE value (:kge) along with the individual components used to construct the KGE (:covariance, :relativevariability, :meanbias)\n\nSee also: kge(o, s)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.kge-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.kge-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.kge",
+    "title": "Hurst.Performance.kge",
     "category": "method",
     "text": "kge(o, s)\n\nReturns the Kling-Gupta Efficiency between o and s. Skips missing values from either series.\n\nSee also: kge(o, s, components)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.mae-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.mae-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.mae",
+    "title": "Hurst.Performance.mae",
     "category": "method",
     "text": "mae(o, s)\n\nReturns the Mean Absolute Error between o and s. Skips missing values from either series.\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.mse-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.mse-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.mse",
+    "title": "Hurst.Performance.mse",
     "category": "method",
     "text": "mse(o, s)\n\nReturns the Mean Square Error between o and s. Skips missing values from either series.\n\nSee also: rmse(o, s)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.nse-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.nse-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.nse",
+    "title": "Hurst.Performance.nse",
     "category": "method",
     "text": "nse(obs, sim)\n\nReturns the Nash Sutcliffe Efficiency of obs and sim timeseries.\n\nSee also: coeff_det(y, f)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.persistence-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.persistence-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.persistence",
+    "title": "Hurst.Performance.persistence",
     "category": "method",
     "text": "persistence(o, s)\n\nReturns the Persistence Index between o and s. Skips missing values from either series.\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification.rmse-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.rmse-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification.rmse",
+    "title": "Hurst.Performance.rmse",
     "category": "method",
     "text": "rmse(o, s)\n\nReturns the Root Mean Square Error between o and s.\n\nSee also: mse(o, s)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Verification-1",
+    "location": "#Hurst.Performance-1",
     "page": "Hurst Documentation",
-    "title": "Hurst.Verification",
+    "title": "Hurst.Performance",
     "category": "section",
-    "text": "Modules = [Hurst.Verification]\nOrder   = [:function, :type]"
+    "text": "Modules = [Hurst.Performance]\nOrder   = [:function, :type]"
 },
 
 {
