@@ -561,6 +561,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "#Hurst.Value.kuipers_score-Tuple{Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Value.kuipers_score",
+    "category": "method",
+    "text": "kuipers_score(scaled_conf)\n\nReturns the Kuipers Score using the elements of the scaled_conf contingency table.\n\nRichardson, D. S. “Skill and Relative Economic Value of the ECMWF Ensemble Prediction System.” Quarterly Journal of the Royal Meteorological Society 126, no. 563 (January 2000): 649–67. https://doi.org/10.1256/smsqj.56312.\n\nSee also: confusion_scaled, cost_loss\n\n\n\n\n\n"
+},
+
+{
     "location": "#Hurst.Value-1",
     "page": "Hurst Documentation",
     "title": "Hurst.Value",
