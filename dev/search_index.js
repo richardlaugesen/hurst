@@ -25,211 +25,211 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_init_state-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_init_state-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_init_state",
+    "title": "Hurst.Models.GR4J.gr4j_init_state",
     "category": "method",
     "text": "gr4j_init_state(pars)\n\nReturn a Dictionary containing an initial state for GR4J model. Uses a standard method derived from a set of model parmaters, pars.\n\nThe pars argument should have keys defined by the gr4j_params_from_array(arr) function.\n\nEssential input for the first call to gr4j_run_step function to ensure the unit hydrograph arrays are initialised to the correct size and ordinates are specified correctly.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_default-Tuple{}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_default-Tuple{}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_default",
+    "title": "Hurst.Models.GR4J.gr4j_params_default",
     "category": "method",
     "text": "gr4j_params_default()\n\nReturns a Dictionary containing a reasonable set of GR4J parameter vaues with keys defined by the gr4j_params_from_array(arr) function and ready to be used by the gr4j_run_step function.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_from_array-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_from_array-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_from_array",
+    "title": "Hurst.Models.GR4J.gr4j_params_from_array",
     "category": "method",
     "text": "gr4j_params_from_array(arr)\n\nReturns a Dictionary containing a parameter set ready to be used by the gr4j_run_step function.\n\nSets the value of the :x1, :x2, :x3 and :x4 keys to the 1st, 2nd, 3rd and 4th index values of the arr array.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: gr4j_params_to_array(pars), gr4j_params_range(), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_random-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_random-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_random",
+    "title": "Hurst.Models.GR4J.gr4j_params_random",
     "category": "method",
     "text": "gr4j_params_random(prange)\n\nReturns a Dictionary containing a random set of GR4J parameter vaues selected with a uniform sampler within the parameter ranges specified by prange.\n\nThe prange argument should be a Dictionary with keys defined by the gr4j_params_range() function.\n\nThis set of random parameters has keys defined by the gr4j_params_from_array(arr) function and is ready to be used by the gr4j_run_step function.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars), gr4j_params_range()\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_range-Tuple{}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_range-Tuple{}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_range",
+    "title": "Hurst.Models.GR4J.gr4j_params_range",
     "category": "method",
     "text": "gr4j_params_range()\n\nReturns a Dictionary with reasonable ranges for GR4J parameter vaues.\n\nThese are used in the model calibration and random parameter sampling functions.\n\nSee also: gr4j_params_from_array(arr), gr4j_run_step(rain, pet, state, pars), gr4j_params_random(prange)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_range_to_tuples-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_range_to_tuples-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_range_to_tuples",
+    "title": "Hurst.Models.GR4J.gr4j_params_range_to_tuples",
     "category": "method",
     "text": "gr4j_params_range_to_tuples(prange)\n\nReturns an array of tuples containing the GR4J parameter ranges provided in the prange Dictionary argument. This Dictionary should contain the keys defined by the gr4j_params_range function.\n\nSee also: gr4j_params_range()\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_range_trans-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_range_trans-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_range_trans",
+    "title": "Hurst.Models.GR4J.gr4j_params_range_trans",
     "category": "method",
     "text": "gr4j_params_range_trans(prange)\n\nReturns a Dictionary with reasonable ranges for GR4J parameter vaues which have been transformed using the method defined in the gr4j_param_trans function.\n\nSee also: gr4j_params_range(), gr4j_run_step(rain, pet, state, pars), gr4j_params_random(prange)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_to_array-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_to_array-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_to_array",
+    "title": "Hurst.Models.GR4J.gr4j_params_to_array",
     "category": "method",
     "text": "gr4j_params_to_array(pars)\n\nReturns an array containing GR4J parameter vaues from a parameter Dictionary with keys defined by the gr4j_params_from_array(arr) function.\n\nSets the 1st, 2nd, 3rd and 4th index values of the returned array to the value of the :x1, :x2, :x3 and :x4 keys in the pars Dictionary.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: gr4j_params_from_array(arr), gr4j_params_range()\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_trans-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_trans-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_trans",
+    "title": "Hurst.Models.GR4J.gr4j_params_trans",
     "category": "method",
     "text": "gr4j_params_trans(pars)\n\nReturns a set of GR4J parameters which has been transformed using standard practice for a more uniform parameter search space to calibrate within.\n\nThe pars Dictionary should correspond to the that generated by the gr4j_params_from_array function.\n\nSee also: gr4j_params_trans_inv(pars), gr4j_params_from_array(arr)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_params_trans_inv-Tuple{Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_params_trans_inv-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_params_trans_inv",
+    "title": "Hurst.Models.GR4J.gr4j_params_trans_inv",
     "category": "method",
     "text": "gr4j_params_trans_inv(pars)\n\nReturns a set of transformed GR4J parameters pars which have been back-transformed. The back-transformation performed is the inverse of the transformations used in the function gr4j_params_trans.\n\nThe pars Dictionary should correspond to the that generated by the gr4j_params_from_array function.\n\nSee also: gr4j_params_trans(pars), gr4j_params_from_array(arr)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_run_step-NTuple{4,Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_run_step-NTuple{4,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_run_step",
+    "title": "Hurst.Models.GR4J.gr4j_run_step",
     "category": "method",
     "text": "gr4j_run_step(rain, pet, state, pars)\n\nRun a single time-step of the GR4J model. Model is forced by the rain and pet (floats) supplied and uses the state for initial conditions. Model parameters used are provided in the pars argument.\n\nThe pars argument should have keys defined by the gr4j_params_from_array(arr) function and the state with keys defined by gr4j_init_state(pars).\n\nThe function then returns the runoff and an updated state. This updated state is typically used as the input state for the next time-step in a time-series simulation.\n\nSee also: gr4j_init_state(pars), gr4j_params_from_array(arr)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.create_uh_ordinates-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Models.GR4J.create_uh_ordinates-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.create_uh_ordinates",
+    "title": "Hurst.Models.GR4J.create_uh_ordinates",
     "category": "method",
     "text": "create_uh_ordinates(variant, size, x4)\n\nReturns an Array of size elements containing the GR4J unit hydrograph ordinates for either of the two variant parameterised by the x4 parameter.\n\nUses the s_curve function to determine the ordinate values and is used by the gr4j_init_state function to create an initial state for GR4J, specifically defining the unit hydrograph ordinate values used when updating the unit hydrographs each time-step in the gr4j_run_step function.\n\nSee also: s_curve(variant, scale, x), gr4j_init_state(pars), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_param_trans-Tuple{Any,Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_param_trans-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_param_trans",
+    "title": "Hurst.Models.GR4J.gr4j_param_trans",
     "category": "method",
     "text": "gr4j_param_trans(param, value)\n\nReturns the value of a single GR4J parameter which has been transformed using standard practice for a more uniform parameter search space to calibrate within.\n\nThe param Symbol should correspond to a key in the Dictionary returned by the gr4j_params_from_array function.\n\nSee also: gr4j_param_trans_inv(param, value), gr4j_params_from_array(arr), gr4j_params_trans(pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.gr4j_param_trans_inv-Tuple{Any,Any}",
+    "location": "#Hurst.Models.GR4J.gr4j_param_trans_inv-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.gr4j_param_trans_inv",
+    "title": "Hurst.Models.GR4J.gr4j_param_trans_inv",
     "category": "method",
     "text": "gr4j_param_trans_inv(param, value)\n\nReturns a single transformed GR4J parameter value which has been back-transformed. The back-transformation performed is the inverse of the transformations defined in the function gr4j_param_trans.\n\nThe param Symbol should correspond to a key in the Dictionary returned by the gr4j_params_from_array function.\n\nSee also: [gr4j_param_trans(param, value), [gr4jparamsfromarray(arr)](@ref), [gr4jparam_trans(param, value)`](@ref)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.s_curve-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Models.GR4J.s_curve-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.s_curve",
+    "title": "Hurst.Models.GR4J.s_curve",
     "category": "method",
     "text": "s_curve(variant, scale, x)\n\nReturns the value at location x of a variant of an s-curve function parameterised with a scale.\n\nIs used to define the values of the GR4J unit hydrograph ordinates in the function create_uh_ordinates.\n\nSee also: create_uh_ordinates(variant, size, x4), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J.update_uh-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Models.GR4J.update_uh-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J.update_uh",
+    "title": "Hurst.Models.GR4J.update_uh",
     "category": "method",
     "text": "update_uh(uh, volume, ordinates)\n\nReturns an updated unit hydrograph Array after incrementing the uh and convoluting with the ordinates and volume.\n\nThe ordinates are defined by the create_uh_ordinates function.\n\nUsed by the gr4j_run_step function when updating the model state, specifically the two GR4J unit hydrographs.\n\nSee also: create_uh_ordinates(variant, size, x4), gr4j_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.GR4J-1",
+    "location": "#Hurst.Models.GR4J-1",
     "page": "Hurst Documentation",
-    "title": "Hurst.GR4J",
+    "title": "Hurst.Models.GR4J",
     "category": "section",
-    "text": "Modules = [Hurst.GR4J]\nOrder   = [:function, :type]"
+    "text": "Modules = [Hurst.Models.GR4J]\nOrder   = [:function, :type]"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_init_state-Tuple{Any}",
+    "location": "#Hurst.Models.OSTP.ostp_init_state-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_init_state",
+    "title": "Hurst.Models.OSTP.ostp_init_state",
     "category": "method",
     "text": "ostp_init_state(pars)\n\nReturn a Dictionary containing an initial state for ostp model. Uses a standard method derived from a set of model parmaters, pars.\n\nThe pars argument should have keys defined by the ostp_params_from_array(arr) function.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_params_default-Tuple{}",
+    "location": "#Hurst.Models.OSTP.ostp_params_default-Tuple{}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_params_default",
+    "title": "Hurst.Models.OSTP.ostp_params_default",
     "category": "method",
     "text": "ostp_params_default()\n\nReturns a Dictionary containing a reasonable set of ostp parameter vaues with keys defined by the ostp_params_from_array(arr) function and ready to be used by the ostp_run_step function.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_params_from_array-Tuple{Any}",
+    "location": "#Hurst.Models.OSTP.ostp_params_from_array-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_params_from_array",
+    "title": "Hurst.Models.OSTP.ostp_params_from_array",
     "category": "method",
     "text": "ostp_params_from_array(arr)\n\nReturns a Dictionary containing a parameter set ready to be used by the ostp_run_step function.\n\nSets the value of the :capacity, :loss keys to the 1st and 2nd index values of the arr array.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: ostp_params_to_array(pars), ostp_params_range(), ostp_run_step(rain, pet, state, pars)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_params_random-Tuple{Any}",
+    "location": "#Hurst.Models.OSTP.ostp_params_random-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_params_random",
+    "title": "Hurst.Models.OSTP.ostp_params_random",
     "category": "method",
     "text": "ostp_params_random(prange)\n\nReturns a Dictionary containing a random set of ostp parameter vaues selected with a uniform sampler within the parameter ranges specified by prange.\n\nThe prange argument should be a Dictionary with keys defined by the ostp_params_range() function.\n\nThis set of random parameters has keys defined by the ostp_params_from_array(arr) function and is ready to be used by the ostp_run_step function.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars), ostp_params_range()\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_params_range-Tuple{}",
+    "location": "#Hurst.Models.OSTP.ostp_params_range-Tuple{}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_params_range",
+    "title": "Hurst.Models.OSTP.ostp_params_range",
     "category": "method",
     "text": "ostp_params_range()\n\nReturns a Dictionary with reasonable ranges for ostp parameter vaues.\n\nThese are used in the model calibration and random parameter sampling functions.\n\nSee also: ostp_params_from_array(arr), ostp_run_step(rain, pet, state, pars), ostp_params_random(prange)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_params_range_to_tuples-Tuple{Any}",
+    "location": "#Hurst.Models.OSTP.ostp_params_range_to_tuples-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_params_range_to_tuples",
+    "title": "Hurst.Models.OSTP.ostp_params_range_to_tuples",
     "category": "method",
     "text": "ostp_params_range_to_tuples(prange)\n\nReturns an array of tuples containing the ostp parameter ranges provided in the prange Dictionary argument. This Dictionary should contain the keys defined by the ostp_params_range function.\n\nSee also: ostp_params_range()\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_params_to_array-Tuple{Any}",
+    "location": "#Hurst.Models.OSTP.ostp_params_to_array-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_params_to_array",
+    "title": "Hurst.Models.OSTP.ostp_params_to_array",
     "category": "method",
     "text": "ostp_params_to_array(pars)\n\nReturns an array containing ostp parameter vaues from a parameter Dictionary with keys defined by the ostp_params_from_array(arr) function.\n\nSets the 1st and 2nd index values of the returned array to the value of the :capacity and :loss keys in the pars Dictionary.\n\nIntentionally does not check if these parameter values are within any acceptable range.\n\nSee also: ostp_params_from_array(arr), ostp_params_range()\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP.ostp_run_step-NTuple{4,Any}",
+    "location": "#Hurst.Models.OSTP.ostp_run_step-NTuple{4,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP.ostp_run_step",
+    "title": "Hurst.Models.OSTP.ostp_run_step",
     "category": "method",
     "text": "ostp_run_step(rain, pet, state, pars)\n\nRun a single time-step of the ostp model. ostp a simple one storage, two parameter model used for educational purposes. To outline basic concepts in conceptual rainfall-runoff models and how to implement a rainfall-runoff model within Hurst. Please do not use it for actual water resource modelling!\n\nThe model is forced by the rain and pet (floats) supplied and uses the state for initial conditions. Model parameters used are provided in the pars argument.\n\nThe pars argument should have keys defined by the ostp_params_from_array(arr) function and the state with keys defined by ostp_init_state(pars).\n\nThe function then returns the runoff and an updated state. This updated state is typically used as the input state for the next time-step in a time-series simulation.\n\nSee also: ostp_init_state(pars), ostp_params_from_array(arr)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.OSTP-1",
+    "location": "#Hurst.Models.OSTP-1",
     "page": "Hurst Documentation",
-    "title": "Hurst.OSTP",
+    "title": "Hurst.Models.OSTP",
     "category": "section",
-    "text": "Modules = [Hurst.OSTP]\nOrder   = [:function, :type]"
+    "text": "Modules = [Hurst.Models.OSTP]\nOrder   = [:function, :type]"
 },
 
 {
@@ -449,131 +449,139 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#Hurst.Performance.coeff_det-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.coeff_det-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.coeff_det",
+    "title": "Hurst.Performance.Metrics.coeff_det",
     "category": "method",
     "text": "coeff_det(y, f)\n\nReturns the Coefficient of Determination between y and f. Skips missing values from either series.\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.kge-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Performance.Metrics.kge-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.kge",
+    "title": "Hurst.Performance.Metrics.kge",
     "category": "method",
     "text": "kge(o, s, components)\n\nReturns the Kling-Gupta Efficiency between o and s. Skips missing values from either series.\n\nIf components is true then a Dictionary is returned containing the final KGE value (:kge) along with the individual components used to construct the KGE (:covariance, :relativevariability, :meanbias)\n\nSee also: kge(o, s)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.kge-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.kge-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.kge",
+    "title": "Hurst.Performance.Metrics.kge",
     "category": "method",
     "text": "kge(o, s)\n\nReturns the Kling-Gupta Efficiency between o and s. Skips missing values from either series.\n\nSee also: kge(o, s, components)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.mae-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.kuipers_score-Tuple{Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.mae",
+    "title": "Hurst.Performance.Metrics.kuipers_score",
+    "category": "method",
+    "text": "kuipers_score(scaled_conf)\n\nReturns the Kuipers Score using the elements of the scaled_conf contingency table.\n\nRichardson, D. S. “Skill and Relative Economic Value of the ECMWF Ensemble Prediction System.” Quarterly Journal of the Royal Meteorological Society 126, no. 563 (January 2000): 649–67. https://doi.org/10.1256/smsqj.56312.\n\nSee also: confusion_scaled\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Performance.Metrics.mae-Tuple{Any,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Performance.Metrics.mae",
     "category": "method",
     "text": "mae(o, s)\n\nReturns the Mean Absolute Error between o and s. Skips missing values from either series.\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.mse-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.mse-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.mse",
+    "title": "Hurst.Performance.Metrics.mse",
     "category": "method",
-    "text": "mse(o, s)\n\nReturns the Mean Square Error between o and s. Skips missing values from either series.\n\nSee also: rmse(o, s)\n\n\n\n\n\n"
+    "text": "mse(o, s)\n\nReturns the Mean Square Error between o and s. Skips missing values from either series.\n\nSee also: rmse\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.nse-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.nse-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.nse",
+    "title": "Hurst.Performance.Metrics.nse",
     "category": "method",
-    "text": "nse(obs, sim)\n\nReturns the Nash Sutcliffe Efficiency of obs and sim timeseries.\n\nSee also: coeff_det(y, f)\n\n\n\n\n\n"
+    "text": "nse(obs, sim)\n\nReturns the Nash Sutcliffe Efficiency of obs and sim timeseries.\n\nSee also: coeff_det\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.persistence-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.persistence-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.persistence",
+    "title": "Hurst.Performance.Metrics.persistence",
     "category": "method",
     "text": "persistence(o, s)\n\nReturns the Persistence Index between o and s. Skips missing values from either series.\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance.rmse-Tuple{Any,Any}",
+    "location": "#Hurst.Performance.Metrics.rmse-Tuple{Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance.rmse",
+    "title": "Hurst.Performance.Metrics.rmse",
     "category": "method",
-    "text": "rmse(o, s)\n\nReturns the Root Mean Square Error between o and s.\n\nSee also: mse(o, s)\n\n\n\n\n\n"
+    "text": "rmse(o, s)\n\nReturns the Root Mean Square Error between o and s.\n\nSee also: mse\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Performance-1",
+    "location": "#Hurst.Performance.Metrics-1",
     "page": "Hurst Documentation",
-    "title": "Hurst.Performance",
+    "title": "Hurst.Performance.Metrics",
     "category": "section",
-    "text": "Modules = [Hurst.Performance]\nOrder   = [:function, :type]"
+    "text": "Modules = [Hurst.Performance.Metrics]\nOrder   = [:function, :type]"
 },
 
 {
-    "location": "#Hurst.Value.confusion-NTuple{4,Any}",
+    "location": "#Hurst.Performance.Economic.cost_loss-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Value.confusion",
-    "category": "method",
-    "text": "confusion(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
-},
-
-{
-    "location": "#Hurst.Value.confusion_scaled-NTuple{4,Any}",
-    "page": "Hurst Documentation",
-    "title": "Hurst.Value.confusion_scaled",
-    "category": "method",
-    "text": "confusion_scaled(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid scaled to be relative to the number of events and non-events (hits + misses + false_alarms + quiets).\n\nSee also: confusion(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
-},
-
-{
-    "location": "#Hurst.Value.cost_loss-Tuple{Any,Any,Any}",
-    "page": "Hurst Documentation",
-    "title": "Hurst.Value.cost_loss",
+    "title": "Hurst.Performance.Economic.cost_loss",
     "category": "method",
     "text": "cost_loss(costs, losses, scaled_conf, method=\"verkade\")\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nTwo methods are implemented (Verkade 2011 and Roulin 2007) which may be selected with the method argument (default is Verkade).\n\nVerkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value and Probability Forecasting for Flood Warning.” Hydrology and Earth System Sciences 15, no. 12 (December 20, 2011): 3751–65. https://doi.org/10.5194/hess-15-3751-2011.\n\nRoulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007): 725–37. https://doi.org/10.5194/hess-11-725-2007.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets), cost_loss_roulin(costs, losses, scaled_conf), cost_loss_verkade(costs, losses, scaled_conf)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Value.cost_loss_roulin-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Performance.Economic.cost_loss_roulin-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Value.cost_loss_roulin",
+    "title": "Hurst.Performance.Economic.cost_loss_roulin",
     "category": "method",
     "text": "cost_loss_roulin(costs, losses, scaled_conf)\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nRoulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007): 725–37. https://doi.org/10.5194/hess-11-725-2007.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets), cost_loss(costs, losses, scaled_conf, method), cost_loss_verkade(costs, losses, scaled_conf)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Value.cost_loss_verkade-Tuple{Any,Any,Any}",
+    "location": "#Hurst.Performance.Economic.cost_loss_verkade-Tuple{Any,Any,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Value.cost_loss_verkade",
+    "title": "Hurst.Performance.Economic.cost_loss_verkade",
     "category": "method",
     "text": "cost_loss_verkade(costs, losses, scaled_conf)\n\nReturns the relative economic value of a forecast system using a the cost-loss model using the cost-loss ratio (costs, losses) and confusion matrix scaled by the total events and non-events scaled_conf.\n\nVerkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value and Probability Forecasting for Flood Warning.” Hydrology and Earth System Sciences 15, no. 12 (December 20, 2011): 3751–65. https://doi.org/10.5194/hess-15-3751-2011.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets), cost_loss(costs, losses, scaled_conf, method), cost_loss_roulin(costs, losses, scaled_conf)\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Hurst.Value.kuipers_score-Tuple{Any}",
+    "location": "#Hurst.Performance.Economic-1",
     "page": "Hurst Documentation",
-    "title": "Hurst.Value.kuipers_score",
-    "category": "method",
-    "text": "kuipers_score(scaled_conf)\n\nReturns the Kuipers Score using the elements of the scaled_conf contingency table.\n\nRichardson, D. S. “Skill and Relative Economic Value of the ECMWF Ensemble Prediction System.” Quarterly Journal of the Royal Meteorological Society 126, no. 563 (January 2000): 649–67. https://doi.org/10.1256/smsqj.56312.\n\nSee also: confusion_scaled, cost_loss\n\n\n\n\n\n"
+    "title": "Hurst.Performance.Economic",
+    "category": "section",
+    "text": "Modules = [Hurst.Performance.Economic]\nOrder   = [:function, :type]"
 },
 
 {
-    "location": "#Hurst.Value-1",
+    "location": "#Hurst.Performance.Confusion.confusion-NTuple{4,Any}",
     "page": "Hurst Documentation",
-    "title": "Hurst.Value",
+    "title": "Hurst.Performance.Confusion.confusion",
+    "category": "method",
+    "text": "confusion(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid.\n\nSee also: confusion_scaled(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Performance.Confusion.confusion_scaled-NTuple{4,Any}",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Performance.Confusion.confusion_scaled",
+    "category": "method",
+    "text": "confusion_scaled(hits, misses, false_alarms, quiets)\n\nReturns a Dict containing fields of a confusion matrix with the various common names used for each combination of the 2x2 grid scaled to be relative to the number of events and non-events (hits + misses + false_alarms + quiets).\n\nSee also: confusion(hits, misses, false_alarms, quiets)\n\n\n\n\n\n"
+},
+
+{
+    "location": "#Hurst.Performance.Confusion-1",
+    "page": "Hurst Documentation",
+    "title": "Hurst.Performance.Confusion",
     "category": "section",
-    "text": "Modules = [Hurst.Value]\nOrder   = [:function, :type]"
+    "text": "Modules = [Hurst.Performance.Confusion]\nOrder   = [:function, :type]"
 },
 
 ]}
