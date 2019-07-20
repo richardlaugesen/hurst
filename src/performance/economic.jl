@@ -34,9 +34,9 @@ Sciences 15, no. 12 (December 20, 2011): 3751–65.
 [https://doi.org/10.5194/hess-15-3751-2011](https://doi.org/10.5194/hess-15-3751-2011).
 
 See also:
-[`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref),
-[`cost_loss(costs, losses, scaled_conf, method)`](@ref),
-[`cost_loss_roulin(costs, losses, scaled_conf)`](@ref)
+[`confusion_scaled`](@ref),
+[`cost_loss`](@ref),
+[`cost_loss_roulin`](@ref)
 """
 function cost_loss_verkade(costs, losses, scaled_conf)
     h = scaled_conf[:hits]
@@ -62,9 +62,9 @@ Roulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological
 Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007):
 725–37. [https://doi.org/10.5194/hess-11-725-2007](https://doi.org/10.5194/hess-11-725-2007).
 
-See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref),
-[`cost_loss(costs, losses, scaled_conf, method)`](@ref),
-[`cost_loss_verkade(costs, losses, scaled_conf)`](@ref)
+See also: [`confusion_scaled`](@ref),
+[`cost_loss`](@ref),
+[`cost_loss_verkade`](@ref)
 """
 function cost_loss_roulin(costs, losses, scaled_conf)
     f_1 = scaled_conf[:quiets]
@@ -102,9 +102,9 @@ Roulin, E. “Skill and Relative Economic Value of Medium-Range Hydrological
 Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007):
 725–37. [https://doi.org/10.5194/hess-11-725-2007](https://doi.org/10.5194/hess-11-725-2007).
 
-See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref),
-[`cost_loss_roulin(costs, losses, scaled_conf)`](@ref),
-[`cost_loss_verkade(costs, losses, scaled_conf)`](@ref)
+See also: [`confusion_scaled`](@ref),
+[`cost_loss_roulin`](@ref),
+[`cost_loss_verkade`](@ref)
 """
 function cost_loss(costs, losses, scaled_conf; method="verkade")
     if method == "roulin"

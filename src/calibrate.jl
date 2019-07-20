@@ -89,7 +89,7 @@ Sutcliffe Efficiency objective function could be:
     opt_pars, opt_neg_nse = calibrate(data[:rain], data[:pet], data[:runoff_obs], functions, opt_options)
     opt_nse = -1 * opt_neg_nse
 
-See also: [`simulate(timestep_fnc, rain, pet, pars, init_state)`](@ref)
+See also: [`simulate`](@ref)
 """
 function calibrate(rain, pet, runoff, functions, opt_options)
 

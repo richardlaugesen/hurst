@@ -26,7 +26,7 @@ Returns a Dict containing fields of a
 [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) with the
 various common names used for each combination of the 2x2 grid.
 
-See also: [`confusion_scaled(hits, misses, false_alarms, quiets)`](@ref)
+See also: [`confusion_scaled`](@ref)
 """
 function confusion(hits, misses, false_alarms, quiets)
     Dict(
@@ -58,7 +58,7 @@ various common names used for each combination of the 2x2 grid scaled to be
 relative to the number of events and non-events
 (hits + misses + false_alarms + quiets).
 
-See also: [`confusion(hits, misses, false_alarms, quiets)`](@ref)
+See also: [`confusion`](@ref)
 """
 function confusion_scaled(hits, misses, false_alarms, quiets)
     total = hits + misses + false_alarms + quiets

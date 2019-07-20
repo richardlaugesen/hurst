@@ -28,7 +28,7 @@ export km2_to_acres, acres_to_km2
 Convert cubic metres per second of streamflow `q` into
 megalitres per day of volume.
 
-See also: [`megalitres_day_to_cumecs(v)`](@ref)
+See also: [`megalitres_day_to_cumecs`](@ref)
 """
 cumecs_to_megalitres_day(q) = q * 86.4
 
@@ -38,7 +38,7 @@ cumecs_to_megalitres_day(q) = q * 86.4
 Convert megalitres per day of volume `v` into
 cubic metres per second of streamflow.
 
-See also: [`cumecs_to_megalitres_day(q)`](@ref)
+See also: [`cumecs_to_megalitres_day`](@ref)
 """
 megalitres_day_to_cumecs(v) = v / 86.4
 
@@ -48,7 +48,7 @@ megalitres_day_to_cumecs(v) = v / 86.4
 Use the catchment `area` (kilometres) to convert a depth `d` of
 catchment average runoff (millimetres) into volume (megalitres).
 
-See also: [`megalitres_to_mm_runoff(v, area)`](@ref)
+See also: [`megalitres_to_mm_runoff`](@ref)
 """
 mm_runoff_to_megalitres(d, area) = d * area
 
@@ -58,7 +58,7 @@ mm_runoff_to_megalitres(d, area) = d * area
 Use the catchment `area` (kilometres) to convert a volume `v` (megalitres)
 into catchment average runoff (millimetres).
 
-See also: [`mm_runoff_to_megalitres(d, area)`](@ref)
+See also: [`mm_runoff_to_megalitres`](@ref)
 """
 megalitres_to_mm_runoff(v, area) = v / area
 
@@ -67,7 +67,7 @@ megalitres_to_mm_runoff(v, area) = v / area
 
 Convert an area in square kilometres to an area in square metres.
 
-See also: [`m2_to_km2(a)`](@ref)
+See also: [`m2_to_km2`](@ref)
 """
 km2_to_m2(a) = a * 1e6
 
@@ -76,7 +76,7 @@ km2_to_m2(a) = a * 1e6
 
 Convert an area in square metres to an area in square kilometres.
 
-See also: [`km2_to_m2(a)`](@ref)
+See also: [`km2_to_m2`](@ref)
 """
 m2_to_km2(a) = a / 1e6
 
@@ -85,7 +85,7 @@ m2_to_km2(a) = a / 1e6
 
 Convert an area in square kilometres to an area in acres.
 
-See also: [`acres_to_km2(a)`](@ref)
+See also: [`acres_to_km2`](@ref)
 """
 km2_to_acres(a) = a * 247.1
 
@@ -94,7 +94,7 @@ km2_to_acres(a) = a * 247.1
 
 Convert an area in acres to an area in square kilometres.
 
-See also: [`km2_to_acres(a)`](@ref)
+See also: [`km2_to_acres`](@ref)
 """
 acres_to_km2(a) = a * 0.004046944556859571
 

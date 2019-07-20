@@ -29,7 +29,7 @@ Two param box-cox transform. ([Wikipedia](https://en.wikipedia.org/wiki/Power_tr
 Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
 J. R. Stat. Soc., Ser. B, 26, 296–311.
 
-See also: [`boxcox_inverse(z, λ, ν)`](@ref)
+See also: [`boxcox_inverse`](@ref)
 """
 function boxcox(y, λ, ν)
     if abs(λ) < 1e-8
@@ -47,7 +47,7 @@ Inverse of the two param box-cox transform. ([Wikipedia](https://en.wikipedia.or
 Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
 J. R. Stat. Soc., Ser. B, 26, 296–311.
 
-See also: [`boxcox(y, λ, ν)`](@ref)
+See also: [`boxcox`](@ref)
 """
 function boxcox_inverse(z, λ, ν)
     if abs(λ) < 1e-8
@@ -65,7 +65,7 @@ One param box-cox transform. ([Wikipedia](https://en.wikipedia.org/wiki/Power_tr
 Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
 J. R. Stat. Soc., Ser. B, 26, 296–311.
 
-See also: [`boxcox_inverse(z, λ)`](@ref)
+See also: [`boxcox_inverse`](@ref)
 """
 boxcox(y, λ) = boxcox(y, λ, 0)
 
@@ -77,7 +77,7 @@ Inverse of the one param box-cox transform. ([Wikipedia](https://en.wikipedia.or
 Box, G. E. P., and D. R. Cox (1964), An analysis of transformations,
 J. R. Stat. Soc., Ser. B, 26, 296–311.
 
-See also: [`boxcox(y, λ)`](@ref)
+See also: [`boxcox`](@ref)
 """
 boxcox_inverse(z, λ) = boxcox_inverse(z, λ, 0)
 
@@ -90,7 +90,7 @@ Wang, Q. J., D. L. Shrestha, D. E. Robertson, and P. Pokhrel (2012b), A
 log-sinh transformation for data normalization and variance stabiliza- tion,
 Water Resour. Res., 48, W05514, doi:10.1029/2011WR010973.
 
-See also: [`log_sinh_inverse(z, a, b)`](@ref)
+See also: [`log_sinh_inverse`](@ref)
 """
 function log_sinh(y, a, b)
     log.(sinh.(a .+ b * y)) / b
@@ -105,7 +105,7 @@ Wang, Q. J., D. L. Shrestha, D. E. Robertson, and P. Pokhrel (2012b), A
 log-sinh transformation for data normalization and variance stabiliza- tion,
 Water Resour. Res., 48, W05514, doi:10.1029/2011WR010973.
 
-See also: [`log_sinh(y, a, b)`](@ref)
+See also: [`log_sinh`](@ref)
 """
 function log_sinh_inverse(z, a, b)
     (asinh.(exp.(b * z)) .- a) / b
@@ -116,7 +116,7 @@ end
 
 Log transform with offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
 
-See also: [`log_trans_inverse(z, offset)`](@ref)
+See also: [`log_trans_inverse`](@ref)
 """
 function log_trans(y, offset)
     log.(y .+ offset)
@@ -127,7 +127,7 @@ end
 
 Inverse log transform with offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
 
-See also: [`log_trans(y, offset)`](@ref)
+See also: [`log_trans`](@ref)
 """
 function log_trans_inverse(z, offset)
     exp.(z) .- offset
@@ -138,7 +138,7 @@ end
 
 Log transform with no offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
 
-See also: [`log_trans_inverse(z)`](@ref)
+See also: [`log_trans_inverse`](@ref)
 """
 log_trans(y) = log_trans(y, 0)
 
@@ -147,7 +147,7 @@ log_trans(y) = log_trans(y, 0)
 
 Inverse log transform with no offset. ([Wikipedia](https://en.wikipedia.org/wiki/Data_transformation_%28statistics%29))
 
-See also: [`log_trans(y)`](@ref)
+See also: [`log_trans`](@ref)
 """
 log_trans_inverse(z) = log_trans_inverse(z, 0)
 
