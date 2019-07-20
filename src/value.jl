@@ -19,6 +19,7 @@ module Value
 
 export confusion, confusion_scaled
 export cost_loss_verkade, cost_loss_roulin, cost_loss
+export kuipers_score
 
 """
     confusion(hits, misses, false_alarms, quiets)
@@ -157,6 +158,30 @@ function cost_loss(costs, losses, scaled_conf; method="verkade")
     else
         cost_loss_verkade(costs, losses, scaled_conf)
     end
+end
+
+"""
+    kuipers_score(scaled_conf)
+
+Returns the Kuipers Score using the elements of the `scaled_conf` contingency
+table.
+
+Richardson, D. S. “Skill and Relative Economic Value of the ECMWF Ensemble
+Prediction System.” Quarterly Journal of the Royal Meteorological Society
+126, no. 563 (January 2000): 649–67.
+[https://doi.org/10.1256/smsqj.56312](https://doi.org/10.1256/smsqj.56312).
+
+See also:
+[`confusion_scaled`](@ref),
+[`cost_loss`](@ref)
+"""
+function kuipers_score(scaled_conf)
+    a = scaled_conf[:quiets]
+    b = scaled_conf[:misses]
+    c = scaled_conf[:false_alarms]
+    d = scaled_conf[:hits]
+
+    return (a * d - b * c) / ((a + c) * (b + d))
 end
 
 end
