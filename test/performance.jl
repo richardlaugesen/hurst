@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-module TestVerification
+module TestPerformance
 
-using Hurst.Verification
+using Hurst.Performance
 
 using Test
 using CSV
@@ -28,7 +28,7 @@ obs, sim = data[:obs_runoff], data[:obs_runoff_sim_0]
 x = rand(100)
 y = rand(100)
 
-@testset "Verification" begin
+@testset "Performance" begin
     @testset "Nash Sutcliffe Efficiency (and coefficient of determination)" begin
         @testset "Basic series" begin
             @test nse(y, y) == 1

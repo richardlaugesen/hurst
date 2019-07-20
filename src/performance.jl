@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-module Verification
+module Performance
 
 using Hurst.Utils
 
@@ -130,4 +130,3 @@ See also: [`kge(o, s, components)`](@ref)
 kge(o, s) = kge(o, s, false)
 
 end
-

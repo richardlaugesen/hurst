@@ -19,7 +19,7 @@ module Hurst
 
 include("units.jl")
 include("utils.jl")
-include("verification.jl")
+include("performance.jl")
 include("value.jl")
 include("transforms.jl")
 include("ostp.jl")

@@ -20,7 +20,7 @@ using Hurst.Calibration
 using Hurst.Simulation
 using Hurst.GR4J
 using Hurst.OSTP
-using Hurst.Verification
+using Hurst.Performance
 using Hurst.Visualisations
 
 using CSV

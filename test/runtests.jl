@@ -23,7 +23,7 @@ using Test
     include("utils.jl")
     include("units.jl")
     include("transforms.jl")
-    include("verification.jl")
+    include("performance.jl")
     include("value.jl")
     include("ostp.jl")
     include("gr4j.jl")

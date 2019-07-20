@@ -57,10 +57,10 @@ Modules = [Hurst.Units]
 Order   = [:function, :type]
 ```
 
-## Hurst.Verification
+## Hurst.Performance
 
 ```@autodocs
-Modules = [Hurst.Verification]
+Modules = [Hurst.Performance]
 Order   = [:function, :type]
 ```
 

@@ -18,7 +18,7 @@
 module TestCalibrate
 
 using Hurst
-using Hurst.Verification
+using Hurst.Performance
 using Hurst.Simulation
 using Hurst.Calibration
 using Hurst.GR4J

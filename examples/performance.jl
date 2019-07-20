@@ -16,7 +16,7 @@
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
 using Hurst
-using Hurst.Verification
+using Hurst.Performance
 
 using CSV
 using DataFrames
