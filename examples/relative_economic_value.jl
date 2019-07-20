@@ -22,7 +22,7 @@
 # Sciences 15, no. 12 (December 20, 2011): 3751–65.
 # https://doi.org/10.5194/hess-15-3751-2011.
 
-using Hurst.Verification
+using Hurst.Value
 using DataFrames
 using StatsPlots
 
