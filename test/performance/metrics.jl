@@ -17,7 +17,9 @@
 
 module TestPerformance
 
-using Hurst.Performance
+using Hurst.Performance.Metrics
+using Hurst.Performance.Confusion
+using Hurst.Performance.Economic
 
 using Test
 using CSV
@@ -147,6 +149,30 @@ y = rand(100)
 
     @testset "Root Mean Square Error" begin
         @test rmse(obs, sim) == sqrt(mse(obs, sim))
+    end
+
+    @testset "Kuipers Score" begin
+
+        @testset "Basic" begin
+            conf_scaled = confusion_scaled(10, 2, 2, 15860)
+            @test kuipers_score(conf_scaled) ≈ 0.833207246
+        end
+
+        @testset "Max cost-loss is equal to KS" begin
+            correct_range = true
+            for i in 1:1000
+                rand_conf = confusion_scaled(rand(), rand(), rand(), rand())
+
+                obs_freq = rand_conf[:hits] + rand_conf[:misses]
+                max_rev = cost_loss(obs_freq, 1.0, rand_conf)
+                ks = kuipers_score(rand_conf)
+
+                if !(ks ≈ max_rev)
+                    correct_range = false
+                end
+            end
+            @test correct_range == true
+        end
     end
 end
 end

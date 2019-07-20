@@ -18,11 +18,11 @@
 module TestCalibrate
 
 using Hurst
-using Hurst.Performance
+using Hurst.Performance.Metrics
 using Hurst.Simulation
 using Hurst.Calibration
-using Hurst.GR4J
-using Hurst.OSTP
+using Hurst.Models.GR4J
+using Hurst.Models.OSTP
 
 using Test
 using CSV

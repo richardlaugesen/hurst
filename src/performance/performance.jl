@@ -15,15 +15,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-module Hurst
+module Performance
 
-include("units.jl")
-include("utils.jl")
-include("transforms.jl")
-include("performance/performance.jl")
-include("models/models.jl")
-include("simulate.jl")
-include("calibrate.jl")
-include("visualisations.jl")
+include("confusion.jl")
+include("metrics.jl")
+include("economic.jl")
 
 end

@@ -18,7 +18,7 @@
 module BenchmarkGR4J
 
 using Hurst
-using Hurst.GR4J
+using Hurst.Models.GR4J
 using Hurst.Simulation
 
 using Test

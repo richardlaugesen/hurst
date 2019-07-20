@@ -8,17 +8,17 @@
 ```@index
 ```
 
-## Hurst.GR4J
+## Hurst.Models.GR4J
 
 ```@autodocs
-Modules = [Hurst.GR4J]
+Modules = [Hurst.Models.GR4J]
 Order   = [:function, :type]
 ```
 
-## Hurst.OSTP
+## Hurst.Models.OSTP
 
 ```@autodocs
-Modules = [Hurst.OSTP]
+Modules = [Hurst.Models.OSTP]
 Order   = [:function, :type]
 ```
 
@@ -57,16 +57,23 @@ Modules = [Hurst.Units]
 Order   = [:function, :type]
 ```
 
-## Hurst.Performance
+## Hurst.Performance.Metrics
 
 ```@autodocs
-Modules = [Hurst.Performance]
+Modules = [Hurst.Performance.Metrics]
 Order   = [:function, :type]
 ```
 
-## Hurst.Value
+## Hurst.Performance.Economic
 
 ```@autodocs
-Modules = [Hurst.Value]
+Modules = [Hurst.Performance.Economic]
+Order   = [:function, :type]
+```
+
+## Hurst.Performance.Confusion
+
+```@autodocs
+Modules = [Hurst.Performance.Confusion]
 Order   = [:function, :type]
 ```
