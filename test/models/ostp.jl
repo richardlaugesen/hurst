@@ -15,31 +15,26 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-using Hurst
-using Hurst.Performance
+module TestOSTP
 
+using Hurst
+using Hurst.Models.OSTP
+
+using Test
 using CSV
 using DataFrames
-using Printf: @sprintf
 
-df = CSV.read("test/data/test_2_data.csv", header=1, missingstrings=["-9999"]);
-obs, sim = df[:obs_runoff], df[:obs_runoff_sim_0];
+@testset "OSTP" begin
+    @testset "Single timestep" begin
+        pars = ostp_params_from_array([100, 0])
+        init_state = 0
+        @test ostp_run_step(1, 0, init_state, pars)[1] == 0
 
-metrics = Dict()
+        pars = ostp_params_from_array([100, 50])
+        init_state = ostp_init_state(pars)
+        @test ostp_run_step(20, 7, init_state, pars)[1] == 0
+        @test ostp_run_step(200, 7, init_state, pars)[1] == 93
+    end
+end
 
-metrics[:nse] = nse(obs, sim)
-metrics[:mse] = mse(obs, sim)
-metrics[:rmse] = rmse(obs, sim)
-metrics[:persistence] = persistence(obs, sim)
-metrics[:kge] = kge(obs, sim)
-metrics[:kge_components] = kge(obs, sim, true)
-
-println(metrics)
-
-# Dict{Any,Any} with 6 entries:
-#   :rmse           => 1.39263
-#   :kge_components => Dict(:mean_bias=>1.07001,:kge=>0.844643,:relative_variability=>0.888073,:covariance=>0.918107)
-#   :kge            => 0.844643
-#   :mse            => 1.93941
-#   :nse            => 0.841729
-#   :persistence    => 0.468714
+end

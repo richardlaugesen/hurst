@@ -23,12 +23,13 @@ using Test
     include("utils.jl")
     include("units.jl")
     include("transforms.jl")
-    include("performance.jl")
-    include("value.jl")
-    include("ostp.jl")
-    include("gr4j.jl")
-    include("gr4j_benchmark.jl")
+    include("performance/confusion.jl")
+    include("performance/metrics.jl")
+    include("performance/economic.jl")
+    include("models/ostp.jl")
+    include("models/gr4j.jl")
     include("calibrate.jl")
+    #include("benchmark.jl")
 end
 
 end

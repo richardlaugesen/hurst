@@ -16,7 +16,7 @@
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
 using Hurst
-using Hurst.GR4J
+using Hurst.Models.GR4J
 using Hurst.Simulation
 
 using CSV

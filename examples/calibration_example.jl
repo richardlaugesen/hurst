@@ -18,9 +18,9 @@
 using Hurst
 using Hurst.Calibration
 using Hurst.Simulation
-using Hurst.GR4J
-using Hurst.OSTP
-using Hurst.Performance
+using Hurst.Models.GR4J
+using Hurst.Models.OSTP
+using Hurst.Performance.Metrics
 using Hurst.Visualisations
 
 using CSV
@@ -195,7 +195,7 @@ plotter(data, 1, 12417, "hydrograph-calibration-2.png")
 # Function evals per second = 3.223984742522605
 # Improvements/step = Inf
 # Total function evaluations = 968
-# 
+#
 #
 # Best candidate found: [3.84484, 2.89193, 5.73781, 0.0367135]
 #

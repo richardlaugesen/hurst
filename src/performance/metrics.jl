@@ -15,20 +15,21 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-module Performance
+module Metrics
 
 using Hurst.Utils
+using Hurst.Performance.Confusion
 
 using Statistics
 
-export coeff_det, nse, mae, mse, rmse, kge, persistence
+export coeff_det, nse, mae, mse, rmse, kge, persistence, kuipers_score
 
 """
     nse(obs, sim)
 
 Returns the Nash Sutcliffe Efficiency of `obs` and `sim` timeseries.
 
-See also: [`coeff_det(y, f)`](@ref)
+See also: [`coeff_det`](@ref)
 """
 function nse(obs, sim)
     coeff_det(obs, sim)
@@ -50,7 +51,7 @@ end
 Returns the Mean Square Error between `o` and `s`.
 Skips missing values from either series.
 
-See also: [`rmse(o, s)`](@ref)
+See also: [`rmse`](@ref)
 """
 function mse(o, s)
     sum(skipmissing(o - s).^2) / (length_no_missing(o) - 1)
@@ -71,7 +72,7 @@ end
 
 Returns the Root Mean Square Error between `o` and `s`.
 
-See also: [`mse(o, s)`](@ref)
+See also: [`mse`](@ref)
 """
 function rmse(o, s)
     sqrt(mse(o, s))
@@ -128,5 +129,27 @@ Skips missing values from either series.
 See also: [`kge(o, s, components)`](@ref)
 """
 kge(o, s) = kge(o, s, false)
+
+"""
+    kuipers_score(scaled_conf)
+
+Returns the Kuipers Score using the elements of the `scaled_conf` contingency
+table.
+
+Richardson, D. S. “Skill and Relative Economic Value of the ECMWF Ensemble
+Prediction System.” Quarterly Journal of the Royal Meteorological Society
+126, no. 563 (January 2000): 649–67.
+[https://doi.org/10.1256/smsqj.56312](https://doi.org/10.1256/smsqj.56312).
+
+See also: [`confusion_scaled`](@ref)
+"""
+function kuipers_score(scaled_conf)
+    a = scaled_conf[:quiets]
+    b = scaled_conf[:misses]
+    c = scaled_conf[:false_alarms]
+    d = scaled_conf[:hits]
+
+    return (a * d - b * c) / ((a + c) * (b + d))
+end
 
 end

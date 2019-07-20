@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
+# -----------------------------------------------------------------------------
+#
 # Reproduce relative economic figure from Verkade 2011
 #
 # Verkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value
@@ -22,7 +24,8 @@
 # Sciences 15, no. 12 (December 20, 2011): 3751–65.
 # https://doi.org/10.5194/hess-15-3751-2011.
 
-using Hurst.Value
+using Hurst.Performance.Economic
+using Hurst.Performance.Confusion
 using DataFrames
 using StatsPlots
 
@@ -37,7 +40,7 @@ perf[:lead_6] = confusion_scaled(6, 9, 3, 15854)
 
 # calculate the relative economic value over cost-loss ratios for each lead time
 rev = DataFrame()
-rev[:cl_ratio] = 0:0.01:1.0
+rev[:cl_ratio] = 0.0:0.01:1.0
 for (lead_time, confusion_mtx) in perf
     rev[lead_time] = map(r -> cost_loss(r, 1, confusion_mtx), rev[:cl_ratio])
 end
