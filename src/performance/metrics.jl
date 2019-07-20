@@ -90,25 +90,23 @@ function persistence(o, s)
 end
 
 """
-    kge(o, s, components)
+    kge(o, s, return_components)
 
 Returns the Kling-Gupta Efficiency between `o` and `s`.
 Skips missing values from either series.
 
-If `components` is `true` then a Dictionary is returned containing the
-final KGE value (:kge) along with the individual components used to
+If `return_components` is `true` then a Dictionary is returned containing the
+final KGE value (:kge) along with the individual return_components used to
 construct the KGE (:covariance, :relative_variability, :mean_bias)
-
-See also: [`kge(o, s)`](@ref)
 """
-function kge(o, s, components)
+function kge(o, s; return_components=false)
     o, s = dropna(o, s)
     r = cov(o, s, corrected=true) / (std(s, corrected=true) * std(o, corrected=true))  # covariance
     a = std(s) / std(o, corrected=true)  # relative variability
     b = mean(s) / mean(o)  # mean bias
     k = 1 - sqrt((r - 1)^2 + (a - 1)^2 + (b - 1)^2)
 
-    if components
+    if return_components
         return Dict(
             :covariance => r,
             :relative_variability => a,
@@ -119,16 +117,6 @@ function kge(o, s, components)
         return k
     end
 end
-
-"""
-    kge(o, s)
-
-Returns the Kling-Gupta Efficiency between `o` and `s`.
-Skips missing values from either series.
-
-See also: [`kge(o, s, components)`](@ref)
-"""
-kge(o, s) = kge(o, s, false)
 
 """
     kuipers_score(scaled_conf)
