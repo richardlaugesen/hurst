@@ -33,6 +33,22 @@ using Test
             @test cost_loss(0.2, 1.0, conf_scaled, method="anything") == cost_loss_verkade(0.2, 1.0, conf_scaled)
         end
 
+        @testset "Richardson method" begin
+            conf_scaled = confusion_scaled(10, 2, 2, 15860)
+
+            f_1 = conf_scaled[:quiets]
+            f_2 = conf_scaled[:misses]
+            f_3 = conf_scaled[:false_alarms]
+            f_4 = conf_scaled[:hits]
+
+            α = 0.2
+            μ = f_2 + f_4
+            H = f_4 / μ
+            F = f_3 / (1 - μ)
+
+            @test cost_loss_richardson(α, μ, H, F) == cost_loss_roulin(α, 1.0, conf_scaled)
+        end
+
         @testset "Method = $cost_loss_method" for cost_loss_method in [cost_loss_verkade, cost_loss_roulin]
             @testset "Basic behaviour" begin
                 @test isequal(cost_loss_method(0.5, 1.0, confusion_scaled(0, 0, 0, 0)), NaN)

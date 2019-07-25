@@ -19,7 +19,7 @@ module Economic
 
 using Hurst.Performance.Confusion
 
-export cost_loss_verkade, cost_loss_roulin, cost_loss
+export cost_loss_verkade, cost_loss_roulin, cost_loss_richardson, cost_loss
 
 """
     cost_loss_verkade(costs, losses, scaled_conf)
@@ -36,7 +36,8 @@ Sciences 15, no. 12 (December 20, 2011): 3751–65.
 See also:
 [`confusion_scaled`](@ref),
 [`cost_loss`](@ref),
-[`cost_loss_roulin`](@ref)
+[`cost_loss_roulin`](@ref),
+[`cost_loss_richardson`](@ref)
 """
 function cost_loss_verkade(costs, losses, scaled_conf)
     h = scaled_conf[:hits]
@@ -64,7 +65,8 @@ Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007):
 
 See also: [`confusion_scaled`](@ref),
 [`cost_loss`](@ref),
-[`cost_loss_verkade`](@ref)
+[`cost_loss_verkade`](@ref),
+[`cost_loss_richardson`](@ref)
 """
 function cost_loss_roulin(costs, losses, scaled_conf)
     f_1 = scaled_conf[:quiets]
@@ -84,14 +86,37 @@ function cost_loss_roulin(costs, losses, scaled_conf)
 end
 
 """
+    cost_loss_richardson(α, μ, H, F)
+
+Returns the relative economic value of a forecast system using a
+the cost-loss model using the cost-loss ratio `α`, observed frequency `μ`,
+hit rate `H` and false alarm rate `F`.
+
+This method has the same implementation as Roulin 2007 but does not
+use a confusion matrix as input.
+
+Richardson, D. S. “Skill and Relative Economic Value of the ECMWF Ensemble
+Prediction System.” Quarterly Journal of the Royal Meteorological Society 126,
+no. 563 (January 2000): 649–67.
+[https://doi.org/10.1256/smsqj.56312](https://doi.org/10.1256/smsqj.56312).
+
+See also: [`confusion_scaled`](@ref),
+[`cost_loss`](@ref),
+[`cost_loss_verkade`](@ref),
+[`cost_loss_roulin`](@ref)
+"""
+cost_loss_richardson(α, μ, H, F) =
+    (min(α, μ) - F * α * (1 - μ) + H * μ * (1 - α) - μ) / (min(α, μ) - μ * α)
+
+"""
     cost_loss(costs, losses, scaled_conf, method="verkade")
 
 Returns the relative economic value of a forecast system using a
-the cost-loss model using the cost-loss ratio (`costs`, `losses`) and confusion
-matrix scaled by the total events and non-events `scaled_conf`.
+the cost-loss model using the cost-loss ratio (`costs`, `losses`) and scaled
+confusion matrix `scaled_conf`.
 
-Two methods are implemented (Verkade 2011 and Roulin 2007) which may be selected
-with the `method` argument (default is Verkade).
+Two methods are implemented (Verkade 2011 and Roulin 2007)
+which may be selected with the `method` argument (default is Verkade).
 
 Verkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value
 and Probability Forecasting for Flood Warning.” Hydrology and Earth System
@@ -104,7 +129,8 @@ Ensemble Predictions.” Hydrology and Earth System Sciences 11, no. 2 (2007):
 
 See also: [`confusion_scaled`](@ref),
 [`cost_loss_roulin`](@ref),
-[`cost_loss_verkade`](@ref)
+[`cost_loss_verkade`](@ref),
+[`cost_loss_richardson`](@ref)
 """
 function cost_loss(costs, losses, scaled_conf; method="verkade")
     if method == "roulin"
