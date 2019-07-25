@@ -16,13 +16,13 @@
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
 # -----------------------------------------------------------------------------
-#
 # Reproduce relative economic figure from Verkade 2011
 #
 # Verkade, J. S., and M. G. F. Werner. “Estimating the Benefits of Single Value
 # and Probability Forecasting for Flood Warning.” Hydrology and Earth System
 # Sciences 15, no. 12 (December 20, 2011): 3751–65.
 # https://doi.org/10.5194/hess-15-3751-2011.
+# -----------------------------------------------------------------------------
 
 using Hurst.Performance.Economic
 using Hurst.Performance.Confusion
@@ -58,7 +58,10 @@ col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
              legend = :bottomleft,
              size = (800, 600))
 
+# -----------------------------------------------------------------------------
 # Roulin and Verkade methods behave differently
+# -----------------------------------------------------------------------------
+
 quiets_range = 0:20
 
 roulin = map(q -> cost_loss_roulin(0.5, 1.0, confusion_scaled(20, 0, 10, q)), quiets_range)
@@ -72,3 +75,39 @@ plot(quiets_range,
      ylabel = "Relative economic value",
      legend = :bottomright,
      size = (800, 600))
+
+# -----------------------------------------------------------------------------
+# Reproduce Richardson figues
+# -----------------------------------------------------------------------------
+
+# EPS skill from from table 3, Richardson 2000
+# (F, H, μ)
+perf = Dict()
+perf[:neg_8] = (0.039, 0.445, 0.058)
+perf[:neg_4] = (0.144, 0.611, 0.228)
+perf[:pos_8] = (0.091, 0.548, 0.179)
+perf[:pos_4] = (0.027, 0.393, 0.043)
+
+# calculate the relative economic value over cost-loss ratios for each lead time
+rev = DataFrame()
+rev[:cl_ratio] = 0.0:0.01:1.0
+for (anomaly, skill) in perf
+    F = skill[1]
+    H = skill[2]
+    μ = skill[3]
+    value = 0
+    rev[anomaly] = map(α -> cost_loss_richardson(α, μ, H, F), rev[:cl_ratio])
+end
+
+# sorted list of columns without the cost-loss ratios
+col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
+
+# plot the rev curve for each forecast lead time
+@df rev plot(:cl_ratio,
+             cols(col_names),
+             ylim = [0,0.6],
+             title = "Richardson 2000 - Figure 1",
+             xlabel = "Cost-loss ratio",
+             ylabel = "Relative economic value",
+             legend = :topright,
+             size = (800, 600))
