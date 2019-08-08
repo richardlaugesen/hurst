@@ -140,8 +140,8 @@ function plotter(data, s, e, filename)
     savefig(filename)
 end
 
-plotter(data, 12000, 12200, "hydrograph-calibration-1.png")
-plotter(data, 1, 12417, "hydrograph-calibration-2.png")
+plotter(data, 12000, 12200, "examples/figures/hydrograph-calibration-1.png")
+plotter(data, 1, 12417, "examples/figures/hydrograph-calibration-2.png")
 
 
 # Loading data...

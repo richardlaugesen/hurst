@@ -58,6 +58,8 @@ col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
              legend = :bottomleft,
              size = (800, 600))
 
+savefig("examples/figures/verkade-fig6-2011.png")
+
 # -----------------------------------------------------------------------------
 # Roulin and Verkade methods behave differently
 # -----------------------------------------------------------------------------
@@ -75,6 +77,8 @@ plot(quiets_range,
      ylabel = "Relative economic value",
      legend = :bottomright,
      size = (800, 600))
+
+savefig("examples/figures/verkade-roulin-quiets.png")
 
 # -----------------------------------------------------------------------------
 # Reproduce Richardson figues
@@ -111,3 +115,5 @@ col_names = sort(filter(n -> n != :cl_ratio, names(rev)))
              ylabel = "Relative economic value",
              legend = :topright,
              size = (800, 600))
+
+savefig("examples/figures/richardson-fig1-2000.png")
