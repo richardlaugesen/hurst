@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
+using Pkg
+Pkg.activate(".")
+
 using Hurst
 using Hurst.Models.GR4J
 using Hurst.Simulation
@@ -46,71 +49,108 @@ function benchmark_simulation()
     @benchmark simulate(gr4j_run_step, $rain, $pet, $pars, $init_state)
 end
 
-benchmark_timestep()
+results = benchmark_timestep()
+println(results)
 
-    # ----------------------------------------------------
-    # Transcription of Fortran version
-    # ----------------------------------------------------
-    # BenchmarkTools.Trial:
-    #   memory estimate:  4.97 KiB
-    #   allocs estimate:  103
-    #   --------------
-    #   minimum time:     13.042 μs (0.00% GC)
-    #   median time:      14.204 μs (0.00% GC)
-    #   mean time:        23.081 μs (34.39% GC)
-    #   maximum time:     63.937 ms (99.87% GC)
-    #   --------------
-    #   samples:          10000
-    #   evals/sample:     1
+# ----------------------------------------------------
+# Julia 1.1
+#
+# Transcription of Fortran version
+# ----------------------------------------------------
+# BenchmarkTools.Trial:
+#   memory estimate:  4.97 KiB
+#   allocs estimate:  103
+#   --------------
+#   minimum time:     13.042 μs (0.00% GC)
+#   median time:      14.204 μs (0.00% GC)
+#   mean time:        23.081 μs (34.39% GC)
+#   maximum time:     63.937 ms (99.87% GC)
+#   --------------
+#   samples:          10000
+#   evals/sample:     1
+#
+# Unoptimised for clarity [7% slower]
+# Expanding exponents is key optimisation
+# ----------------------------------------------------
+#
+# BenchmarkTools.Trial:
+#   memory estimate:  4.94 KiB
+#   allocs estimate:  101
+#   --------------
+#   minimum time:     14.060 μs (0.00% GC)
+#   median time:      15.276 μs (0.00% GC)
+#   mean time:        25.716 μs (38.08% GC)
+#   maximum time:     79.157 ms (99.92% GC)
+#   --------------
+#   samples:          10000
+#   evals/sample:     1
+#
+# ----------------------------------------------------
+# Julia 1.2
+#
+# BenchmarkTools.Trial: 
+#  memory estimate:  3.69 KiB
+#  allocs estimate:  81
+#  --------------
+#  minimum time:     6.689 μs (0.00% GC)
+#  median time:      7.187 μs (0.00% GC)
+#  mean time:        7.730 μs (5.20% GC)
+#  maximum time:     526.980 μs (95.73% GC)
+#  --------------
+#  samples:          10000
+#  evals/sample:     5
+#
 
-    # ----------------------------------------------------
-    # Unoptimised for clarity [7% slower]
-    # Expanding exponents is key optimisation
-    # ----------------------------------------------------
-    #
-    # BenchmarkTools.Trial:
-    #   memory estimate:  4.94 KiB
-    #   allocs estimate:  101
-    #   --------------
-    #   minimum time:     14.060 μs (0.00% GC)
-    #   median time:      15.276 μs (0.00% GC)
-    #   mean time:        25.716 μs (38.08% GC)
-    #   maximum time:     79.157 ms (99.92% GC)
-    #   --------------
-    #   samples:          10000
-    #   evals/sample:     1
 
-benchmark_simulation()
+results = benchmark_simulation()
+println(results)
 
-    # ----------------------------------------------------
-    # Transcription of Fortran version
-    # ----------------------------------------------------
-    #
-    # BenchmarkTools.Trial:
-    #   memory estimate:  3.62 MiB
-    #   allocs estimate:  79415
-    #   --------------
-    #   minimum time:     9.496 ms (0.00% GC)
-    #   median time:      10.112 ms (0.00% GC)
-    #   mean time:        10.570 ms (5.89% GC)
-    #   maximum time:     78.309 ms (86.69% GC)
-    #   --------------
-    #   samples:          473
-    #   evals/sample:     1
-
-    # ----------------------------------------------------
-    # Unoptimised for clarity [8% slower]
-    # Expanding exponents is key optimisation
-    # ----------------------------------------------------
-    #
-    # BenchmarkTools.Trial:
-    #   memory estimate:  3.59 MiB
-    #   allocs estimate:  77955
-    #   --------------
-    #   minimum time:     10.622 ms (0.00% GC)
-    #   median time:      10.892 ms (0.00% GC)
-    #   mean time:        11.700 ms (5.37% GC)
-    #   maximum time:     21.715 ms (17.32% GC)
-    #   --------------
-    #   samples:          428
-    #   evals/sample:     1
+# ----------------------------------------------------
+# Julia 1.1
+#
+# Transcription of Fortran version
+# ----------------------------------------------------
+#
+# BenchmarkTools.Trial:
+#   memory estimate:  3.62 MiB
+#   allocs estimate:  79415
+#   --------------
+#   minimum time:     9.496 ms (0.00% GC)
+#   median time:      10.112 ms (0.00% GC)
+#   mean time:        10.570 ms (5.89% GC)
+#   maximum time:     78.309 ms (86.69% GC)
+#   --------------
+#   samples:          473
+#   evals/sample:     1
+#
+#
+# Unoptimised for clarity [8% slower]
+# Expanding exponents is key optimisation
+# ----------------------------------------------------
+#
+# BenchmarkTools.Trial:
+#   memory estimate:  3.59 MiB
+#   allocs estimate:  77955
+#   --------------
+#   minimum time:     10.622 ms (0.00% GC)
+#   median time:      10.892 ms (0.00% GC)
+#   mean time:        11.700 ms (5.37% GC)
+#   maximum time:     21.715 ms (17.32% GC)
+#   --------------
+#   samples:          428
+#   evals/sample:     1
+#
+# ----------------------------------------------------
+# Julia 1.2
+#
+# BenchmarkTools.Trial: 
+#  memory estimate:  2.66 MiB
+#  allocs estimate:  60728
+#  --------------
+#  minimum time:     5.217 ms (0.00% GC)
+#  median time:      5.261 ms (0.00% GC)
+#  mean time:        5.589 ms (5.44% GC)
+#  maximum time:     8.143 ms (31.24% GC)
+#  --------------
+#  samples:          895
+#  evals/sample:     1
