@@ -86,8 +86,8 @@ y = rand(100)
         @testset "Missing data" begin
             @test kge([1, missing, 3, 4], [1, 2, 3, 4]) == 1
             @test kge([1, 2, missing, 4], [6, missing, 8, 9]) == -1
-            @test_throws UndefVarError kge([missing, missing, missing], [1, 2, 3])  # TODO: throw a better exception
-            @test_throws UndefVarError kge([1, 2, 3], [missing, missing, missing])
+            @test_throws ArgumentError kge([missing, missing, missing], [1, 2, 3])  # TODO: throw a better exception
+            @test_throws ArgumentError kge([1, 2, 3], [missing, missing, missing])
         end
 
         @testset "Real data" begin
