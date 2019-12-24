@@ -25,7 +25,7 @@ using Test
 using CSV
 
 data = CSV.read("data/test_2_data.csv", header=1, missingstrings=["-9999"])
-obs, sim = data[:obs_runoff], data[:obs_runoff_sim_0]
+obs, sim = data[!, :obs_runoff], data[!, :obs_runoff_sim_0]
 
 x = rand(100)
 y = rand(100)

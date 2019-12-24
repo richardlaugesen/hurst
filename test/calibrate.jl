@@ -33,9 +33,9 @@ using DataFrames
     # load some test data
     df = CSV.read("data/test_1_data.csv", header=1, missingstrings=["-9999"])
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
-    rain = df[:obs_rain]
-    pet = df[:obs_pet]
-    runoff = df[:obs_runoff]
+    rain = df[!, :obs_rain]
+    pet = df[!, :obs_pet]
+    runoff = df[!, :obs_runoff]
 
     # build up dictionary of optimiser options needed for calibration
     opt_options = Dict()

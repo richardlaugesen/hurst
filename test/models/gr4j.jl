@@ -29,10 +29,10 @@ using DataFrames
 
     df = CSV.read("data/test_1_data.csv", header=1, missingstrings=["-9999"])
     names!(df, Symbol.(["date", "obs_rain", "obs_pet", "obs_runoff", "test_sim_runoff"]))
-    rain = df[:obs_rain]
-    pet = df[:obs_pet]
-    runoff_obs = df[:obs_runoff]
-    runoff_sim_test = df[:test_sim_runoff]
+    rain = df[!, :obs_rain]
+    pet = df[!, :obs_pet]
+    runoff_obs = df[!, :obs_runoff]
+    runoff_sim_test = df[!, :test_sim_runoff]
 
     @testset "Single timestep" begin
         pars = gr4j_params_default()
@@ -46,7 +46,7 @@ using DataFrames
     end
 
     @testset "2 year simulation" begin
-        pars = gr4j_params_from_array(CSV.read("data/test_1_params.csv", delim=":", header=0)[2])
+        pars = gr4j_params_from_array(CSV.read("data/test_1_params.csv", delim=":", header=0)[!, 2])
         init_state = gr4j_init_state(pars)
         init_state[:production_store] = pars[:x1] * 0.6
         init_state[:routing_store] = pars[:x3] * 0.7
