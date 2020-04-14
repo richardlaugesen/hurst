@@ -1,7 +1,6 @@
-
-# TODO
-# - Parameterise the types so they can have any number of named parameters
-# - Should the parameter validation function be inside the Parameters struct?
+# ------------------------------------------------------------------------------
+# Parameter set bounds
+# ------------------------------------------------------------------------------
 
 struct GR4JParameterBounds
     x1::Tuple{Float64, Float64}
@@ -10,12 +9,13 @@ struct GR4JParameterBounds
     x4::Tuple{Float64, Float64}
 end
 
-# Pretty print for Parameters
 Base.show(io::IO, bounds::GR4JParameterBounds) =
     for field in fieldnames(GR4JParameterBounds)
         println(io, field, " valid from ", getfield(bounds, field)[1], " to ", getfield(bounds, field)[2])
     end
 
+# ------------------------------------------------------------------------------
+# Parameter set
 # ------------------------------------------------------------------------------
 
 struct GR4JParameters
@@ -25,27 +25,25 @@ struct GR4JParameters
     x4::Float64
     bounds::GR4JParameterBounds
 
+    # throw descriptive error if values are outside bounds
     function GR4JParameters(x1::Number, x2::Number, x3::Number, x4::Number, bounds::GR4JParameterBounds)
+        errors = "\n"
         pars = Dict(:x1 => x1, :x2 => x2, :x3 => x3, :x4 => x4)
-        errors = validate_parameters(pars, bounds)
+        for field in fieldnames(GR4JParameterBounds)
+            if pars[field] < getfield(bounds, field)[1]
+                err = string(field, " is too low \t(", pars[field], " < ", getfield(bounds, field)[1], ")\n")
+                errors = string(errors, err)
+
+            elseif pars[field] > getfield(bounds, field)[2]
+                err = string(field, " is too high \t(", pars[field], " > ", getfield(bounds, field)[2], ")\n")
+                errors = string(errors, err)
+            end
+        end
+
         length(errors) > 0 ? error(errors) : new(x1, x2, x3, x4, bounds)
     end
 end
 
-# Cannot pass in the Parameters type directly because this is used by the inner constructor
-function validate_parameters(parameters, bounds::GR4JParameterBounds)::Vector{String}
-    @assert fieldnames(GR4JParameterBounds) != sort(collect(keys(parameters)))  "Parameters and bounds may be for different models"
-
-    errors = []
-    for field in fieldnames(GR4JParameterBounds)
-        parameters[field] >= getfield(bounds, field)[1] || push!(errors, "$field too low")
-        parameters[field] <= getfield(bounds, field)[2] || push!(errors, "$field too high")
-    end
-
-    return errors
-end
-
-# Pretty print for Parameters
 Base.show(io::IO, pars::GR4JParameters) =
     for field in fieldnames(typeof(pars.bounds))
         println(io, field, " = ", getfield(pars, field),
@@ -54,8 +52,9 @@ Base.show(io::IO, pars::GR4JParameters) =
     end
 
 # ------------------------------------------------------------------------------
+# Model state
+# ------------------------------------------------------------------------------
 
-# Parameterise by n = Int(ceil(x4))
 struct GR4JState
     uh1::Array{Float64}
     uh2::Array{Float64}
@@ -78,12 +77,11 @@ struct GR4JState
     end
 end
 
-# Pretty print for State
 Base.show(io::IO, state::GR4JState) =
     print(io, "Production Store = ", state.production_store,
               "\nRouting Store = ", state.routing_store,
-              "\nUH1 = ", state.uh1,
-              "\nUH2 = ", state.uh2)
+              "\nFirst unit hydrograph = ", state.uh1,
+              "\nSecond unit hydrograph = ", state.uh2)
 
 function create_uh_ordinates(variant, size, x4)
     ordinates = zeros(size)
@@ -117,13 +115,14 @@ function s_curve(variant, scale, x)
 end
 
 # ------------------------------------------------------------------------------
+# Model itself
+# ------------------------------------------------------------------------------
 
 struct GR4JModel
     parameters::GR4JParameters
     state::GR4JState
 end
 
-# Pretty print for State
 Base.show(io::IO, model::GR4JModel) =
     print(io, "State\n",
               "----------------------------\n",
@@ -133,8 +132,11 @@ Base.show(io::IO, model::GR4JModel) =
               model.parameters)
 
 # ------------------------------------------------------------------------------
+# Check if it all worked
+# ------------------------------------------------------------------------------
+
 
 bounds = GR4JParameterBounds((1, 10000), (-100, 100), (1, 5000), (0.5, 50))
-pars = GR4JParameters(350, 0, 50, 15, bounds)
+pars = GR4JParameters(350, 0, 50, 3, bounds)
 state = GR4JState(pars)
 model = GR4JModel(pars, state)
