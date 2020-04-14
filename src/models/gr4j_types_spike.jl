@@ -27,7 +27,7 @@ struct GR4JParameters
 
     # throw descriptive error if values are outside bounds
     function GR4JParameters(x1::Number, x2::Number, x3::Number, x4::Number, bounds::GR4JParameterBounds)
-        errors = "\n"
+        errors = ""
         pars = Dict(:x1 => x1, :x2 => x2, :x3 => x3, :x4 => x4)
         for field in fieldnames(GR4JParameterBounds)
             if pars[field] < getfield(bounds, field)[1]
@@ -134,7 +134,6 @@ Base.show(io::IO, model::GR4JModel) =
 # ------------------------------------------------------------------------------
 # Check if it all worked
 # ------------------------------------------------------------------------------
-
 
 bounds = GR4JParameterBounds((1, 10000), (-100, 100), (1, 5000), (0.5, 50))
 pars = GR4JParameters(350, 0, 50, 3, bounds)
