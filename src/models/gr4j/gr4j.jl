@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
 
-module Models
+module GR4J
 
-include("gr4j/gr4j.jl")
-include("ostp/ostp.jl")
+include("gr4j_types.jl")
+include("gr4j_model.jl")
 
 end

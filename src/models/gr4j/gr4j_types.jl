@@ -1,5 +1,28 @@
+# Copyright 2018-2020 Tiny Rock Pty Ltd
+#
+# This file is part of Hurst
+#
+# Hurst is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Hurst is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Hurst.  If not, see <https://www.gnu.org/licenses/>.
+
+
+module GR4J
+
+export GR4JParameterBounds, GR4JParameters, GR4JState, GR4JModel
+
 # ------------------------------------------------------------------------------
 # Parameter set bounds
+# TODO: Call these :high and :low
 # ------------------------------------------------------------------------------
 
 struct GR4JParameterBounds
@@ -68,7 +91,7 @@ struct GR4JState
 
         uh1 = zeros(n)
         uh2 = zeros(2n)
-        uh1_ordinates = create_uh_ordinates(1, n, pars.x4)
+        uh1_ordinates = create_uh_ordinates(1, n, pars.x4)  # this is in the main GR4J code
         uh2_ordinates = create_uh_ordinates(2, 2n, pars.x4)
         production_store = 0
         routing_store = 0
@@ -82,37 +105,6 @@ Base.show(io::IO, state::GR4JState) =
               "\nRouting Store = ", state.routing_store,
               "\nFirst unit hydrograph = ", state.uh1,
               "\nSecond unit hydrograph = ", state.uh2)
-
-function create_uh_ordinates(variant, size, x4)
-    ordinates = zeros(size)
-    for t in 1:size
-        ordinates[t] = s_curve(variant, x4, t) - s_curve(variant, x4, t - 1)
-    end
-    return ordinates
-end
-
-function s_curve(variant, scale, x)
-    if variant == 1
-        if x <= 0
-            return 0
-        elseif x < scale
-            return (x / scale)^2.5
-        else
-            return 1
-        end
-
-    elseif variant == 2
-        if x <= 0
-            return 0
-        elseif x <= scale
-            return 0.5 * (x / scale)^2.5
-        elseif x < 2scale
-            return 1 - 0.5 * (2 - x / scale)^2.5
-        else
-            return 1
-        end
-    end
-end
 
 # ------------------------------------------------------------------------------
 # Model itself
@@ -133,9 +125,12 @@ Base.show(io::IO, model::GR4JModel) =
 
 # ------------------------------------------------------------------------------
 # Check if it all worked
+# TODO: put this in a test
 # ------------------------------------------------------------------------------
 
 bounds = GR4JParameterBounds((1, 10000), (-100, 100), (1, 5000), (0.5, 50))
 pars = GR4JParameters(350, 0, 50, 3, bounds)
 state = GR4JState(pars)
 model = GR4JModel(pars, state)
+
+end
