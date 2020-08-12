@@ -1,6 +1,6 @@
 name = "Hurst"
 uuid = "d0c147de-0507-11e9-2991-852ad326feb3"
-authors = ["Tiny Rock Pty Ltd <hurst@tinyrock.com>"]
+authors = ["Richard Laugesen <hurst@richardlaugesen.com>"]
 version = "0.1.0"
 
 [deps]

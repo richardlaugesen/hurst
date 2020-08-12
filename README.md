@@ -35,7 +35,7 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## Copyright and licence
 
-Copyright 2018-2020 Tiny Rock Pty Ltd
+Copyright 2018-2020 Richard Laugesen
 
 Hurst is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by

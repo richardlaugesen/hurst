@@ -43,8 +43,8 @@ See also:
 [`gr4j_params_range`](@ref),
 [`gr4j_run_step`](@ref)
 """
-function gr4j_params_from_array(arr)
-    Dict(:x1 => arr[1], :x2 => arr[2], :x3 => arr[3], :x4 => arr[4])
+function gr4j_params_from_array(arr)::GR4JParameters
+    GR4JParameters(arr[1], arr[2], arr[3], arr[4], gr4j_params_range())
 end
 
 """
@@ -63,8 +63,8 @@ See also:
 [`gr4j_params_from_array`](@ref),
 [`gr4j_params_range`](@ref)
 """
-function gr4j_params_to_array(pars)
-    [pars[:x1], pars[:x2], pars[:x3], pars[:x4]]
+function gr4j_params_to_array(pars::GR4JParameters)
+    [pars.x1, pars.x2, pars.x3, pars.x4]
 end
 
 """
@@ -78,7 +78,7 @@ See also:
 [`gr4j_params_from_array`](@ref),
 [`gr4j_run_step`](@ref)
 """
-function gr4j_params_default()
+function gr4j_params_default()::GR4JParameters
     gr4j_params_from_array([350, 0, 50, 0.5])
 end
 
@@ -99,11 +99,11 @@ See also:
 [`gr4j_run_step`](@ref),
 [`gr4j_params_range`](@ref)
 """
-function gr4j_params_random(prange)
+function gr4j_params_random(prange)::GR4JParameters
     quanta = 0.1
     params = gr4j_params_default()
     for p in [:x1, :x2, :x3, :x4]
-        params[p] = rand(prange[p][:low]:quanta:prange[p][:high])
+        setfield!(params, p) = rand(getfield(prange, p)[0]:quanta:getfield(prange, p)[1])       # probably cant do this because not mutable
     end
     return params
 end
@@ -120,12 +120,8 @@ See also:
 [`gr4j_run_step`](@ref),
 [`gr4j_params_random`](@ref)
 """
-function gr4j_params_range()
-    Dict(
-        :x1 => Dict(:low =>  1.0,    :high => 10000.0),
-        :x2 => Dict(:low => -100.0,  :high => 100.0),
-        :x3 => Dict(:low =>  1.0,    :high => 5000.0),
-        :x4 => Dict(:low =>  0.5,    :high => 50.0))
+function gr4j_params_range()::GR4JParameterBounds
+    GR4JParameterBounds((1, 10000), (-100, 100), (1, 5000), (0.5, 50))
 end
 
 """
